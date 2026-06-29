@@ -10,12 +10,19 @@ max_goals = max(p["goals"] for _, p in roster)
 DATA_JS = json.dumps({n: data[n] for n in roster_names}, ensure_ascii=False)
 photos = json.load(open("data/photos.json"))
 PHOTOS_JS = json.dumps(photos, ensure_ascii=False)
-# (World Cup wins [all eras], Golden Balls, Golden Boots). Convention: Golden Ball/Boot only count from
-# their official establishment in 1982 — no retroactive designations. Verified vs Wikipedia award lists.
+# Accolade years per category (World Cup wins [all eras], Golden Balls, Golden Boots). Golden Ball/Boot
+# only from their 1982 establishment — no retroactive designations. Verified vs Wikipedia award lists.
 ACCOLADES = {
-    "Lionel Messi": [1, 2, 0], "Kylian Mbappé": [1, 0, 1], "Miroslav Klose": [1, 0, 1],
-    "Ronaldo": [2, 1, 1], "Gerd Müller": [1, 0, 0], "Pelé": [3, 0, 0], "Jürgen Klinsmann": [1, 0, 0],
-    "Just Fontaine": [0, 0, 0], "Sándor Kocsis": [0, 0, 0], "Harry Kane": [0, 0, 1],
+    "Lionel Messi":     {"wc": [2022],             "ball": [2014, 2022], "boot": []},
+    "Kylian Mbappé":    {"wc": [2018],             "ball": [],           "boot": [2022]},
+    "Miroslav Klose":   {"wc": [2014],             "ball": [],           "boot": [2006]},
+    "Ronaldo":          {"wc": [1994, 2002],       "ball": [1998],       "boot": [2002]},
+    "Gerd Müller":      {"wc": [1974],             "ball": [],           "boot": []},
+    "Pelé":             {"wc": [1958, 1962, 1970], "ball": [],           "boot": []},
+    "Jürgen Klinsmann": {"wc": [1990],             "ball": [],           "boot": []},
+    "Just Fontaine":    {"wc": [],                 "ball": [],           "boot": []},
+    "Sándor Kocsis":    {"wc": [],                 "ball": [],           "boot": []},
+    "Harry Kane":       {"wc": [],                 "ball": [],           "boot": [2018]},
 }
 ACCOLADES_JS = json.dumps(ACCOLADES, ensure_ascii=False)
 
@@ -28,7 +35,9 @@ HTML = """<!DOCTYPE html>
 <style>
 :root{
   --cream:#f4ecd6; --panel:#fbf5e6; --ink:#1c1a16; --muted:#6f6857; --line:#d9cdac;
-  --elite:#1f7a4d; --strong:#2f6db0; --mid:#cf9a2c; --weak:#bd4a2f;
+  /* tier palette = continuous elite→weak intensity ramp (green → yellow-green → amber → red),
+     with rising lightness so it also reads as a gradient in grayscale */
+  --elite:#1f7a44; --strong:#7c9b3b; --mid:#cd9a30; --weak:#cb5d39;
   --maxg:%%MAXG%%;
 }
 *{box-sizing:border-box}
@@ -50,19 +59,23 @@ hr.rule{border:0;border-top:2px solid var(--ink);margin:20px 0}
 h2.section{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
   margin:0 0 10px;font-weight:700}
 .roster{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}
-.chip{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;
   padding:6px 13px;font-size:13.5px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;
-  transition:border-color .15s,background .15s}
+  box-shadow:0 1px 2px rgba(40,30,10,.06);transition:border-color .15s,background .15s,box-shadow .15s,transform .15s}
+.chip:hover{box-shadow:0 4px 10px rgba(40,30,10,.11);transform:translateY(-1px)}
 .chip .g{color:var(--muted);font-size:12px}
-.chip[aria-pressed="true"]{border-color:var(--ink);background:#efe4c4;font-weight:600}
+.chip[aria-pressed="true"]{border-color:var(--ink);background:#efe4c4;font-weight:600;
+  box-shadow:inset 0 1px 3px rgba(40,30,10,.14);transform:none}
 .chip:focus-visible{outline:3px solid var(--strong);outline-offset:2px}
 .hint{color:var(--muted);font-size:12.5px;margin:2px 0 22px}
 .era{display:none;border:1.5px solid var(--ink);background:#efe4c4;border-radius:10px;
   padding:11px 14px;margin:0 0 22px;font-size:13.5px}
 .era.show{display:block}
 .era b{letter-spacing:.04em;text-transform:uppercase;font-size:11.5px}
-.card{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;
-  padding:18px 18px 16px;margin:0 0 16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  padding:18px 18px 16px;margin:0 0 16px;box-shadow:0 4px 16px rgba(40,30,10,.08);
+  transition:box-shadow .25s,transform .25s}
+.card:hover{box-shadow:0 9px 26px rgba(40,30,10,.13);transform:translateY(-1px)}
 .card .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
 .card .name{font-size:20px;font-weight:700;margin:0}
 .card .meta{color:var(--muted);font-size:13px}
@@ -80,7 +93,12 @@ h2.section{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:va
 a.k{text-decoration:none;border-bottom:1px dotted var(--line)}
 a.k:hover{color:var(--ink);border-bottom-color:var(--ink)}
 a.k:focus-visible{outline:2px solid var(--strong);outline-offset:2px;border-radius:2px}
-#methodology{margin:0 0 4px}
+details.methodology{margin:0 0 4px}
+details.methodology>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px}
+details.methodology>summary::-webkit-details-marker{display:none}
+details.methodology>summary::after{content:"▸";font-size:11px;color:var(--muted);transition:transform .2s}
+details.methodology[open]>summary::after{transform:rotate(90deg)}
+details.methodology>summary:focus-visible{outline:2px solid var(--strong);outline-offset:3px;border-radius:3px}
 .glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:11px 24px;margin:14px 0 0;padding:0}
 .glossary>div{padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:var(--panel)}
 .glossary dt{font-weight:700;font-size:13.5px;margin-bottom:3px}
@@ -121,7 +139,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 .wt-progress{position:absolute;left:-2px;top:0;width:3px;height:44px;background:var(--ink);
   border-radius:3px;transition:top .12s ease-out}      /* slides down with scroll progress */
 .wt-cardholder{position:relative;min-height:430px;display:flex;align-items:center}
-.wt-card{display:none;width:100%;grid-template-columns:170px 1fr;gap:20px;
+.wt-card{position:relative;display:none;width:100%;grid-template-columns:170px 1fr;gap:20px;
   background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;
   box-shadow:0 12px 32px rgba(40,30,10,.14)}
 .wt-card.active{display:grid;animation:wtin .42s ease}
@@ -129,17 +147,17 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 .wt-badge{position:absolute;top:12px;left:12px;font-size:11px;color:var(--muted);
   background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:1px 9px;z-index:1}
 /* accolades: quiet gold reference cluster, top-right, secondary to the tier bar (the hero) */
-.wt-accolades{position:absolute;top:11px;right:14px;display:flex;gap:11px;align-items:center}
-.acc{display:inline-flex;align-items:center;gap:2px;color:#a8842e}
-.acc-ic{width:15px;height:15px;fill:currentColor;display:block}
-.acc-n{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:-.02em}
-.acc-empty{color:var(--line);font-size:14px;font-weight:600}
+.wt-accolades{position:absolute;top:16px;right:18px;display:flex;gap:13px;align-items:center}
+.acc{display:inline-flex;align-items:center;gap:3px;color:#a8842e;cursor:help}
+.acc-ic{width:19px;height:19px;fill:currentColor;display:block}
+.acc-n{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:-.02em}
+.acc-empty{color:var(--line);font-size:15px;font-weight:600}
 .wt-photo{width:170px;height:212px;object-fit:cover;border-radius:11px;border:1px solid rgba(40,30,10,.18);
   box-shadow:0 1px 4px rgba(40,30,10,.12);background:#e9dec0;align-self:start}
 .wt-name{margin:2px 0 1px;font-size:22px;font-weight:700}
 .wt-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
 .wt-blurb{margin:12px 0 0;font-size:13.5px;line-height:1.55;color:#343024}
-.seam{text-align:center;margin:40px 0 6px;display:flex;flex-direction:column;gap:4px;align-items:center}
+.seam{text-align:center;margin:22px 0 8px;display:flex;flex-direction:column;gap:2px;align-items:center}
 .seam-end{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .seam strong{font-size:17px}
 .seam-arrow{font-size:20px;color:var(--mid)}
@@ -179,8 +197,8 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 </header>
 <hr class="rule">
 
-<section id="methodology">
-  <h2 class="section">How to read this</h2>
+<details class="methodology" id="methodology">
+  <summary class="section">How to read this</summary>
   <p class="sub">This page measures, for the World Cup's top scorers, <em>how strong the teams they
   scored against were</em> — by each opponent's World Football Elo. It describes <em>which opponents a
   player happened to face</em>, which is shaped by the draw and the knockout structure as much as by
@@ -208,7 +226,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
       <span class="dagger">†</span> — a cross-era comparison; read elite share alongside absolute
       Elo.</dd></div>
   </dl>
-</section>
+</details>
 <hr class="rule">
 
 <section id="walkthrough">
@@ -440,12 +458,14 @@ if(WALK_HELD.length) console.warn('Walkthrough HELD (missing photo/blurb/country
 function yearsOf(p){ const ys=p.per_tournament.map(t=>t.year), a=Math.min(...ys), b=Math.max(...ys);
   return a===b ? (''+a) : (a+'–'+b); }
 
-const ACC_DEF=[["ic-trophy","World Cup win"],["ic-ball","Golden Ball"],["ic-boot","Golden Boot"]];
-function accoladeHTML(name){   // top-right cluster; omit zero categories; all-zero → a quiet "—"
-  const a=ACCOLADES[name]||[0,0,0];
-  const parts=a.map((n,i)=>n>0
-    ? `<span class="acc" title="${ACC_DEF[i][1]} ×${n}"><svg class="acc-ic"><use href="#${ACC_DEF[i][0]}"/></svg><span class="acc-n num">×${n}</span></span>`
-    : "").filter(Boolean);
+const ACC_DEF=[["wc","ic-trophy","World Cup"],["ball","ic-ball","Golden Ball"],["boot","ic-boot","Golden Boot"]];
+function accoladeHTML(name){   // top-right cluster; omit empty categories; all-zero → a quiet "—".
+  const a=ACCOLADES[name]||{};   // hover shows award + year(s), e.g. "Golden Ball — 2014, 2022"
+  const parts=ACC_DEF.map(([key,sym,label])=>{
+    const yrs=a[key]||[];
+    if(!yrs.length) return "";
+    return `<span class="acc" title="${label} — ${yrs.join(", ")}"><svg class="acc-ic"><use href="#${sym}"/></svg><span class="acc-n num">×${yrs.length}</span></span>`;
+  }).filter(Boolean);
   return parts.length
     ? `<div class="wt-accolades">${parts.join("")}</div>`
     : `<div class="wt-accolades acc-empty" title="No World Cup win, Golden Ball or Golden Boot">—</div>`;
@@ -535,7 +555,15 @@ function renderCredits(){
 }
 
 // init after full parse so footer elements (#credits) exist when referenced
-document.addEventListener("DOMContentLoaded",()=>{ render(); renderWalkthrough(); renderCredits(); });
+// the methodology is collapsible; a glossary reference link (#g-…) must still work when it's closed —
+// open it on any such click (delegated, covers dynamic card links) and on direct hash navigation.
+document.addEventListener("click",e=>{
+  if(e.target.closest('a[href^="#g-"]')){ const m=document.getElementById("methodology"); if(m) m.open=true; }
+});
+document.addEventListener("DOMContentLoaded",()=>{
+  render(); renderWalkthrough(); renderCredits();
+  if(location.hash.startsWith("#g-")){ const m=document.getElementById("methodology"); if(m){ m.open=true; document.querySelector(location.hash)?.scrollIntoView(); } }
+});
 </script>
 <footer>
   Goals & scorers: martj42/international_results. Opponent strength: World Football Elo
