@@ -149,6 +149,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 /* accolades: quiet gold reference cluster, top-right, secondary to the tier bar (the hero) */
 .wt-accolades{position:absolute;top:16px;right:18px;display:flex;gap:13px;align-items:center}
 .acc{display:inline-flex;align-items:center;gap:3px;color:#a8842e;cursor:help}
+.acc:focus-visible{outline:2px solid var(--strong);outline-offset:2px;border-radius:3px}
 .acc-ic{width:19px;height:19px;fill:currentColor;display:block}
 .acc-n{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:-.02em}
 .acc-empty{color:var(--line);font-size:15px;font-weight:600}
@@ -388,12 +389,20 @@ function showNote(el){
   tip.innerHTML=`<div class="th">Boundary note</div><div class="tt">${el.dataset.note}</div>`;
   tip.classList.add("show");
 }
+function showAcc(el){ tip.innerHTML=`<div class="th">${el.dataset.tip}</div>`; tip.classList.add("show"); }
 function wireTips(root){   // root-scoped so re-rendering the comparison never double-wires walkthrough cells
   (root||document).querySelectorAll(".cell").forEach(el=>{
     el.addEventListener("mouseenter",e=>{showTip(el);moveTip(e.clientX,e.clientY);});
     el.addEventListener("mousemove",e=>moveTip(e.clientX,e.clientY));
     el.addEventListener("mouseleave",()=>tip.classList.remove("show"));
     el.addEventListener("focus",()=>{const r=el.getBoundingClientRect();showTip(el);moveTip(r.left,r.bottom);});
+    el.addEventListener("blur",()=>tip.classList.remove("show"));
+  });
+  (root||document).querySelectorAll(".acc").forEach(el=>{   // trophy/ball/boot -> custom tooltip (award + year)
+    el.addEventListener("mouseenter",e=>{showAcc(el);moveTip(e.clientX,e.clientY);});
+    el.addEventListener("mousemove",e=>moveTip(e.clientX,e.clientY));
+    el.addEventListener("mouseleave",()=>tip.classList.remove("show"));
+    el.addEventListener("focus",()=>{const r=el.getBoundingClientRect();showAcc(el);moveTip(r.left,r.bottom);});
     el.addEventListener("blur",()=>tip.classList.remove("show"));
   });
   (root||document).querySelectorAll(".bflag").forEach(el=>{
@@ -464,7 +473,8 @@ function accoladeHTML(name){   // top-right cluster; omit empty categories; all-
   const parts=ACC_DEF.map(([key,sym,label])=>{
     const yrs=a[key]||[];
     if(!yrs.length) return "";
-    return `<span class="acc" title="${label} — ${yrs.join(", ")}"><svg class="acc-ic"><use href="#${sym}"/></svg><span class="acc-n num">×${yrs.length}</span></span>`;
+    const t=`${label} — ${yrs.join(", ")}`;
+    return `<span class="acc" tabindex="0" role="img" aria-label="${t}" data-tip="${t}"><svg class="acc-ic"><use href="#${sym}"/></svg><span class="acc-n num">×${yrs.length}</span></span>`;
   }).filter(Boolean);
   return parts.length
     ? `<div class="wt-accolades">${parts.join("")}</div>`
