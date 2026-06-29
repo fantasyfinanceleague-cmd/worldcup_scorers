@@ -46,8 +46,20 @@ check(len(o2026) == 0, f"every 2026 opponent code mapped — {len(o2026)} unmapp
 
 # 3. GOAL-COUNT GATE: retired exact-match + active monotonic + jump cap --------------------
 goals = pd.read_csv("data/goalscorers.csv"); key = ["date", "home_team", "away_team"]
-g = goals.merge(wc[key].drop_duplicates(), on=key, how="inner")
-g = g[~g["own_goal"].astype(str).str.lower().isin(["true", "1"])]
+gw = goals.merge(wc[key].drop_duplicates(), on=key, how="inner")     # all WC goal rows
+
+# DUPLICATE-ROW DETECTOR: an exact-identical source row inflates a scorer's total by a quiet +1 that
+# the monotonic / jump-cap checks can't see (it's not a jump). With daily auto-pulls during a live
+# tournament, a source-side dup is a plausible failure. FLAG-AND-HALT, never auto-dedup — two goals
+# legitimately logged in the SAME minute (a stoppage-time brace) are real; dropping one erases a goal.
+# Keyed on the full tuple incl. minute + flags, so a normal brace (different minutes) does NOT trip it.
+DUP_KEY = ["date", "home_team", "away_team", "scorer", "minute", "own_goal", "penalty"]
+dups = gw[gw.duplicated(DUP_KEY, keep=False)].sort_values(DUP_KEY)
+check(len(dups) == 0, f"no exact-duplicate goal rows (full tuple) — {len(dups)} row(s) in {len(dups)//2} suspected pair(s)")
+for _, x in dups.iterrows():
+    print(f"      DUP: {x.date} {x.home_team} v {x.away_team} | {x.scorer} {x.minute}' og={x.own_goal} pen={x.penalty} — human-judge: real same-minute brace or true duplicate?")
+
+g = gw[~gw["own_goal"].astype(str).str.lower().isin(["true", "1"])]
 g["yr"] = g["date"].str[:4].astype(int)
 totals = g.groupby("scorer").size().to_dict()
 active2026 = set(g[g["yr"] == 2026]["scorer"])     # has a 2026 WC goal => still accumulating
