@@ -1,0 +1,32 @@
+# ── Re-pulled fresh by the workflow every run — no point committing (large, transient) ──
+data/results.csv
+data/goalscorers.csv
+
+# ── Discarded/unused: eloratings' modern-consolidation alias map (we built our own era-correct
+#    resolve() that keeps West Germany / USSR / Czechoslovakia etc. separate; this file is never read) ──
+data/elo/teams.tsv
+
+# NOTE: data/elo/<year>.tsv (the frozen 1929–2025 Elo boards) ARE committed on purpose — the workflow
+# does NOT re-pull them; gate.py/build_map.py read them via board(). Excluding them breaks every run.
+
+# ── Raw photo sources: NOT needed at build time (photos.json carries self-contained base64). Only
+#    needed to re-run build_photos.py. Excluded to keep the repo lean. ──
+data/photos_raw/
+
+# ── Not used by the build, and FIFA World Cup logos are trademarked — keep out of a public repo ──
+all_worldcup_logos.jpeg
+
+# ── Internal planning / methodology docs — excluded by default since the repo becomes public.
+#    Remove these two lines if you want the briefs published. ──
+worldcup_scorers_brief.md
+worldcup_scorers_brief_phase2.md
+
+# ── Python / OS / tooling junk ──
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.claude/
+.venv/
+venv/
+env/

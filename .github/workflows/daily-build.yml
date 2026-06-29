@@ -1,0 +1,74 @@
+name: daily-build
+
+# SCHEDULE IS DISABLED. Enable the cron block below only after you've reviewed this file and
+# connected the repo to Vercel (see the deploy note at the bottom). Until then, run it by hand
+# from the Actions tab (workflow_dispatch) to watch it work.
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: '0 6 * * *'        # 06:00 UTC daily
+
+# The job pushes the rebuilt index.html back to the repo; GITHUB_TOKEN needs write access.
+permissions:
+  contents: write
+
+# Never let two daily runs race (and corrupt last_totals.json).
+concurrency:
+  group: daily-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install pandas pillow
+
+      # ---- 1. PULL: hard-fail on 404 / network error / empty file (curl -f + non-empty test) ----
+      - name: Re-pull martj42 CSVs
+        run: |
+          set -euo pipefail
+          R="https://raw.githubusercontent.com/martj42/international_results/master"
+          curl -fSL "$R/results.csv"     -o data/results.csv
+          curl -fSL "$R/goalscorers.csv" -o data/goalscorers.csv
+          test -s data/results.csv
+          test -s data/goalscorers.csv
+
+      # ---- 2. GATE: schema, full-field Elo completeness, orphan names, unmapped 2026 code,
+      #         goal-count (retired exact / active monotonic + jump cap). Non-zero exit HALTS the
+      #         job here — no build, no commit, no deploy. Last-good stays live; the run shows red. ----
+      - name: Verification gate (HALT on any failure)
+        run: python3 gate.py
+
+      # ---- 3. BUILD: only runs if the gate passed. Regenerate data layer + site. The crosser rule
+      #         lives in build_ui.py: if any player crosses ≥11 without a staged photo+blurb+country,
+      #         build_ui.py exits NON-ZERO (HALT) and writes no index.html — refusing to ship a
+      #         walkthrough that silently drops a qualifying player. Same visibility as a gate failure. ----
+      - name: Regenerate data layer + site (HALT on un-staged crosser)
+        run: |
+          set -euo pipefail
+          python3 build_breakdown.py
+          python3 build_ui.py
+
+      # ---- 4. COMMIT: only the build artifacts + the monotonic baseline. CSVs are re-pulled each run,
+      #         so they are NOT committed (keeps the repo lean). Push triggers Vercel auto-deploy. ----
+      - name: Commit & push if changed
+        run: |
+          set -euo pipefail
+          git config user.name  "wc-scorers-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html data/last_totals.json data/player_breakdown.json
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "daily: data refresh + rebuild ($(date -u +%F))"
+            git push
+          fi

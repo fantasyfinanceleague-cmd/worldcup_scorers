@@ -1,0 +1,3351 @@
+{
+  "Lionel Messi": {
+    "goals": 19,
+    "tournaments": 5,
+    "career_tiers": {
+      "elite": 2,
+      "strong": 4,
+      "mid": 7,
+      "weak": 6
+    },
+    "elite_share": 0.105,
+    "avg_opp_elo": 1803.7,
+    "per_tournament": [
+      {
+        "year": 2006,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1792.0,
+        "opponents": [
+          "Serbia"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Serbia",
+                "goals": 1,
+                "elo": 1792
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2014,
+        "goals": 4,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 3,
+        "avg_opp_elo": 1742.2,
+        "opponents": [
+          "Bosnia and Herzegovina",
+          "Iran",
+          "Nigeria"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Bosnia and Herzegovina",
+                "goals": 1,
+                "elo": 1783
+              }
+            ]
+          },
+          "weak": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Nigeria",
+                "goals": 2,
+                "elo": 1727
+              },
+              {
+                "name": "Iran",
+                "goals": 1,
+                "elo": 1732
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2018,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1696.0,
+        "opponents": [
+          "Nigeria"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Nigeria",
+                "goals": 1,
+                "elo": 1696
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 7,
+        "elite": 2,
+        "strong": 2,
+        "mid": 1,
+        "weak": 2,
+        "avg_opp_elo": 1888.1,
+        "opponents": [
+          "Australia",
+          "Croatia",
+          "France",
+          "Mexico",
+          "Netherlands",
+          "Saudi Arabia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "France",
+                "goals": 2,
+                "elo": 2114
+              }
+            ]
+          },
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 1,
+                "elo": 1858
+              },
+              {
+                "name": "Netherlands",
+                "goals": 1,
+                "elo": 1929
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 1,
+                "elo": 1839
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1734
+              },
+              {
+                "name": "Saudi Arabia",
+                "goals": 1,
+                "elo": 1629
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 6,
+        "elite": 0,
+        "strong": 2,
+        "mid": 4,
+        "weak": 0,
+        "avg_opp_elo": 1766.0,
+        "opponents": [
+          "Algeria",
+          "Austria",
+          "Jordan"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Austria",
+                "goals": 2,
+                "elo": 1818
+              }
+            ]
+          },
+          "mid": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Algeria",
+                "goals": 3,
+                "elo": 1757
+              },
+              {
+                "name": "Jordan",
+                "goals": 1,
+                "elo": 1689
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Kylian Mbappé": {
+    "goals": 16,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 5,
+      "strong": 6,
+      "mid": 2,
+      "weak": 3
+    },
+    "elite_share": 0.312,
+    "avg_opp_elo": 1870.8,
+    "per_tournament": [
+      {
+        "year": 2018,
+        "goals": 4,
+        "elite": 2,
+        "strong": 2,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1926.2,
+        "opponents": [
+          "Argentina",
+          "Croatia",
+          "Peru"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 2,
+                "elo": 1984
+              }
+            ]
+          },
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 1,
+                "elo": 1856
+              },
+              {
+                "name": "Peru",
+                "goals": 1,
+                "elo": 1881
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 8,
+        "elite": 3,
+        "strong": 2,
+        "mid": 2,
+        "weak": 1,
+        "avg_opp_elo": 1931.1,
+        "opponents": [
+          "Argentina",
+          "Australia",
+          "Denmark",
+          "Poland"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 3,
+                "elo": 2101
+              }
+            ]
+          },
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Denmark",
+                "goals": 2,
+                "elo": 1937
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Poland",
+                "goals": 2,
+                "elo": 1769
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1734
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 4,
+        "elite": 0,
+        "strong": 2,
+        "mid": 0,
+        "weak": 2,
+        "avg_opp_elo": 1694.5,
+        "opponents": [
+          "Iraq",
+          "Senegal"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Senegal",
+                "goals": 2,
+                "elo": 1807
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Iraq",
+                "goals": 2,
+                "elo": 1582
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Miroslav Klose": {
+    "goals": 16,
+    "tournaments": 4,
+    "career_tiers": {
+      "elite": 5,
+      "strong": 1,
+      "mid": 5,
+      "weak": 5
+    },
+    "elite_share": 0.312,
+    "avg_opp_elo": 1803.7,
+    "per_tournament": [
+      {
+        "year": 2002,
+        "goals": 5,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 4,
+        "avg_opp_elo": 1727.4,
+        "opponents": [
+          "Cameroon",
+          "Republic of Ireland",
+          "Saudi Arabia"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Republic of Ireland",
+                "goals": 1,
+                "elo": 1862
+              }
+            ]
+          },
+          "weak": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Saudi Arabia",
+                "goals": 3,
+                "elo": 1688
+              },
+              {
+                "name": "Cameroon",
+                "goals": 1,
+                "elo": 1711
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2006,
+        "goals": 5,
+        "elite": 1,
+        "strong": 0,
+        "mid": 4,
+        "weak": 0,
+        "avg_opp_elo": 1765.4,
+        "opponents": [
+          "Argentina",
+          "Costa Rica",
+          "Ecuador"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 1,
+                "elo": 1931
+              }
+            ]
+          },
+          "mid": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Costa Rica",
+                "goals": 2,
+                "elo": 1733
+              },
+              {
+                "name": "Ecuador",
+                "goals": 2,
+                "elo": 1715
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2010,
+        "goals": 4,
+        "elite": 3,
+        "strong": 0,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1891.5,
+        "opponents": [
+          "Argentina",
+          "Australia",
+          "England"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 2,
+                "elo": 1897
+              },
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 1985
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1787
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2014,
+        "goals": 2,
+        "elite": 1,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1914.5,
+        "opponents": [
+          "Brazil",
+          "Ghana"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 1,
+                "elo": 2132
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Ghana",
+                "goals": 1,
+                "elo": 1697
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Ronaldo": {
+    "goals": 15,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 3,
+      "mid": 9,
+      "weak": 2
+    },
+    "elite_share": 0.067,
+    "avg_opp_elo": 1789.5,
+    "per_tournament": [
+      {
+        "year": 1998,
+        "goals": 4,
+        "elite": 1,
+        "strong": 0,
+        "mid": 3,
+        "weak": 0,
+        "avg_opp_elo": 1796.0,
+        "opponents": [
+          "Chile",
+          "Morocco",
+          "Netherlands"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Netherlands",
+                "goals": 1,
+                "elo": 1938
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Chile",
+                "goals": 2,
+                "elo": 1754
+              },
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1738
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2002,
+        "goals": 8,
+        "elite": 0,
+        "strong": 3,
+        "mid": 4,
+        "weak": 1,
+        "avg_opp_elo": 1804.0,
+        "opponents": [
+          "Belgium",
+          "China",
+          "Costa Rica",
+          "Germany",
+          "Turkey"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Germany",
+                "goals": 2,
+                "elo": 1868
+              },
+              {
+                "name": "Belgium",
+                "goals": 1,
+                "elo": 1833
+              }
+            ]
+          },
+          "mid": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Costa Rica",
+                "goals": 2,
+                "elo": 1773
+              },
+              {
+                "name": "Turkey",
+                "goals": 2,
+                "elo": 1797
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "China",
+                "goals": 1,
+                "elo": 1723
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2006,
+        "goals": 3,
+        "elite": 0,
+        "strong": 0,
+        "mid": 2,
+        "weak": 1,
+        "avg_opp_elo": 1742.0,
+        "opponents": [
+          "Ghana",
+          "Japan"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Japan",
+                "goals": 2,
+                "elo": 1812
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Ghana",
+                "goals": 1,
+                "elo": 1602
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": {
+      "opponent": "Netherlands",
+      "year": 1998,
+      "gap": 3.5,
+      "inside_elite": true,
+      "note": "vs Netherlands (1998) sits just inside the elite cut (+3.5 Elo). Small rating changes could flip this goal's tier."
+    }
+  },
+  "Gerd Müller": {
+    "goals": 14,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 4,
+      "strong": 4,
+      "mid": 4,
+      "weak": 2
+    },
+    "elite_share": 0.286,
+    "avg_opp_elo": 1844.8,
+    "per_tournament": [
+      {
+        "year": 1970,
+        "goals": 10,
+        "elite": 3,
+        "strong": 3,
+        "mid": 3,
+        "weak": 1,
+        "avg_opp_elo": 1841.0,
+        "opponents": [
+          "Bulgaria",
+          "England",
+          "Italy",
+          "Morocco",
+          "Peru"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Italy",
+                "goals": 2,
+                "elo": 2002
+              },
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 2092
+              }
+            ]
+          },
+          "strong": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Bulgaria",
+                "goals": 3,
+                "elo": 1838
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Peru",
+                "goals": 3,
+                "elo": 1710
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1670
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1974,
+        "goals": 4,
+        "elite": 1,
+        "strong": 1,
+        "mid": 1,
+        "weak": 1,
+        "avg_opp_elo": 1854.2,
+        "opponents": [
+          "Australia",
+          "Netherlands",
+          "Poland",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Poland",
+                "goals": 1,
+                "elo": 1965
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Yugoslavia",
+                "goals": 1,
+                "elo": 1944
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Netherlands",
+                "goals": 1,
+                "elo": 1835
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1673
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Just Fontaine": {
+    "goals": 13,
+    "tournaments": 1,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 6,
+      "mid": 1,
+      "weak": 5
+    },
+    "elite_share": 0.077,
+    "avg_opp_elo": 1837.4,
+    "per_tournament": [
+      {
+        "year": 1958,
+        "goals": 13,
+        "elite": 1,
+        "strong": 6,
+        "mid": 1,
+        "weak": 5,
+        "avg_opp_elo": 1837.4,
+        "opponents": [
+          "Brazil",
+          "Germany",
+          "Northern Ireland",
+          "Paraguay",
+          "Scotland",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 1,
+                "elo": 1973
+              }
+            ]
+          },
+          "strong": {
+            "goals": 6,
+            "opponents": [
+              {
+                "name": "Germany",
+                "goals": 4,
+                "elo": 1909
+              },
+              {
+                "name": "Yugoslavia",
+                "goals": 2,
+                "elo": 1900
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Scotland",
+                "goals": 1,
+                "elo": 1850
+              }
+            ]
+          },
+          "weak": {
+            "goals": 5,
+            "opponents": [
+              {
+                "name": "Paraguay",
+                "goals": 3,
+                "elo": 1735
+              },
+              {
+                "name": "Northern Ireland",
+                "goals": 2,
+                "elo": 1711
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Pelé": {
+    "goals": 12,
+    "tournaments": 4,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 1,
+      "mid": 9,
+      "weak": 1
+    },
+    "elite_share": 0.083,
+    "avg_opp_elo": 1830.2,
+    "per_tournament": [
+      {
+        "year": 1958,
+        "goals": 6,
+        "elite": 0,
+        "strong": 0,
+        "mid": 5,
+        "weak": 1,
+        "avg_opp_elo": 1806.3,
+        "opponents": [
+          "France",
+          "Sweden",
+          "Wales"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 5,
+            "opponents": [
+              {
+                "name": "France",
+                "goals": 3,
+                "elo": 1848
+              },
+              {
+                "name": "Sweden",
+                "goals": 2,
+                "elo": 1799
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Wales",
+                "goals": 1,
+                "elo": 1696
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1962,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1808.0,
+        "opponents": [
+          "Mexico"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 1,
+                "elo": 1808
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1966,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1789.0,
+        "opponents": [
+          "Bulgaria"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Bulgaria",
+                "goals": 1,
+                "elo": 1789
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1970,
+        "goals": 4,
+        "elite": 1,
+        "strong": 1,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1882.0,
+        "opponents": [
+          "Czechoslovakia",
+          "Italy",
+          "Romania"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Italy",
+                "goals": 1,
+                "elo": 2002
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Czechoslovakia",
+                "goals": 1,
+                "elo": 1948
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Romania",
+                "goals": 2,
+                "elo": 1789
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Harry Kane": {
+    "goals": 11,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 3,
+      "strong": 1,
+      "mid": 1,
+      "weak": 6
+    },
+    "elite_share": 0.273,
+    "avg_opp_elo": 1781.5,
+    "per_tournament": [
+      {
+        "year": 2018,
+        "goals": 6,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 5,
+        "avg_opp_elo": 1695.3,
+        "opponents": [
+          "Colombia",
+          "Panama",
+          "Tunisia"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Colombia",
+                "goals": 1,
+                "elo": 1926
+              }
+            ]
+          },
+          "weak": {
+            "goals": 5,
+            "opponents": [
+              {
+                "name": "Panama",
+                "goals": 3,
+                "elo": 1670
+              },
+              {
+                "name": "Tunisia",
+                "goals": 2,
+                "elo": 1618
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 2,
+        "elite": 1,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1908.0,
+        "opponents": [
+          "France",
+          "Senegal"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 2114
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Senegal",
+                "goals": 1,
+                "elo": 1702
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 3,
+        "elite": 2,
+        "strong": 0,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1869.3,
+        "opponents": [
+          "Croatia",
+          "Panama"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 2,
+                "elo": 1933
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Panama",
+                "goals": 1,
+                "elo": 1742
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": {
+      "opponent": "Colombia",
+      "year": 2018,
+      "gap": 0.0,
+      "inside_elite": false,
+      "note": "vs Colombia (2018) sits on the elite boundary — tied Belgium at 1926 Elo, placed on the strong side by sort order. A tie-break, not a rating gap, decides this goal's tier."
+    }
+  },
+  "Jürgen Klinsmann": {
+    "goals": 11,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 2,
+      "mid": 3,
+      "weak": 5
+    },
+    "elite_share": 0.091,
+    "avg_opp_elo": 1769.1,
+    "per_tournament": [
+      {
+        "year": 1990,
+        "goals": 3,
+        "elite": 1,
+        "strong": 1,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1831.3,
+        "opponents": [
+          "Netherlands",
+          "United Arab Emirates",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Netherlands",
+                "goals": 1,
+                "elo": 2048
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Yugoslavia",
+                "goals": 1,
+                "elo": 1922
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "United Arab Emirates",
+                "goals": 1,
+                "elo": 1524
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1994,
+        "goals": 5,
+        "elite": 0,
+        "strong": 1,
+        "mid": 2,
+        "weak": 2,
+        "avg_opp_elo": 1756.0,
+        "opponents": [
+          "Belgium",
+          "Bolivia",
+          "South Korea",
+          "Spain"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Spain",
+                "goals": 1,
+                "elo": 1913
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Belgium",
+                "goals": 1,
+                "elo": 1826
+              },
+              {
+                "name": "Bolivia",
+                "goals": 1,
+                "elo": 1707
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "South Korea",
+                "goals": 2,
+                "elo": 1667
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1998,
+        "goals": 3,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 2,
+        "avg_opp_elo": 1728.7,
+        "opponents": [
+          "Iran",
+          "Mexico",
+          "United States"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 1,
+                "elo": 1790
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Iran",
+                "goals": 1,
+                "elo": 1676
+              },
+              {
+                "name": "United States",
+                "goals": 1,
+                "elo": 1720
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Sándor Kocsis": {
+    "goals": 11,
+    "tournaments": 1,
+    "career_tiers": {
+      "elite": 2,
+      "strong": 6,
+      "mid": 0,
+      "weak": 3
+    },
+    "elite_share": 0.182,
+    "avg_opp_elo": 1873.9,
+    "per_tournament": [
+      {
+        "year": 1954,
+        "goals": 11,
+        "elite": 2,
+        "strong": 6,
+        "mid": 0,
+        "weak": 3,
+        "avg_opp_elo": 1873.9,
+        "opponents": [
+          "Brazil",
+          "Germany",
+          "South Korea",
+          "Uruguay"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 2,
+                "elo": 1970
+              }
+            ]
+          },
+          "strong": {
+            "goals": 6,
+            "opponents": [
+              {
+                "name": "Germany",
+                "goals": 4,
+                "elo": 1928
+              },
+              {
+                "name": "Uruguay",
+                "goals": 2,
+                "elo": 1884
+              }
+            ]
+          },
+          "weak": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "South Korea",
+                "goals": 3,
+                "elo": 1731
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Cristiano Ronaldo": {
+    "goals": 10,
+    "tournaments": 6,
+    "career_tiers": {
+      "elite": 3,
+      "strong": 1,
+      "mid": 2,
+      "weak": 4
+    },
+    "elite_share": 0.3,
+    "avg_opp_elo": 1792.3,
+    "per_tournament": [
+      {
+        "year": 2006,
+        "goals": 1,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1827.0,
+        "opponents": [
+          "Iran"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Iran",
+                "goals": 1,
+                "elo": 1827
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2010,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1551.0,
+        "opponents": [
+          "North Korea"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "North Korea",
+                "goals": 1,
+                "elo": 1551
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2014,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1697.0,
+        "opponents": [
+          "Ghana"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Ghana",
+                "goals": 1,
+                "elo": 1697
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2018,
+        "goals": 4,
+        "elite": 3,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1944.5,
+        "opponents": [
+          "Morocco",
+          "Spain"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Spain",
+                "goals": 3,
+                "elo": 2030
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1688
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1600.0,
+        "opponents": [
+          "Ghana"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Ghana",
+                "goals": 1,
+                "elo": 1600
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 2,
+        "elite": 0,
+        "strong": 0,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1735.0,
+        "opponents": [
+          "Uzbekistan"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Uzbekistan",
+                "goals": 2,
+                "elo": 1735
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Gabriel Batistuta": {
+    "goals": 10,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 0,
+      "mid": 5,
+      "weak": 4
+    },
+    "elite_share": 0.1,
+    "avg_opp_elo": 1743.2,
+    "per_tournament": [
+      {
+        "year": 1994,
+        "goals": 4,
+        "elite": 0,
+        "strong": 0,
+        "mid": 4,
+        "weak": 0,
+        "avg_opp_elo": 1761.5,
+        "opponents": [
+          "Greece",
+          "Romania"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Greece",
+                "goals": 3,
+                "elo": 1739
+              },
+              {
+                "name": "Romania",
+                "goals": 1,
+                "elo": 1829
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1998,
+        "goals": 5,
+        "elite": 1,
+        "strong": 0,
+        "mid": 1,
+        "weak": 3,
+        "avg_opp_elo": 1733.6,
+        "opponents": [
+          "England",
+          "Jamaica",
+          "Japan"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 2003
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Japan",
+                "goals": 1,
+                "elo": 1754
+              }
+            ]
+          },
+          "weak": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Jamaica",
+                "goals": 3,
+                "elo": 1637
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2002,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1718.0,
+        "opponents": [
+          "Nigeria"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Nigeria",
+                "goals": 1,
+                "elo": 1718
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Gary Lineker": {
+    "goals": 10,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 2,
+      "mid": 3,
+      "weak": 4
+    },
+    "elite_share": 0.1,
+    "avg_opp_elo": 1817.7,
+    "per_tournament": [
+      {
+        "year": 1986,
+        "goals": 6,
+        "elite": 0,
+        "strong": 1,
+        "mid": 3,
+        "weak": 2,
+        "avg_opp_elo": 1814.0,
+        "opponents": [
+          "Argentina",
+          "Paraguay",
+          "Poland"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 1,
+                "elo": 1881
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Poland",
+                "goals": 3,
+                "elo": 1815
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Paraguay",
+                "goals": 2,
+                "elo": 1779
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1990,
+        "goals": 4,
+        "elite": 1,
+        "strong": 1,
+        "mid": 0,
+        "weak": 2,
+        "avg_opp_elo": 1823.2,
+        "opponents": [
+          "Cameroon",
+          "Germany",
+          "Republic of Ireland"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Germany",
+                "goals": 1,
+                "elo": 2001
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Republic of Ireland",
+                "goals": 1,
+                "elo": 1888
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Cameroon",
+                "goals": 2,
+                "elo": 1702
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Grzegorz Lato": {
+    "goals": 10,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 2,
+      "strong": 4,
+      "mid": 1,
+      "weak": 3
+    },
+    "elite_share": 0.2,
+    "avg_opp_elo": 1848.0,
+    "per_tournament": [
+      {
+        "year": 1974,
+        "goals": 7,
+        "elite": 1,
+        "strong": 4,
+        "mid": 0,
+        "weak": 2,
+        "avg_opp_elo": 1853.7,
+        "opponents": [
+          "Argentina",
+          "Brazil",
+          "Haiti",
+          "Sweden",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 1,
+                "elo": 2134
+              }
+            ]
+          },
+          "strong": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 2,
+                "elo": 1893
+              },
+              {
+                "name": "Sweden",
+                "goals": 1,
+                "elo": 1886
+              },
+              {
+                "name": "Yugoslavia",
+                "goals": 1,
+                "elo": 1944
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Haiti",
+                "goals": 2,
+                "elo": 1613
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1978,
+        "goals": 2,
+        "elite": 1,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1888.0,
+        "opponents": [
+          "Brazil",
+          "Tunisia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 1,
+                "elo": 2072
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Tunisia",
+                "goals": 1,
+                "elo": 1704
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1982,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1728.0,
+        "opponents": [
+          "Peru"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Peru",
+                "goals": 1,
+                "elo": 1728
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Helmut Rahn": {
+    "goals": 10,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 6,
+      "strong": 1,
+      "mid": 2,
+      "weak": 1
+    },
+    "elite_share": 0.6,
+    "avg_opp_elo": 1978.6,
+    "per_tournament": [
+      {
+        "year": 1954,
+        "goals": 4,
+        "elite": 4,
+        "strong": 0,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 2080.5,
+        "opponents": [
+          "Hungary",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Hungary",
+                "goals": 3,
+                "elo": 2127
+              },
+              {
+                "name": "Yugoslavia",
+                "goals": 1,
+                "elo": 1941
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1958,
+        "goals": 6,
+        "elite": 2,
+        "strong": 1,
+        "mid": 2,
+        "weak": 1,
+        "avg_opp_elo": 1910.7,
+        "opponents": [
+          "Argentina",
+          "Czechoslovakia",
+          "France",
+          "Northern Ireland",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 2,
+                "elo": 2060
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Yugoslavia",
+                "goals": 1,
+                "elo": 1900
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Czechoslovakia",
+                "goals": 1,
+                "elo": 1885
+              },
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 1848
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Northern Ireland",
+                "goals": 1,
+                "elo": 1711
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Teófilo Cubillas": {
+    "goals": 10,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 4,
+      "strong": 1,
+      "mid": 3,
+      "weak": 2
+    },
+    "elite_share": 0.4,
+    "avg_opp_elo": 1864.5,
+    "per_tournament": [
+      {
+        "year": 1970,
+        "goals": 5,
+        "elite": 2,
+        "strong": 1,
+        "mid": 0,
+        "weak": 2,
+        "avg_opp_elo": 1847.6,
+        "opponents": [
+          "Brazil",
+          "Bulgaria",
+          "Germany",
+          "Morocco"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 1,
+                "elo": 2040
+              },
+              {
+                "name": "Germany",
+                "goals": 1,
+                "elo": 2020
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Bulgaria",
+                "goals": 1,
+                "elo": 1838
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Morocco",
+                "goals": 2,
+                "elo": 1670
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1978,
+        "goals": 5,
+        "elite": 2,
+        "strong": 0,
+        "mid": 3,
+        "weak": 0,
+        "avg_opp_elo": 1881.4,
+        "opponents": [
+          "Iran",
+          "Scotland"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Scotland",
+                "goals": 2,
+                "elo": 1999
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Iran",
+                "goals": 3,
+                "elo": 1803
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Thomas Müller": {
+    "goals": 10,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 7,
+      "strong": 2,
+      "mid": 1,
+      "weak": 0
+    },
+    "elite_share": 0.7,
+    "avg_opp_elo": 1925.5,
+    "per_tournament": [
+      {
+        "year": 2010,
+        "goals": 5,
+        "elite": 3,
+        "strong": 1,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1893.6,
+        "opponents": [
+          "Argentina",
+          "Australia",
+          "England",
+          "Uruguay"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 2,
+                "elo": 1985
+              },
+              {
+                "name": "Argentina",
+                "goals": 1,
+                "elo": 1897
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Uruguay",
+                "goals": 1,
+                "elo": 1814
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1787
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2014,
+        "goals": 5,
+        "elite": 4,
+        "strong": 1,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1957.4,
+        "opponents": [
+          "Brazil",
+          "Portugal",
+          "United States"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Portugal",
+                "goals": 3,
+                "elo": 1931
+              },
+              {
+                "name": "Brazil",
+                "goals": 1,
+                "elo": 2132
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "United States",
+                "goals": 1,
+                "elo": 1862
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Ademir de Menezes": {
+    "goals": 9,
+    "tournaments": 1,
+    "career_tiers": {
+      "elite": 4,
+      "strong": 4,
+      "mid": 1,
+      "weak": 0
+    },
+    "elite_share": 0.444,
+    "avg_opp_elo": 1902.8,
+    "per_tournament": [
+      {
+        "year": 1950,
+        "goals": 9,
+        "elite": 4,
+        "strong": 4,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1902.8,
+        "opponents": [
+          "Mexico",
+          "Spain",
+          "Sweden",
+          "Yugoslavia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Sweden",
+                "goals": 4,
+                "elo": 1970
+              }
+            ]
+          },
+          "strong": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 2,
+                "elo": 1834
+              },
+              {
+                "name": "Spain",
+                "goals": 2,
+                "elo": 1895
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Yugoslavia",
+                "goals": 1,
+                "elo": 1787
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Christian Vieri": {
+    "goals": 9,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 1,
+      "mid": 5,
+      "weak": 2
+    },
+    "elite_share": 0.111,
+    "avg_opp_elo": 1736.4,
+    "per_tournament": [
+      {
+        "year": 1998,
+        "goals": 5,
+        "elite": 0,
+        "strong": 1,
+        "mid": 2,
+        "weak": 2,
+        "avg_opp_elo": 1693.0,
+        "opponents": [
+          "Austria",
+          "Cameroon",
+          "Chile",
+          "Norway"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Norway",
+                "goals": 1,
+                "elo": 1857
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Austria",
+                "goals": 1,
+                "elo": 1746
+              },
+              {
+                "name": "Chile",
+                "goals": 1,
+                "elo": 1754
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Cameroon",
+                "goals": 2,
+                "elo": 1554
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2002,
+        "goals": 4,
+        "elite": 1,
+        "strong": 0,
+        "mid": 3,
+        "weak": 0,
+        "avg_opp_elo": 1790.8,
+        "opponents": [
+          "Croatia",
+          "Ecuador",
+          "South Korea"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 1,
+                "elo": 1885
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Ecuador",
+                "goals": 2,
+                "elo": 1736
+              },
+              {
+                "name": "South Korea",
+                "goals": 1,
+                "elo": 1806
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "David Villa": {
+    "goals": 9,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 2,
+      "mid": 3,
+      "weak": 3
+    },
+    "elite_share": 0.111,
+    "avg_opp_elo": 1806.3,
+    "per_tournament": [
+      {
+        "year": 2006,
+        "goals": 3,
+        "elite": 1,
+        "strong": 0,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1841.3,
+        "opponents": [
+          "France",
+          "Ukraine"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 1974
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Ukraine",
+                "goals": 2,
+                "elo": 1775
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2010,
+        "goals": 5,
+        "elite": 0,
+        "strong": 2,
+        "mid": 1,
+        "weak": 2,
+        "avg_opp_elo": 1801.0,
+        "opponents": [
+          "Chile",
+          "Honduras",
+          "Paraguay",
+          "Portugal"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Chile",
+                "goals": 1,
+                "elo": 1881
+              },
+              {
+                "name": "Portugal",
+                "goals": 1,
+                "elo": 1874
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Paraguay",
+                "goals": 1,
+                "elo": 1760
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Honduras",
+                "goals": 2,
+                "elo": 1745
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2014,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1728.0,
+        "opponents": [
+          "Australia"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1728
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Eusébio": {
+    "goals": 9,
+    "tournaments": 1,
+    "career_tiers": {
+      "elite": 3,
+      "strong": 1,
+      "mid": 1,
+      "weak": 4
+    },
+    "elite_share": 0.333,
+    "avg_opp_elo": 1873.8,
+    "per_tournament": [
+      {
+        "year": 1966,
+        "goals": 9,
+        "elite": 3,
+        "strong": 1,
+        "mid": 1,
+        "weak": 4,
+        "avg_opp_elo": 1873.8,
+        "opponents": [
+          "Brazil",
+          "Bulgaria",
+          "England",
+          "North Korea",
+          "Russia"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 2,
+                "elo": 2011
+              },
+              {
+                "name": "Russia",
+                "goals": 1,
+                "elo": 1993
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 1952
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Bulgaria",
+                "goals": 1,
+                "elo": 1789
+              }
+            ]
+          },
+          "weak": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "North Korea",
+                "goals": 4,
+                "elo": 1777
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Jairzinho": {
+    "goals": 9,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 2,
+      "strong": 4,
+      "mid": 2,
+      "weak": 1
+    },
+    "elite_share": 0.222,
+    "avg_opp_elo": 1889.7,
+    "per_tournament": [
+      {
+        "year": 1970,
+        "goals": 7,
+        "elite": 2,
+        "strong": 3,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1907.7,
+        "opponents": [
+          "Czechoslovakia",
+          "England",
+          "Italy",
+          "Peru",
+          "Romania",
+          "Uruguay"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 2092
+              },
+              {
+                "name": "Italy",
+                "goals": 1,
+                "elo": 2002
+              }
+            ]
+          },
+          "strong": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Czechoslovakia",
+                "goals": 2,
+                "elo": 1948
+              },
+              {
+                "name": "Uruguay",
+                "goals": 1,
+                "elo": 1865
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Peru",
+                "goals": 1,
+                "elo": 1710
+              },
+              {
+                "name": "Romania",
+                "goals": 1,
+                "elo": 1789
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1974,
+        "goals": 2,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1826.5,
+        "opponents": [
+          "Argentina",
+          "DR Congo"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 1,
+                "elo": 1893
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "DR Congo",
+                "goals": 1,
+                "elo": 1760
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Karl-Heinz Rummenigge": {
+    "goals": 9,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 0,
+      "strong": 2,
+      "mid": 4,
+      "weak": 3
+    },
+    "elite_share": 0.0,
+    "avg_opp_elo": 1806.3,
+    "per_tournament": [
+      {
+        "year": 1978,
+        "goals": 3,
+        "elite": 0,
+        "strong": 0,
+        "mid": 1,
+        "weak": 2,
+        "avg_opp_elo": 1817.3,
+        "opponents": [
+          "Austria",
+          "Mexico"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Austria",
+                "goals": 1,
+                "elo": 1872
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 2,
+                "elo": 1790
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1982,
+        "goals": 5,
+        "elite": 0,
+        "strong": 1,
+        "mid": 3,
+        "weak": 1,
+        "avg_opp_elo": 1784.8,
+        "opponents": [
+          "Algeria",
+          "Chile",
+          "France"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 1897
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Chile",
+                "goals": 3,
+                "elo": 1786
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Algeria",
+                "goals": 1,
+                "elo": 1669
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1986,
+        "goals": 1,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1881.0,
+        "opponents": [
+          "Argentina"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 1,
+                "elo": 1881
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Paolo Rossi": {
+    "goals": 9,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 6,
+      "strong": 1,
+      "mid": 2,
+      "weak": 0
+    },
+    "elite_share": 0.667,
+    "avg_opp_elo": 1993.3,
+    "per_tournament": [
+      {
+        "year": 1978,
+        "goals": 3,
+        "elite": 0,
+        "strong": 1,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1880.0,
+        "opponents": [
+          "Austria",
+          "France",
+          "Hungary"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Hungary",
+                "goals": 1,
+                "elo": 1916
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Austria",
+                "goals": 1,
+                "elo": 1872
+              },
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 1852
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1982,
+        "goals": 6,
+        "elite": 6,
+        "strong": 0,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 2050.0,
+        "opponents": [
+          "Brazil",
+          "Germany",
+          "Poland"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 6,
+            "opponents": [
+              {
+                "name": "Brazil",
+                "goals": 3,
+                "elo": 2091
+              },
+              {
+                "name": "Poland",
+                "goals": 2,
+                "elo": 1958
+              },
+              {
+                "name": "Germany",
+                "goals": 1,
+                "elo": 2111
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Roberto Baggio": {
+    "goals": 9,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 0,
+      "strong": 3,
+      "mid": 4,
+      "weak": 2
+    },
+    "elite_share": 0.0,
+    "avg_opp_elo": 1802.4,
+    "per_tournament": [
+      {
+        "year": 1990,
+        "goals": 2,
+        "elite": 0,
+        "strong": 2,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1917.5,
+        "opponents": [
+          "Czechoslovakia",
+          "England"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Czechoslovakia",
+                "goals": 1,
+                "elo": 1891
+              },
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 1944
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1994,
+        "goals": 5,
+        "elite": 0,
+        "strong": 1,
+        "mid": 2,
+        "weak": 2,
+        "avg_opp_elo": 1777.4,
+        "opponents": [
+          "Bulgaria",
+          "Nigeria",
+          "Spain"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Spain",
+                "goals": 1,
+                "elo": 1913
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Bulgaria",
+                "goals": 2,
+                "elo": 1789
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Nigeria",
+                "goals": 2,
+                "elo": 1698
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1998,
+        "goals": 2,
+        "elite": 0,
+        "strong": 0,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1750.0,
+        "opponents": [
+          "Austria",
+          "Chile"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Austria",
+                "goals": 1,
+                "elo": 1746
+              },
+              {
+                "name": "Chile",
+                "goals": 1,
+                "elo": 1754
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Uwe Seeler": {
+    "goals": 9,
+    "tournaments": 4,
+    "career_tiers": {
+      "elite": 2,
+      "strong": 2,
+      "mid": 1,
+      "weak": 4
+    },
+    "elite_share": 0.222,
+    "avg_opp_elo": 1842.7,
+    "per_tournament": [
+      {
+        "year": 1958,
+        "goals": 2,
+        "elite": 1,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1885.5,
+        "opponents": [
+          "Argentina",
+          "Northern Ireland"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 1,
+                "elo": 2060
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Northern Ireland",
+                "goals": 1,
+                "elo": 1711
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1962,
+        "goals": 2,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 2,
+        "avg_opp_elo": 1732.5,
+        "opponents": [
+          "Chile",
+          "Switzerland"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Chile",
+                "goals": 1,
+                "elo": 1740
+              },
+              {
+                "name": "Switzerland",
+                "goals": 1,
+                "elo": 1725
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1966,
+        "goals": 2,
+        "elite": 0,
+        "strong": 1,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1874.0,
+        "opponents": [
+          "Spain",
+          "Uruguay"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Spain",
+                "goals": 1,
+                "elo": 1899
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Uruguay",
+                "goals": 1,
+                "elo": 1849
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1970,
+        "goals": 3,
+        "elite": 1,
+        "strong": 1,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1866.7,
+        "opponents": [
+          "Bulgaria",
+          "England",
+          "Morocco"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 2092
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Bulgaria",
+                "goals": 1,
+                "elo": 1838
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1670
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Vavá": {
+    "goals": 9,
+    "tournaments": 2,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 3,
+      "mid": 3,
+      "weak": 2
+    },
+    "elite_share": 0.111,
+    "avg_opp_elo": 1848.0,
+    "per_tournament": [
+      {
+        "year": 1958,
+        "goals": 5,
+        "elite": 0,
+        "strong": 2,
+        "mid": 3,
+        "weak": 0,
+        "avg_opp_elo": 1845.2,
+        "opponents": [
+          "France",
+          "Russia",
+          "Sweden"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Russia",
+                "goals": 2,
+                "elo": 1890
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Sweden",
+                "goals": 2,
+                "elo": 1799
+              },
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 1848
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 1962,
+        "goals": 4,
+        "elite": 1,
+        "strong": 1,
+        "mid": 0,
+        "weak": 2,
+        "avg_opp_elo": 1851.5,
+        "opponents": [
+          "Chile",
+          "Czechoslovakia",
+          "England"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Czechoslovakia",
+                "goals": 1,
+                "elo": 1982
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 1,
+                "elo": 1944
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Chile",
+                "goals": 2,
+                "elo": 1740
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": {
+      "opponent": "Czechoslovakia",
+      "year": 1962,
+      "gap": 3.5,
+      "inside_elite": true,
+      "note": "vs Czechoslovakia (1962) sits just inside the elite cut (+3.5 Elo). Small rating changes could flip this goal's tier."
+    }
+  }
+}
