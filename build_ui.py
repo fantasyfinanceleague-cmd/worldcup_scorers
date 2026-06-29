@@ -10,6 +10,14 @@ max_goals = max(p["goals"] for _, p in roster)
 DATA_JS = json.dumps({n: data[n] for n in roster_names}, ensure_ascii=False)
 photos = json.load(open("data/photos.json"))
 PHOTOS_JS = json.dumps(photos, ensure_ascii=False)
+# (World Cup wins [all eras], Golden Balls, Golden Boots). Convention: Golden Ball/Boot only count from
+# their official establishment in 1982 — no retroactive designations. Verified vs Wikipedia award lists.
+ACCOLADES = {
+    "Lionel Messi": [1, 2, 0], "Kylian Mbappé": [1, 0, 1], "Miroslav Klose": [1, 0, 1],
+    "Ronaldo": [2, 1, 1], "Gerd Müller": [1, 0, 0], "Pelé": [3, 0, 0], "Jürgen Klinsmann": [1, 0, 0],
+    "Just Fontaine": [0, 0, 0], "Sándor Kocsis": [0, 0, 0], "Harry Kane": [0, 0, 1],
+}
+ACCOLADES_JS = json.dumps(ACCOLADES, ensure_ascii=False)
 
 HTML = """<!DOCTYPE html>
 <html lang="en">
@@ -97,12 +105,10 @@ a.k:focus-visible{outline:2px solid var(--strong);outline-offset:2px;border-radi
 #tip .tt{color:#cdbf9a;font-size:11px;margin-top:4px}
 footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 /* ---- Section 2 walkthrough ---- */
-.proto{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
-  background:#efe4c4;border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--muted)}
 /* pinned step-scroller: the CARD is pinned and swaps in place as you scroll; the rail is the moving spine */
 .wt-scroller{position:relative}                       /* height set inline = (number of players)*100vh */
-.wt-stage{position:sticky;top:0;min-height:100vh;display:grid;grid-template-columns:212px 1fr;
-  gap:32px;align-items:center}
+.wt-stage{position:sticky;top:0;min-height:82vh;display:grid;grid-template-columns:212px 1fr;
+  gap:32px;align-items:start;padding-top:4vh}
 .wt-railwrap{position:relative;align-self:center}
 #wt-rail{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
 .wt-railitem{display:flex;align-items:baseline;gap:9px;padding:11px 12px;cursor:pointer;color:var(--muted);
@@ -120,8 +126,14 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
   box-shadow:0 12px 32px rgba(40,30,10,.14)}
 .wt-card.active{display:grid;animation:wtin .42s ease}
 @keyframes wtin{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
-.wt-badge{position:absolute;top:12px;right:14px;font-size:11px;color:var(--muted);
-  background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:1px 9px}
+.wt-badge{position:absolute;top:12px;left:12px;font-size:11px;color:var(--muted);
+  background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:1px 9px;z-index:1}
+/* accolades: quiet gold reference cluster, top-right, secondary to the tier bar (the hero) */
+.wt-accolades{position:absolute;top:11px;right:14px;display:flex;gap:11px;align-items:center}
+.acc{display:inline-flex;align-items:center;gap:2px;color:#a8842e}
+.acc-ic{width:15px;height:15px;fill:currentColor;display:block}
+.acc-n{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:-.02em}
+.acc-empty{color:var(--line);font-size:14px;font-weight:600}
 .wt-photo{width:170px;height:212px;object-fit:cover;border-radius:11px;border:1px solid rgba(40,30,10,.18);
   box-shadow:0 1px 4px rgba(40,30,10,.12);background:#e9dec0;align-self:start}
 .wt-name{margin:2px 0 1px;font-size:22px;font-weight:700}
@@ -150,6 +162,11 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="ic-trophy" viewBox="0 0 24 24"><path d="M7 3v2H4v3a4 4 0 0 0 4 4h.2A5 5 0 0 0 11 14.9V17H8v2h8v-2h-3v-2.1a5 5 0 0 0 2.8-2.9H16a4 4 0 0 0 4-4V5h-3V3H7zM6 7v2.7A2 2 0 0 1 4.6 8 2 2 0 0 1 4 7h2zm12 0h2a2 2 0 0 1-.6 1A2 2 0 0 1 18 9.7V7z"/></symbol>
+  <symbol id="ic-ball" viewBox="0 0 24 24"><circle cx="12" cy="8.4" r="5.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 5.3l2.4 1.7-.9 2.8h-3L9.6 7z"/><path d="M11 14h2v2.1h3V18H8v-1.9h3z"/></symbol>
+  <symbol id="ic-boot" viewBox="0 0 24 24"><path d="M3 7c.2 1.8.5 3.8 1 4.8.4.8 1.1 1.2 2.6 1.2H19a2 2 0 0 1 2 2v1.2H4.3A1.3 1.3 0 0 1 3 16V7z"/><path d="M5.5 17v1.5M8.5 17v1.5M11.5 17v1.5M14.5 17v1.5M17.5 17v1.5" stroke="currentColor" stroke-width="1.3"/></symbol>
+</defs></svg>
 <div class="wrap">
 <header>
   <h1>World Cup Scorers — by Opponent Strength</h1>
@@ -197,8 +214,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 <section id="walkthrough">
   <h2 class="section">The 11-plus club — a guided tour</h2>
   <p class="sub">The players with 11 or more World Cup goals, ranked by tally. Scroll through them; each
-  card shows not <em>how many</em> they scored but <em>how strong the teams were</em>.
-  <span class="proto">Prototype — 3 of 9 shown.</span></p>
+  card shows not <em>how many</em> they scored but <em>how strong the teams were</em>.</p>
   <div class="wt-scroller" id="wt-scroller">
     <div class="wt-stage">
       <nav class="wt-railwrap" aria-label="Scorers ranked by goals">
@@ -212,7 +228,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 
 <div class="seam" role="separator">
   <span class="seam-end">End of the guided tour</span>
-  <strong>Now compare any scorers yourself — all 26 below</strong>
+  <strong>Now compare any scorers yourself — all %%ROSTER_N%% below</strong>
   <span class="seam-arrow" aria-hidden="true">↓</span>
 </div>
 <hr class="rule">
@@ -236,6 +252,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 <script>
 const DATA = %%DATA%%;
 const PHOTOS = %%PHOTOS%%;
+const ACCOLADES = %%ACCOLADES%%;
 const ORDER = ["elite","strong","mid","weak"];
 const TIERCOL = {elite:"var(--elite)",strong:"var(--strong)",mid:"var(--mid)",weak:"var(--weak)"};
 const MAXG = %%MAXG%%;
@@ -423,10 +440,21 @@ if(WALK_HELD.length) console.warn('Walkthrough HELD (missing photo/blurb/country
 function yearsOf(p){ const ys=p.per_tournament.map(t=>t.year), a=Math.min(...ys), b=Math.max(...ys);
   return a===b ? (''+a) : (a+'–'+b); }
 
+const ACC_DEF=[["ic-trophy","World Cup win"],["ic-ball","Golden Ball"],["ic-boot","Golden Boot"]];
+function accoladeHTML(name){   // top-right cluster; omit zero categories; all-zero → a quiet "—"
+  const a=ACCOLADES[name]||[0,0,0];
+  const parts=a.map((n,i)=>n>0
+    ? `<span class="acc" title="${ACC_DEF[i][1]} ×${n}"><svg class="acc-ic"><use href="#${ACC_DEF[i][0]}"/></svg><span class="acc-n num">×${n}</span></span>`
+    : "").filter(Boolean);
+  return parts.length
+    ? `<div class="wt-accolades">${parts.join("")}</div>`
+    : `<div class="wt-accolades acc-empty" title="No World Cup win, Golden Ball or Golden Boot">—</div>`;
+}
 function wtCardHTML(name,idx,total){
   const p=DATA[name], ph=PHOTOS[name]||{};
   return `
     <div class="wt-badge num">${idx+1} / ${total}</div>
+    ${accoladeHTML(name)}
     <img class="wt-photo" src="${ph.b64||''}" alt="${name}, ${ph.era||''}" width="170" height="212">
     <div class="wt-body">
       <h3 class="wt-name">${name}</h3>
@@ -512,7 +540,7 @@ document.addEventListener("DOMContentLoaded",()=>{ render(); renderWalkthrough()
 <footer>
   Goals & scorers: martj42/international_results. Opponent strength: World Football Elo
   (eloratings.net), frozen Dec 31 of the year before each tournament. Own goals excluded; penalties
-  counted. Roster: every player with ≥ 9 World Cup goals — provisional while the 2026 tournament is
+  counted. Roster: all %%ROSTER_N%% players with ≥ 9 World Cup goals — provisional while the 2026 tournament is
   in progress. Defunct nations kept era-correct (West Germany, East Germany, USSR, Czechoslovakia,
   Yugoslavia, Serbia &amp; Montenegro, Zaire as separate entities).
   <br><b>*</b> on an elite-share figure marks a goal sitting within ~3.5 Elo of a tier boundary — the
@@ -541,7 +569,9 @@ if _held:
 
 out = (HTML.replace("%%DATA%%", DATA_JS)
            .replace("%%PHOTOS%%", PHOTOS_JS)
-           .replace("%%MAXG%%", str(max_goals)))
+           .replace("%%MAXG%%", str(max_goals))
+           .replace("%%ACCOLADES%%", ACCOLADES_JS)
+           .replace("%%ROSTER_N%%", str(len(roster_names))))   # dynamic ≥9 roster size (seam + footer)
 open("index.html", "w", encoding="utf-8").write(out)
 print(f"wrote index.html ({len(out):,} bytes) · {len(roster_names)} players · max goals {max_goals}")
 print(f"walkthrough: {len(_eligible)} eligible (≥11), all staged · rendered {_eligible}")
