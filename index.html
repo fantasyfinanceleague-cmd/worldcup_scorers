@@ -20,8 +20,8 @@ body{margin:0;background:var(--cream);color:var(--ink);
 .wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px}
 header h1{font-size:clamp(22px,4.6vw,34px);letter-spacing:.06em;text-transform:uppercase;
   font-weight:800;margin:0 0 6px;line-height:1.1}
-.sub{color:var(--muted);max-width:62ch;margin:0 0 4px}
-.conv{color:var(--muted);font-size:13px;max-width:70ch}
+.sub{color:var(--muted);max-width:76ch;margin:0 0 4px}
+.conv{color:var(--muted);font-size:13px;max-width:80ch}
 .conv b{color:var(--ink);font-weight:600}
 hr.rule{border:0;border-top:2px solid var(--ink);margin:20px 0}
 .legend{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin:0 0 18px;font-size:13px}
@@ -39,6 +39,13 @@ h2.section{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:va
 .chip[aria-pressed="true"]{border-color:var(--ink);background:#efe4c4;font-weight:600;
   box-shadow:inset 0 1px 3px rgba(40,30,10,.14);transform:none}
 .chip:focus-visible{outline:3px solid var(--strong);outline-offset:2px}
+.roster-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.sortctl{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+.sortctl select{font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+  border-radius:8px;padding:3px 9px;cursor:pointer;box-shadow:0 1px 2px rgba(40,30,10,.06)}
+.crank{color:var(--muted);font-size:11px;min-width:15px;text-align:right;font-weight:600}
+.cflag{color:#a8761f;font-weight:700}
+.ct{color:var(--muted);font-size:11px;border-left:1px solid var(--line);padding-left:7px}
 .hint{color:var(--muted);font-size:12.5px;margin:2px 0 22px}
 .era{display:none;border:1.5px solid var(--ink);background:#efe4c4;border-radius:10px;
   padding:11px 14px;margin:0 0 22px;font-size:13.5px}
@@ -231,7 +238,17 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
   <span class="sw"><i style="background:var(--weak)"></i> Weak <small>bottom quarter</small></span>
 </div>
 
-<h2 class="section">Choose players to compare</h2>
+<div class="roster-head">
+  <h2 class="section">Choose players to compare</h2>
+  <label class="sortctl">Rank by
+    <select id="sortby" aria-label="Rank scorers by">
+      <option value="goals">Goals</option>
+      <option value="elo">Avg opp Elo</option>
+      <option value="elite">Elite share</option>
+      <option value="az">A–Z</option>
+    </select>
+  </label>
+</div>
 <div class="roster" id="roster" role="group" aria-label="Player roster"></div>
 <p class="hint">Click to add or remove. Two or more players stack for direct comparison.</p>
 
@@ -250,14 +267,34 @@ const MAXG = 19;
 const NAMES = Object.keys(DATA);
 let selected = ["Lionel Messi","Kylian Mbappé"];
 
+let sortKey="goals";   // goals | elo | elite | az
+function sortedNames(){
+  const ns=[...NAMES];
+  if(sortKey==="az") return ns.sort((a,b)=>a.localeCompare(b));
+  const v={goals:n=>DATA[n].goals, elo:n=>DATA[n].avg_opp_elo, elite:n=>DATA[n].elite_share}[sortKey];
+  return ns.sort((a,b)=> v(b)-v(a) || DATA[b].goals-DATA[a].goals);
+}
+// chip metric text. When ranking by a single metric, the honesty context rides along — the boundary
+// flag (*) and the sample size (tournaments spanned) stay visible, so a high elite% from one flagged
+// tournament can't read as a clean leaderboard number.
+function chipMeta(name){
+  const p=DATA[name];
+  const flag=p.boundary_flag ? '<span class="cflag" title="boundary-fragile elite share">*</span>' : '';
+  const t=`<span class="ct num">${p.tournaments} WC</span>`;
+  if(sortKey==="elite") return `<span class="g num">${Math.round(p.elite_share*100)}%</span>${flag}${t}`;
+  if(sortKey==="elo")   return `<span class="g num">${Math.round(p.avg_opp_elo)}</span>${t}`;
+  return `<span class="g num">${p.goals}</span>`;   // goals / A–Z
+}
 function buildRoster(){
   const r=document.getElementById("roster");
   r.innerHTML="";
-  NAMES.forEach(name=>{
+  const ranked=sortKey!=="goals"&&sortKey!=="az";
+  sortedNames().forEach((name,i)=>{
     const b=document.createElement("button");
-    b.className="chip"; b.type="button";
+    b.className="chip"+(ranked?" chip-ranked":""); b.type="button";
     b.setAttribute("aria-pressed", selected.includes(name));
-    b.innerHTML=`${name} <span class="g num">${DATA[name].goals}</span>`;
+    const rank=ranked?`<span class="crank num">${i+1}</span>`:"";
+    b.innerHTML=`${rank}${name} ${chipMeta(name)}`;
     b.onclick=()=>{ selected.includes(name) ? selected=selected.filter(n=>n!==name)
                                              : selected=[...selected,name]; render(); };
     r.appendChild(b);
@@ -324,7 +361,7 @@ function render(){
     card.innerHTML=`
       <div class="top">
         <h3 class="name">${name}</h3>
-        <span class="meta num">${p.goals} goals · ${p.tournaments} World Cup${p.tournaments>1?'s':''}</span>
+        <span class="meta num">${COUNTRY[name]||''} · ${yearsOf(p)}</span>
       </div>
       <div class="bartrack">${buildBar(p)}</div>
       <div class="tiers">
@@ -392,7 +429,12 @@ function wireTips(root){   // root-scoped so re-rendering the comparison never d
 const COUNTRY = {"Lionel Messi":"Argentina","Kylian Mbappé":"France","Miroslav Klose":"Germany",
   "Ronaldo":"Brazil","Gerd Müller":"West Germany","Just Fontaine":"France","Pelé":"Brazil",
   "Jürgen Klinsmann":"Germany","Sándor Kocsis":"Hungary","Harry Kane":"England",
-  "Cristiano Ronaldo":"Portugal"};
+  "Cristiano Ronaldo":"Portugal","Gabriel Batistuta":"Argentina","Gary Lineker":"England",
+  "Grzegorz Lato":"Poland","Helmut Rahn":"West Germany","Teófilo Cubillas":"Peru",
+  "Thomas Müller":"Germany","Ademir de Menezes":"Brazil","Christian Vieri":"Italy",
+  "David Villa":"Spain","Eusébio":"Portugal","Jairzinho":"Brazil",
+  "Karl-Heinz Rummenigge":"West Germany","Paolo Rossi":"Italy","Roberto Baggio":"Italy",
+  "Uwe Seeler":"West Germany","Vavá":"Brazil"};
 const BLURB = {
   "Lionel Messi":"Five World Cups, 2006–2026 — the all-time record, and the widest spread on this page. "+
     "His elite-tier goals, both in the 2022 final against France, sit at the head of a long tail of mid- "+
@@ -544,10 +586,14 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("DOMContentLoaded",()=>{
   render(); renderWalkthrough(); renderCredits();
+  document.getElementById("sortby").addEventListener("change",e=>{ sortKey=e.target.value; buildRoster(); });
   if(location.hash.startsWith("#g-")){ const m=document.getElementById("methodology"); if(m){ m.open=true; document.querySelector(location.hash)?.scrollIntoView(); } }
 });
 </script>
 <footer>
+  <details class="methodology">
+    <summary class="section">Sources &amp; credits</summary>
+    <div class="foot-body">
   Goals & scorers: martj42/international_results. Opponent strength: World Football Elo
   (eloratings.net), frozen Dec 31 of the year before each tournament. Own goals excluded; penalties
   counted. Roster: all 27 players with ≥ 9 World Cup goals — provisional while the 2026 tournament is
@@ -558,6 +604,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   goal. <b>†</b> marks a cross-era comparison (read elite% with absolute Elo).
   <div class="credits"><b>Player photos</b> (Wikimedia Commons, reused under each stated licence):
   <ul id="credits"></ul></div>
+    </div>
+  </details>
 </footer>
 </body>
 </html>
