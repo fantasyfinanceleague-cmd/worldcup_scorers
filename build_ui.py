@@ -10,19 +10,42 @@ max_goals = max(p["goals"] for _, p in roster)
 DATA_JS = json.dumps({n: data[n] for n in roster_names}, ensure_ascii=False)
 photos = json.load(open("data/photos.json"))
 PHOTOS_JS = json.dumps(photos, ensure_ascii=False)
-# Accolade years per category (World Cup wins [all eras], Golden Balls, Golden Boots). Golden Ball/Boot
-# only from their 1982 establishment — no retroactive designations. Verified vs Wikipedia award lists.
+# Accolade years per category: World Cup wins (all eras), Golden Balls, Golden Boots.
+# CONVENTION (retroactive): Golden Boots include FIFA's backdated top-scorer recognitions for every
+# World Cup 1930–1978; the Golden Ball (best player) is awarded only from 1982 and was never
+# officially backdated, so pre-1982 Balls are intentionally absent. Vavá's 1962 Boot is omitted —
+# 1962 was a six-way tie at 4 goals, so there is no solo Golden Boot to credit (no picking through ties).
+# These are HAND-SOURCED static values (World Cup history is settled, so they sit outside the daily
+# data gates). Source: FIFA World Cup awards / official top-scorer list, verified 2026 against
+# https://en.wikipedia.org/wiki/FIFA_World_Cup_awards .
 ACCOLADES = {
-    "Lionel Messi":     {"wc": [2022],             "ball": [2014, 2022], "boot": []},
-    "Kylian Mbappé":    {"wc": [2018],             "ball": [],           "boot": [2022]},
-    "Miroslav Klose":   {"wc": [2014],             "ball": [],           "boot": [2006]},
-    "Ronaldo":          {"wc": [1994, 2002],       "ball": [1998],       "boot": [2002]},
-    "Gerd Müller":      {"wc": [1974],             "ball": [],           "boot": []},
-    "Pelé":             {"wc": [1958, 1962, 1970], "ball": [],           "boot": []},
-    "Jürgen Klinsmann": {"wc": [1990],             "ball": [],           "boot": []},
-    "Just Fontaine":    {"wc": [],                 "ball": [],           "boot": []},
-    "Sándor Kocsis":    {"wc": [],                 "ball": [],           "boot": []},
-    "Harry Kane":       {"wc": [],                 "ball": [],           "boot": [2018]},
+    "Lionel Messi":         {"wc": [2022],             "ball": [2014, 2022], "boot": []},
+    "Kylian Mbappé":        {"wc": [2018],             "ball": [],           "boot": [2022]},
+    "Miroslav Klose":       {"wc": [2014],             "ball": [],           "boot": [2006]},
+    "Ronaldo":              {"wc": [1994, 2002],       "ball": [1998],       "boot": [2002]},
+    "Gerd Müller":          {"wc": [1974],             "ball": [],           "boot": [1970]},
+    "Just Fontaine":        {"wc": [],                 "ball": [],           "boot": [1958]},
+    "Pelé":                 {"wc": [1958, 1962, 1970], "ball": [],           "boot": []},
+    "Harry Kane":           {"wc": [],                 "ball": [],           "boot": [2018]},
+    "Jürgen Klinsmann":     {"wc": [1990],             "ball": [],           "boot": []},
+    "Sándor Kocsis":        {"wc": [],                 "ball": [],           "boot": [1954]},
+    "Cristiano Ronaldo":    {"wc": [],                 "ball": [],           "boot": []},
+    "Gabriel Batistuta":    {"wc": [],                 "ball": [],           "boot": []},
+    "Gary Lineker":         {"wc": [],                 "ball": [],           "boot": [1986]},
+    "Grzegorz Lato":        {"wc": [],                 "ball": [],           "boot": [1974]},
+    "Helmut Rahn":          {"wc": [1954],             "ball": [],           "boot": []},
+    "Teófilo Cubillas":     {"wc": [],                 "ball": [],           "boot": []},
+    "Thomas Müller":        {"wc": [2014],             "ball": [],           "boot": [2010]},
+    "Ademir de Menezes":    {"wc": [],                 "ball": [],           "boot": [1950]},
+    "Christian Vieri":      {"wc": [],                 "ball": [],           "boot": []},
+    "David Villa":          {"wc": [2010],             "ball": [],           "boot": []},
+    "Eusébio":              {"wc": [],                 "ball": [],           "boot": [1966]},
+    "Jairzinho":            {"wc": [1970],             "ball": [],           "boot": []},
+    "Karl-Heinz Rummenigge":{"wc": [],                 "ball": [],           "boot": []},
+    "Paolo Rossi":          {"wc": [1982],             "ball": [],           "boot": [1982]},
+    "Roberto Baggio":       {"wc": [],                 "ball": [],           "boot": []},
+    "Uwe Seeler":           {"wc": [],                 "ball": [],           "boot": []},
+    "Vavá":                 {"wc": [1958, 1962],       "ball": [],           "boot": []},
 }
 ACCOLADES_JS = json.dumps(ACCOLADES, ensure_ascii=False)
 
@@ -630,6 +653,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   <br><b>*</b> on an elite-share figure marks a goal sitting within ~3.5 Elo of a tier boundary — the
   percentage is exact, but that one goal's tier hinges on a near-tie. Hover the mark for the specific
   goal. <b>†</b> marks a cross-era comparison (read elite% with absolute Elo).
+  <br>Accolade icons (World Cup wins, Golden Ball, Golden Boot): Golden Boots include FIFA's backdated
+  top-scorer recognitions (1930–1978); the Golden Ball is awarded only from 1982.
   <div class="credits"><b>Player photos</b> (Wikimedia Commons, reused under each stated licence):
   <ul id="credits"></ul></div>
     </div>
