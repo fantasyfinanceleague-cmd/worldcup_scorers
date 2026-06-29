@@ -20,8 +20,9 @@ body{margin:0;background:var(--cream);color:var(--ink);
 .wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px}
 header h1{font-size:clamp(22px,4.6vw,34px);letter-spacing:.06em;text-transform:uppercase;
   font-weight:800;margin:0 0 6px;line-height:1.1}
-.sub{color:var(--muted);max-width:76ch;margin:0 0 4px}
-.conv{color:var(--muted);font-size:13px;max-width:80ch}
+/* body paragraphs share the H1's width boundary (full container), per owner preference over the ch-cap */
+.sub{color:var(--muted);max-width:none;margin:0 0 4px}
+.conv{color:var(--muted);font-size:13px;max-width:none}
 .conv b{color:var(--ink);font-weight:600}
 hr.rule{border:0;border-top:2px solid var(--ink);margin:20px 0}
 .legend{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin:0 0 18px;font-size:13px}
@@ -83,8 +84,8 @@ details.methodology>summary:focus-visible{outline:2px solid var(--strong);outlin
 .glossary dt{font-weight:700;font-size:13.5px;margin-bottom:3px}
 .glossary dt .mark{color:#a8761f}
 .glossary dd{margin:0;font-size:12.5px;color:#433d30;line-height:1.5}
-.glossary>div:target{border-color:var(--ink);background:#efe4c4;animation:gflash 1.3s ease}
-@keyframes gflash{0%{background:#e6d48b}100%{background:#efe4c4}}
+.glossary>div:target{animation:gflash 1.4s ease}   /* flash only — no persistent :target background */
+@keyframes gflash{from{background:#e6d48b;border-color:var(--ink)}to{background:var(--panel);border-color:var(--line)}}
 @media(max-width:640px){.glossary{grid-template-columns:1fr}}
 .stat .v{font-size:21px;font-weight:700}
 .stat .v sup{color:var(--weak);font-size:13px}
@@ -225,8 +226,7 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 </section>
 
 <div class="seam" role="separator">
-  <span class="seam-end">End of the guided tour</span>
-  <strong>Now compare any scorers yourself — all 27 below</strong>
+  <strong>Now compare any of the 27 scorers with 9+ World Cup goals</strong>
   <span class="seam-arrow" aria-hidden="true">↓</span>
 </div>
 <hr class="rule">
