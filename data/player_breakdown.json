@@ -214,16 +214,16 @@
     "boundary_flag": null
   },
   "Kylian Mbappé": {
-    "goals": 16,
+    "goals": 18,
     "tournaments": 3,
     "career_tiers": {
       "elite": 5,
       "strong": 6,
-      "mid": 2,
+      "mid": 4,
       "weak": 3
     },
-    "elite_share": 0.312,
-    "avg_opp_elo": 1870.8,
+    "elite_share": 0.278,
+    "avg_opp_elo": 1847.3,
     "per_tournament": [
       {
         "year": 2018,
@@ -325,15 +325,16 @@
       },
       {
         "year": 2026,
-        "goals": 4,
+        "goals": 6,
         "elite": 0,
         "strong": 2,
-        "mid": 0,
+        "mid": 2,
         "weak": 2,
-        "avg_opp_elo": 1694.5,
+        "avg_opp_elo": 1683.0,
         "opponents": [
           "Iraq",
-          "Senegal"
+          "Senegal",
+          "Sweden"
         ],
         "by_tier": {
           "strong": {
@@ -343,6 +344,16 @@
                 "name": "Senegal",
                 "goals": 2,
                 "elo": 1807
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Sweden",
+                "goals": 2,
+                "elo": 1660
               }
             ]
           },
