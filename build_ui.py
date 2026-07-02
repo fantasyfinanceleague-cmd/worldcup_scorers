@@ -4,7 +4,12 @@ Reproducible: re-run after any data change. Hero = stacked tier-bands subdivided
 import json, sys
 
 data = json.load(open("data/player_breakdown.json"))
-roster = sorted(data.items(), key=lambda kv: (-kv[1]["goals"], kv[0]))
+# THE ranking rule (mirrored verbatim by the JS `byGoals`): goals ↓ → fewest tournaments ↑ (concentrated
+# scoring first — a stated value, surfaced in the walkthrough intro) → earliest first WC year ↑ → name
+# (exhaustive deterministic fallback, never the operative tie-break). Total, so tied tallies can never
+# silently degrade to insertion order — the class of bug that let alphabetical creep in unnoticed.
+def _first_year(p): return min(t["year"] for t in p["per_tournament"])
+roster = sorted(data.items(), key=lambda kv: (-kv[1]["goals"], kv[1]["tournaments"], _first_year(kv[1]), kv[0]))
 roster_names = [n for n, _ in roster]
 max_goals = max(p["goals"] for _, p in roster)
 DATA_JS = json.dumps({n: data[n] for n in roster_names}, ensure_ascii=False)
@@ -263,8 +268,10 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 
 <section id="walkthrough">
   <h2 class="section">The 11-plus club — a guided tour</h2>
-  <p class="sub">The players with 11 or more World Cup goals, ranked by tally. Scroll through them; each
-  card shows not <em>how many</em> they scored but <em>how strong the teams were</em>.</p>
+  <p class="sub">The players with 11 or more World Cup goals, ranked by tally — and where tallies tie, the
+  more concentrated first (fewer tournaments), so a haul packed into one World Cup ranks above the same
+  haul spread across several. Scroll through them; each card shows not <em>how many</em> they scored but
+  <em>how strong the teams were</em>.</p>
   <div class="wt-scroller" id="wt-scroller">
     <div class="wt-stage">
       <nav class="wt-railwrap" aria-label="Scorers ranked by goals">
@@ -318,12 +325,26 @@ const MAXG = %%MAXG%%;
 const NAMES = Object.keys(DATA);
 let selected = ["Lionel Messi","Kylian Mbappé"];
 
+// THE ranking rule, total & deterministic, used everywhere "by goals" appears (walkthrough + comparison
+// tool) so a tied tally orders identically in both — never a same-list-two-orders discrepancy, and never
+// a silent fall-back to insertion order. goals ↓ → fewest tournaments ↑ (concentrated scoring first, a
+// stated value — see the walkthrough intro) → earliest first WC year ↑ → name (exhaustive fallback,
+// never the operative tie-break). Mirrors the Python roster key in build_ui.py.
+function firstYear(n){ return Math.min(...DATA[n].per_tournament.map(t=>t.year)); }
+function byGoals(a,b){
+  return DATA[b].goals-DATA[a].goals
+      || DATA[a].tournaments-DATA[b].tournaments
+      || firstYear(a)-firstYear(b)
+      || a.localeCompare(b);
+}
+
 let sortKey="goals";   // goals | elo | elite | az
 function sortedNames(){
   const ns=[...NAMES];
-  if(sortKey==="az") return ns.sort((a,b)=>a.localeCompare(b));
-  const v={goals:n=>DATA[n].goals, elo:n=>DATA[n].avg_opp_elo, elite:n=>DATA[n].elite_share}[sortKey];
-  return ns.sort((a,b)=> v(b)-v(a) || DATA[b].goals-DATA[a].goals);
+  if(sortKey==="az")    return ns.sort((a,b)=>a.localeCompare(b));
+  if(sortKey==="goals") return ns.sort(byGoals);
+  const v={elo:n=>DATA[n].avg_opp_elo, elite:n=>DATA[n].elite_share}[sortKey];
+  return ns.sort((a,b)=> v(b)-v(a) || byGoals(a,b));   // elo/elite ties break by the same total rule
 }
 // chip metric text. When ranking by a single metric, the honesty context rides along — the boundary
 // flag (*) and the sample size (tournaments spanned) stay visible, so a high elite% from one flagged
@@ -525,7 +546,7 @@ const BLURB = {
 // Boundary-crosser rule: the walkthrough = every player with ≥11 WC goals, ranked by goals — BUT only
 // those with a staged photo AND blurb AND country. Anyone who crosses without all three is HELD (never
 // render a photoless/blurbless card); held names are logged so the build/workflow can flag them.
-const WALK_ELIGIBLE = Object.keys(DATA).filter(n=>DATA[n].goals>=11).sort((a,b)=>DATA[b].goals-DATA[a].goals);
+const WALK_ELIGIBLE = Object.keys(DATA).filter(n=>DATA[n].goals>=11).sort(byGoals);
 const WALK = WALK_ELIGIBLE.filter(n=>PHOTOS[n] && BLURB[n] && COUNTRY[n]);
 const WALK_HELD = WALK_ELIGIBLE.filter(n=>!(PHOTOS[n] && BLURB[n] && COUNTRY[n]));
 if(WALK_HELD.length) console.warn('Walkthrough HELD (missing photo/blurb/country):', WALK_HELD);
@@ -573,7 +594,7 @@ function wtCardHTML(name,idx,total){
 
 // Pinned step-scroller: card stays put and SWAPS as you scroll; rail spine + marker show progress.
 function renderWalkthrough(){
-  const order=[...WALK].sort((a,b)=>DATA[b].goals-DATA[a].goals);
+  const order=[...WALK].sort(byGoals);
   const N=order.length;
   const rail=document.getElementById("wt-rail");
   const holder=document.getElementById("wt-cardholder");
@@ -670,7 +691,8 @@ document.addEventListener("DOMContentLoaded",()=>{
 import re as _re
 _blurb   = set(_re.findall(r'"([^"]+)":"', _re.search(r'const BLURB = \{(.*?)\n\};', HTML, _re.S).group(1)))
 _country = set(_re.findall(r'"([^"]+)":"', _re.search(r'const COUNTRY = \{(.*?)\};', HTML, _re.S).group(1)))
-_eligible = sorted([n for n in roster_names if data[n]["goals"] >= 11], key=lambda n: -data[n]["goals"])
+_eligible = sorted([n for n in roster_names if data[n]["goals"] >= 11],
+                   key=lambda n: (-data[n]["goals"], data[n]["tournaments"], _first_year(data[n]), n))
 _held = [n for n in _eligible if not (n in photos and n in _blurb and n in _country)]
 if _held:
     print(f"HALT: {len(_held)} player(s) crossed ≥11 without full staging (photo+blurb+country): {_held}")
