@@ -835,6 +835,144 @@
     ],
     "boundary_flag": null
   },
+  "Harry Kane": {
+    "goals": 13,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 3,
+      "strong": 1,
+      "mid": 3,
+      "weak": 6
+    },
+    "elite_share": 0.231,
+    "avg_opp_elo": 1762.3,
+    "per_tournament": [
+      {
+        "year": 2018,
+        "goals": 6,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 5,
+        "avg_opp_elo": 1695.3,
+        "opponents": [
+          "Colombia",
+          "Panama",
+          "Tunisia"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Colombia",
+                "goals": 1,
+                "elo": 1926
+              }
+            ]
+          },
+          "weak": {
+            "goals": 5,
+            "opponents": [
+              {
+                "name": "Panama",
+                "goals": 3,
+                "elo": 1670
+              },
+              {
+                "name": "Tunisia",
+                "goals": 2,
+                "elo": 1618
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 2,
+        "elite": 1,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1908.0,
+        "opponents": [
+          "France",
+          "Senegal"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "France",
+                "goals": 1,
+                "elo": 2114
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Senegal",
+                "goals": 1,
+                "elo": 1702
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 5,
+        "elite": 2,
+        "strong": 0,
+        "mid": 3,
+        "weak": 0,
+        "avg_opp_elo": 1784.4,
+        "opponents": [
+          "Croatia",
+          "DR Congo",
+          "Panama"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 2,
+                "elo": 1933
+              }
+            ]
+          },
+          "mid": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "DR Congo",
+                "goals": 2,
+                "elo": 1657
+              },
+              {
+                "name": "Panama",
+                "goals": 1,
+                "elo": 1742
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": {
+      "opponent": "Colombia",
+      "year": 2018,
+      "gap": 0.0,
+      "inside_elite": false,
+      "note": "vs Colombia (2018) sits on the elite boundary — tied Belgium at 1926 Elo, placed on the strong side by sort order. A tie-break, not a rating gap, decides this goal's tier."
+    }
+  },
   "Just Fontaine": {
     "goals": 13,
     "tournaments": 1,
@@ -1068,138 +1206,6 @@
       }
     ],
     "boundary_flag": null
-  },
-  "Harry Kane": {
-    "goals": 11,
-    "tournaments": 3,
-    "career_tiers": {
-      "elite": 3,
-      "strong": 1,
-      "mid": 1,
-      "weak": 6
-    },
-    "elite_share": 0.273,
-    "avg_opp_elo": 1781.5,
-    "per_tournament": [
-      {
-        "year": 2018,
-        "goals": 6,
-        "elite": 0,
-        "strong": 1,
-        "mid": 0,
-        "weak": 5,
-        "avg_opp_elo": 1695.3,
-        "opponents": [
-          "Colombia",
-          "Panama",
-          "Tunisia"
-        ],
-        "by_tier": {
-          "strong": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Colombia",
-                "goals": 1,
-                "elo": 1926
-              }
-            ]
-          },
-          "weak": {
-            "goals": 5,
-            "opponents": [
-              {
-                "name": "Panama",
-                "goals": 3,
-                "elo": 1670
-              },
-              {
-                "name": "Tunisia",
-                "goals": 2,
-                "elo": 1618
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2022,
-        "goals": 2,
-        "elite": 1,
-        "strong": 0,
-        "mid": 0,
-        "weak": 1,
-        "avg_opp_elo": 1908.0,
-        "opponents": [
-          "France",
-          "Senegal"
-        ],
-        "by_tier": {
-          "elite": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "France",
-                "goals": 1,
-                "elo": 2114
-              }
-            ]
-          },
-          "weak": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Senegal",
-                "goals": 1,
-                "elo": 1702
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2026,
-        "goals": 3,
-        "elite": 2,
-        "strong": 0,
-        "mid": 1,
-        "weak": 0,
-        "avg_opp_elo": 1869.3,
-        "opponents": [
-          "Croatia",
-          "Panama"
-        ],
-        "by_tier": {
-          "elite": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Croatia",
-                "goals": 2,
-                "elo": 1933
-              }
-            ]
-          },
-          "mid": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Panama",
-                "goals": 1,
-                "elo": 1742
-              }
-            ]
-          }
-        }
-      }
-    ],
-    "boundary_flag": {
-      "opponent": "Colombia",
-      "year": 2018,
-      "gap": 0.0,
-      "inside_elite": false,
-      "note": "vs Colombia (2018) sits on the elite boundary — tied Belgium at 1926 Elo, placed on the strong side by sort order. A tie-break, not a rating gap, decides this goal's tier."
-    }
   },
   "Jürgen Klinsmann": {
     "goals": 11,
