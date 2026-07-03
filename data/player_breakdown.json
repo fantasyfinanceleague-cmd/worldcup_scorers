@@ -1207,6 +1207,187 @@
     ],
     "boundary_flag": null
   },
+  "Cristiano Ronaldo": {
+    "goals": 11,
+    "tournaments": 6,
+    "career_tiers": {
+      "elite": 4,
+      "strong": 1,
+      "mid": 2,
+      "weak": 4
+    },
+    "elite_share": 0.364,
+    "avg_opp_elo": 1805.1,
+    "per_tournament": [
+      {
+        "year": 2006,
+        "goals": 1,
+        "elite": 0,
+        "strong": 1,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1827.0,
+        "opponents": [
+          "Iran"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Iran",
+                "goals": 1,
+                "elo": 1827
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2010,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1551.0,
+        "opponents": [
+          "North Korea"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "North Korea",
+                "goals": 1,
+                "elo": 1551
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2014,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1697.0,
+        "opponents": [
+          "Ghana"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Ghana",
+                "goals": 1,
+                "elo": 1697
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2018,
+        "goals": 4,
+        "elite": 3,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1944.5,
+        "opponents": [
+          "Morocco",
+          "Spain"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Spain",
+                "goals": 3,
+                "elo": 2030
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1688
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 1,
+        "elite": 0,
+        "strong": 0,
+        "mid": 0,
+        "weak": 1,
+        "avg_opp_elo": 1600.0,
+        "opponents": [
+          "Ghana"
+        ],
+        "by_tier": {
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Ghana",
+                "goals": 1,
+                "elo": 1600
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 3,
+        "elite": 1,
+        "strong": 0,
+        "mid": 2,
+        "weak": 0,
+        "avg_opp_elo": 1801.0,
+        "opponents": [
+          "Croatia",
+          "Uzbekistan"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 1,
+                "elo": 1933
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Uzbekistan",
+                "goals": 2,
+                "elo": 1735
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
   "Jürgen Klinsmann": {
     "goals": 11,
     "tournaments": 3,
@@ -1420,176 +1601,6 @@
                 "name": "South Korea",
                 "goals": 3,
                 "elo": 1731
-              }
-            ]
-          }
-        }
-      }
-    ],
-    "boundary_flag": null
-  },
-  "Cristiano Ronaldo": {
-    "goals": 10,
-    "tournaments": 6,
-    "career_tiers": {
-      "elite": 3,
-      "strong": 1,
-      "mid": 2,
-      "weak": 4
-    },
-    "elite_share": 0.3,
-    "avg_opp_elo": 1792.3,
-    "per_tournament": [
-      {
-        "year": 2006,
-        "goals": 1,
-        "elite": 0,
-        "strong": 1,
-        "mid": 0,
-        "weak": 0,
-        "avg_opp_elo": 1827.0,
-        "opponents": [
-          "Iran"
-        ],
-        "by_tier": {
-          "strong": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Iran",
-                "goals": 1,
-                "elo": 1827
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2010,
-        "goals": 1,
-        "elite": 0,
-        "strong": 0,
-        "mid": 0,
-        "weak": 1,
-        "avg_opp_elo": 1551.0,
-        "opponents": [
-          "North Korea"
-        ],
-        "by_tier": {
-          "weak": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "North Korea",
-                "goals": 1,
-                "elo": 1551
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2014,
-        "goals": 1,
-        "elite": 0,
-        "strong": 0,
-        "mid": 0,
-        "weak": 1,
-        "avg_opp_elo": 1697.0,
-        "opponents": [
-          "Ghana"
-        ],
-        "by_tier": {
-          "weak": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Ghana",
-                "goals": 1,
-                "elo": 1697
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2018,
-        "goals": 4,
-        "elite": 3,
-        "strong": 0,
-        "mid": 0,
-        "weak": 1,
-        "avg_opp_elo": 1944.5,
-        "opponents": [
-          "Morocco",
-          "Spain"
-        ],
-        "by_tier": {
-          "elite": {
-            "goals": 3,
-            "opponents": [
-              {
-                "name": "Spain",
-                "goals": 3,
-                "elo": 2030
-              }
-            ]
-          },
-          "weak": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Morocco",
-                "goals": 1,
-                "elo": 1688
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2022,
-        "goals": 1,
-        "elite": 0,
-        "strong": 0,
-        "mid": 0,
-        "weak": 1,
-        "avg_opp_elo": 1600.0,
-        "opponents": [
-          "Ghana"
-        ],
-        "by_tier": {
-          "weak": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Ghana",
-                "goals": 1,
-                "elo": 1600
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2026,
-        "goals": 2,
-        "elite": 0,
-        "strong": 0,
-        "mid": 2,
-        "weak": 0,
-        "avg_opp_elo": 1735.0,
-        "opponents": [
-          "Uzbekistan"
-        ],
-        "by_tier": {
-          "mid": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Uzbekistan",
-                "goals": 2,
-                "elo": 1735
               }
             ]
           }
