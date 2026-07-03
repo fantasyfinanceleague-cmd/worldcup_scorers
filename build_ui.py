@@ -233,6 +233,9 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 }
 @media (max-width:560px){
   .bar{height:32px}.stat .v{font-size:18px}
+  /* comparison-card stats: same 2×2 grid the walkthrough cards use — the four stats are laid out ONE way
+     everywhere (flex-wrap orphaned "Tournaments" onto its own line, reading as an accidental break) */
+  .card .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
   /* comparison roster: a real 2-col grid so column count comes from the GRID, not chip content width.
      minmax(0,1fr) lets each track shrink below its chip's content, so a wide ranked chip (name + value +
      WC tag) can neither drop the row to one column nor overflow the viewport. All four sort modes = 2 cols. */
