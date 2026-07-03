@@ -40,7 +40,8 @@ h2.section{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:va
 .chip[aria-pressed="true"]{border-color:var(--ink);background:#efe4c4;font-weight:600;
   box-shadow:inset 0 1px 3px rgba(40,30,10,.14);transform:none}
 .chip:focus-visible{outline:3px solid var(--strong);outline-offset:2px}
-.roster-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+.roster-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.roster-head .section{margin:0}   /* gap below the head comes from the head's margin, not the h2's — one source */
 .sortctl{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
 .sortctl select{font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
   border-radius:8px;padding:3px 9px;cursor:pointer;box-shadow:0 1px 2px rgba(40,30,10,.06)}
@@ -174,7 +175,18 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
   .wt-card{padding:16px}
   .wt-photo{width:140px;height:175px}
 }
-@media (max-width:560px){.bar{height:32px}.stat .v{font-size:18px}}
+@media (max-width:560px){
+  .bar{height:32px}.stat .v{font-size:18px}
+  /* comparison roster: a real 2-col grid so column count comes from the GRID, not chip content width.
+     minmax(0,1fr) lets each track shrink below its chip's content, so a wide ranked chip (name + value +
+     WC tag) can neither drop the row to one column nor overflow the viewport. All four sort modes = 2 cols. */
+  .roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chip{justify-self:start;max-width:100%;min-width:0}    /* cap the chip to its track; keep the pill tight */
+  .chip .cname{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}   /* only long names elide */
+  .chip .crank,.chip .g,.chip .cflag{flex-shrink:0}       /* rank, the VALUE, flag never truncate */
+  .chip .ct{display:none}   /* drop the "N WC" sample-size tag on mobile to free the track for the name —
+                               kept on desktop, and still shown on the player's card once selected */
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -328,7 +340,8 @@ function buildRoster(){
     b.className="chip"+(ranked?" chip-ranked":""); b.type="button";
     b.setAttribute("aria-pressed", selected.includes(name));
     const rank=ranked?`<span class="crank num">${i+1}</span>`:"";
-    b.innerHTML=`${rank}${name} ${chipMeta(name)}`;
+    b.innerHTML=`${rank}<span class="cname">${name}</span>${chipMeta(name)}`;
+    b.title=name;   // full name on hover/long-press for the few long names that ellipsis on a narrow phone
     b.onclick=()=>{ selected.includes(name) ? selected=selected.filter(n=>n!==name)
                                              : selected=[...selected,name]; render(); };
     r.appendChild(b);
