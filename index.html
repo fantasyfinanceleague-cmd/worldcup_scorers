@@ -182,6 +182,8 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
      WC tag) can neither drop the row to one column nor overflow the viewport. All four sort modes = 2 cols. */
   .roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   .chip{max-width:100%;min-width:0;align-items:center}    /* fill the track; center rank/value against a wrapped name */
+  .chip{border-radius:16px}   /* fixed radius so 1-line and 2-line chips share ONE shape (the 999px pill turns
+                                 into a lozenge when wrapped, reading as unintentional). Revert: delete this line. */
   .chip .cname{min-width:0;white-space:normal;overflow-wrap:break-word}   /* WRAP long names to a 2nd line — no truncation, every name readable */
   .chip .crank,.chip .g,.chip .cflag{flex-shrink:0}       /* rank, the VALUE, flag stay whole */
   .chip .ct{display:none}   /* drop the "N WC" sample-size tag on mobile to free the track for the name —
