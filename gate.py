@@ -59,8 +59,9 @@ check(len(dups) == 0, f"no exact-duplicate goal rows (full tuple) — {len(dups)
 for _, x in dups.iterrows():
     print(f"      DUP: {x.date} {x.home_team} v {x.away_team} | {x.scorer} {x.minute}' og={x.own_goal} pen={x.penalty} — human-judge: real same-minute brace or true duplicate?")
 
-g = gw[~gw["own_goal"].astype(str).str.lower().isin(["true", "1"])]
-g["yr"] = g["date"].str[:4].astype(int)
+g = gw[~gw["own_goal"].astype(str).str.lower().isin(["true", "1"])].copy()   # .copy(): g is a filtered
+g["yr"] = g["date"].str[:4].astype(int)                                      # slice — assign on a copy,
+                                                                             # not a view (no SettingWithCopyWarning)
 totals = g.groupby("scorer").size().to_dict()
 active2026 = set(g[g["yr"] == 2026]["scorer"])     # has a 2026 WC goal => still accumulating
 

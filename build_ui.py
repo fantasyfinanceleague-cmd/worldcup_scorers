@@ -182,6 +182,10 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 @keyframes wtin{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
 .wt-badge{position:absolute;top:12px;left:12px;font-size:11px;color:var(--muted);
   background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:1px 9px;z-index:1}
+/* header wrapper: display:contents on desktop, so badge + accolades keep their absolute corners exactly
+   as before (no desktop change); mobile promotes it to a real flex row above the photo (see @media) */
+.wt-head{display:contents}
+.wt-next{display:none}   /* per-card "next player" cue — mobile only (desktop has the pinned rail spine) */
 /* accolades: quiet gold reference cluster, top-right, secondary to the tier bar (the hero) */
 .wt-accolades{position:absolute;top:16px;right:18px;display:flex;gap:13px;align-items:center}
 .acc{display:inline-flex;align-items:center;gap:3px;color:#a8842e;cursor:help}
@@ -202,16 +206,30 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
 .credits ul{margin:5px 0 0;padding-left:18px}
 .credits li{margin:2px 0}
 .credits a{color:inherit}
-@media(max-width:760px){                                /* mobile: drop the pin — stacked cards, all shown */
+@media(max-width:760px){                 /* mobile: drop the pin — a clean vertical stacked-card stream */
   #wt-scroller{height:auto!important}
   .wt-stage{position:static;display:block;min-height:0}
   .wt-railwrap{display:none}
   .wt-cardholder{display:flex;flex-direction:column;gap:22px;min-height:0}
-  .wt-card{display:grid!important;animation:none;grid-template-columns:112px 1fr;gap:14px;
-    box-shadow:0 2px 8px rgba(40,30,10,.1)}
-  .wt-photo{width:112px;height:140px}
+  .wt-card{display:flex!important;flex-direction:column;gap:14px;animation:none!important;
+    box-shadow:0 2px 10px rgba(40,30,10,.1)}
+  /* badge + accolades leave their absolute corners for a real header row ABOVE the photo — kills the
+     overlap the absolute positioning caused once the photo went full-width on a phone */
+  .wt-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding-bottom:11px;border-bottom:1px dashed var(--line)}
+  .wt-badge{position:static;align-self:center}
+  .wt-accolades{position:static;top:auto;right:auto}
+  .wt-accolades.acc-empty{align-self:center}
+  .wt-photo{width:150px;height:188px;align-self:center}          /* centered portrait — photo-forward */
+  .wt-body .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}   /* 2×2 stat grid */
+  .wt-next{display:block;margin-top:14px;padding-top:13px;border-top:1px dashed var(--line);
+    font-size:13px;color:var(--muted);text-align:center}   /* guided-tour cue at each card foot */
+  .wt-next b{color:var(--ink);font-weight:600}
 }
-@media(max-width:430px){.wt-card{grid-template-columns:1fr}.wt-photo{width:100%;height:240px;object-position:50% 25%}}
+@media(max-width:430px){
+  .wt-card{padding:16px}
+  .wt-photo{width:140px;height:175px}
+}
 @media (max-width:560px){.bar{height:32px}.stat .v{font-size:18px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -566,11 +584,14 @@ function accoladeHTML(name){   // top-right cluster; omit empty categories; all-
     ? `<div class="wt-accolades">${parts.join("")}</div>`
     : `<div class="wt-accolades acc-empty" title="No World Cup win, Golden Ball or Golden Boot">—</div>`;
 }
-function wtCardHTML(name,idx,total){
+function wtCardHTML(name,idx,total,nextName){
   const p=DATA[name], ph=PHOTOS[name]||{};
+  const next = nextName ? `↓ next: <b>${nextName}</b>` : `↓ now compare every scorer below`;
   return `
-    <div class="wt-badge num">${idx+1} / ${total}</div>
-    ${accoladeHTML(name)}
+    <div class="wt-head">
+      <div class="wt-badge num">${idx+1} / ${total}</div>
+      ${accoladeHTML(name)}
+    </div>
     <img class="wt-photo" src="${ph.b64||''}" alt="${name}, ${ph.era||''}" width="170" height="212">
     <div class="wt-body">
       <h3 class="wt-name">${name}</h3>
@@ -589,6 +610,7 @@ function wtCardHTML(name,idx,total){
         <div class="stat"><div class="k">Tournaments</div><div class="v num">${p.tournaments}</div></div>
       </div>
       <p class="wt-blurb">${BLURB[name]||''}</p>
+      <div class="wt-next" aria-hidden="true">${next}</div>
     </div>`;
 }
 
@@ -613,7 +635,7 @@ function renderWalkthrough(){
     rail.appendChild(li);
     const art=document.createElement("article");
     art.className="wt-card"; art.dataset.idx=idx;
-    art.innerHTML=wtCardHTML(name,idx,N);
+    art.innerHTML=wtCardHTML(name,idx,N,order[idx+1]);
     holder.appendChild(art);
   });
   wireTips(holder);
