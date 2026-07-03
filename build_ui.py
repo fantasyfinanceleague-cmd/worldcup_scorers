@@ -237,9 +237,9 @@ footer{color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7}
      minmax(0,1fr) lets each track shrink below its chip's content, so a wide ranked chip (name + value +
      WC tag) can neither drop the row to one column nor overflow the viewport. All four sort modes = 2 cols. */
   .roster{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .chip{justify-self:start;max-width:100%;min-width:0}    /* cap the chip to its track; keep the pill tight */
-  .chip .cname{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}   /* only long names elide */
-  .chip .crank,.chip .g,.chip .cflag{flex-shrink:0}       /* rank, the VALUE, flag never truncate */
+  .chip{max-width:100%;min-width:0;align-items:center}    /* fill the track; center rank/value against a wrapped name */
+  .chip .cname{min-width:0;white-space:normal;overflow-wrap:break-word}   /* WRAP long names to a 2nd line — no truncation, every name readable */
+  .chip .crank,.chip .g,.chip .cflag{flex-shrink:0}       /* rank, the VALUE, flag stay whole */
   .chip .ct{display:none}   /* drop the "N WC" sample-size tag on mobile to free the track for the name —
                                kept on desktop, and still shown on the player's card once selected */
 }
@@ -397,7 +397,6 @@ function buildRoster(){
     b.setAttribute("aria-pressed", selected.includes(name));
     const rank=ranked?`<span class="crank num">${i+1}</span>`:"";
     b.innerHTML=`${rank}<span class="cname">${name}</span>${chipMeta(name)}`;
-    b.title=name;   // full name on hover/long-press for the few long names that ellipsis on a narrow phone
     b.onclick=()=>{ selected.includes(name) ? selected=selected.filter(n=>n!==name)
                                              : selected=[...selected,name]; render(); };
     r.appendChild(b);
