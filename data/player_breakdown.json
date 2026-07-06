@@ -853,16 +853,16 @@
     "boundary_flag": null
   },
   "Harry Kane": {
-    "goals": 13,
+    "goals": 14,
     "tournaments": 3,
     "career_tiers": {
       "elite": 3,
-      "strong": 1,
+      "strong": 2,
       "mid": 3,
       "weak": 6
     },
-    "elite_share": 0.231,
-    "avg_opp_elo": 1762.3,
+    "elite_share": 0.214,
+    "avg_opp_elo": 1767.4,
     "per_tournament": [
       {
         "year": 2018,
@@ -942,15 +942,16 @@
       },
       {
         "year": 2026,
-        "goals": 5,
+        "goals": 6,
         "elite": 2,
-        "strong": 0,
+        "strong": 1,
         "mid": 3,
         "weak": 0,
-        "avg_opp_elo": 1784.4,
+        "avg_opp_elo": 1792.7,
         "opponents": [
           "Croatia",
           "DR Congo",
+          "Mexico",
           "Panama"
         ],
         "by_tier": {
@@ -961,6 +962,16 @@
                 "name": "Croatia",
                 "goals": 2,
                 "elo": 1933
+              }
+            ]
+          },
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 1,
+                "elo": 1834
               }
             ]
           },
@@ -2903,6 +2914,150 @@
                 "name": "Argentina",
                 "goals": 1,
                 "elo": 1881
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null
+  },
+  "Neymar": {
+    "goals": 9,
+    "tournaments": 4,
+    "career_tiers": {
+      "elite": 1,
+      "strong": 2,
+      "mid": 4,
+      "weak": 2
+    },
+    "elite_share": 0.111,
+    "avg_opp_elo": 1772.3,
+    "per_tournament": [
+      {
+        "year": 2014,
+        "goals": 4,
+        "elite": 0,
+        "strong": 0,
+        "mid": 2,
+        "weak": 2,
+        "avg_opp_elo": 1698.0,
+        "opponents": [
+          "Cameroon",
+          "Croatia"
+        ],
+        "by_tier": {
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 2,
+                "elo": 1805
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Cameroon",
+                "goals": 2,
+                "elo": 1591
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2018,
+        "goals": 2,
+        "elite": 0,
+        "strong": 1,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1795.5,
+        "opponents": [
+          "Costa Rica",
+          "Mexico"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Mexico",
+                "goals": 1,
+                "elo": 1847
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Costa Rica",
+                "goals": 1,
+                "elo": 1744
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 2,
+        "elite": 0,
+        "strong": 1,
+        "mid": 1,
+        "weak": 0,
+        "avg_opp_elo": 1823.0,
+        "opponents": [
+          "Croatia",
+          "South Korea"
+        ],
+        "by_tier": {
+          "strong": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 1,
+                "elo": 1858
+              }
+            ]
+          },
+          "mid": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "South Korea",
+                "goals": 1,
+                "elo": 1788
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 1,
+        "elite": 1,
+        "strong": 0,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1922.0,
+        "opponents": [
+          "Norway"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Norway",
+                "goals": 1,
+                "elo": 1922
               }
             ]
           }
