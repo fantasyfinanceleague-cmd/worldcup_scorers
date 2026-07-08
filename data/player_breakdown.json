@@ -1,15 +1,15 @@
 {
   "Lionel Messi": {
-    "goals": 20,
+    "goals": 21,
     "tournaments": 5,
     "career_tiers": {
       "elite": 2,
       "strong": 4,
       "mid": 7,
-      "weak": 7
+      "weak": 8
     },
-    "elite_share": 0.1,
-    "avg_opp_elo": 1791.5,
+    "elite_share": 0.095,
+    "avg_opp_elo": 1783.5,
     "per_tournament": [
       {
         "year": 2006,
@@ -171,16 +171,17 @@
       },
       {
         "year": 2026,
-        "goals": 7,
+        "goals": 8,
         "elite": 0,
         "strong": 2,
         "mid": 4,
-        "weak": 1,
-        "avg_opp_elo": 1736.7,
+        "weak": 2,
+        "avg_opp_elo": 1722.5,
         "opponents": [
           "Algeria",
           "Austria",
           "Cape Verde",
+          "Egypt",
           "Jordan"
         ],
         "by_tier": {
@@ -210,12 +211,17 @@
             ]
           },
           "weak": {
-            "goals": 1,
+            "goals": 2,
             "opponents": [
               {
                 "name": "Cape Verde",
                 "goals": 1,
                 "elo": 1561
+              },
+              {
+                "name": "Egypt",
+                "goals": 1,
+                "elo": 1623
               }
             ]
           }
