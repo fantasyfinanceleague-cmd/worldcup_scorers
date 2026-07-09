@@ -28,8 +28,13 @@ P = {
                        "Brazil · 2002", "https://commons.wikimedia.org/wiki/File:Ronaldo_2002_cropped.jpg"),
   "Gerd Müller":      ("muller.jpg",   0.30, None, "Nationaal Archief / Anefo", "bysa3",
                        "West Germany · 1974", "https://commons.wikimedia.org/wiki/File:Gerd_M%C3%BCller_1974.jpg"),
-  "Just Fontaine":    ("fontaine.jpg", 0.05, None, "André Cros", "bysa4",
-                       "France (Reims) · 1960", "https://commons.wikimedia.org/wiki/File:17.1.60._Foot._Simon_(TFC)_et_Just_Fontaine_(Reims)_(1960)_-_53Fi6501_(Fontaine).jpg"),
+  # Swapped from a distant 1960 Reims club shot to the tight 1958 France head-and-shoulders — his 13
+  # goals are his whole WC record, all from 1958. CAVEAT: this and Vavá are Panini sticker-card scans;
+  # Panini cards are copyrighted commercial products and Commons' PD tags on them are often wrong (the
+  # same mislabeled-PD pattern that sank the original Pelé and Ademir files). Kept only under the
+  # relaxed personal-use bar; these two credits rest on a shakier claim than the rest of the set.
+  "Just Fontaine":    ("fontaine_ib.jpg", 0.05, None, "Panini (Mexico 70 sticker)", "pd",
+                       "France · 1958", "https://commons.wikimedia.org/wiki/File:Just_Fontaine_en_1958.jpg"),
   "Pelé":             ("pele.jpg",     0.18, (0.16,0.10,0.86,0.97), "Anefo / Nationaal Archief", "cc0",
                        "Brazil · 1962", "https://commons.wikimedia.org/wiki/File:Pele_(voetballer)_(kop),_Bestanddeelnr_918-6208.jpg"),
   "Jürgen Klinsmann": ("klinsmann.jpg",0.12, None, "Bundesarchiv, Klaus Oberst", "bysa3de",
