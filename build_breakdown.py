@@ -31,6 +31,16 @@ for yr in sorted(fields):
 g["tier"] = g.apply(lambda r: tier_of[(r.yr, r.opponent)][0], axis=1)
 g["opp_elo"] = g.apply(lambda r: tier_of[(r.yr, r.opponent)][1], axis=1)
 
+# Era-correct opponent code — the SAME (name, year) -> code resolution the Elo join uses, so that
+# grouping a player's goals by opponent never merges eras that share a martj42 label: "Germany" is
+# West Germany (<=1990, WG) vs reunified Germany (>=1994, DE); "Russia" is the USSR (SU) vs modern
+# Russia (RU); "Serbia" splits Yugoslavia / Serbia & Montenegro / Serbia. Grouping by NAME would fuse
+# these; grouping by code keeps them distinct.
+_boards = {yr: board(yr - 1) for yr in fields}
+def _opp_code(name, yr):
+    return next((c for c in resolve(name, yr) if c in _boards[yr]), "NAME:" + name)  # gate guarantees a hit
+g["opp_code"] = g.apply(lambda r: _opp_code(r.opponent, r.yr), axis=1)
+
 ROSTER_MIN = 9
 totals = g.groupby("scorer").size()
 roster = sorted(totals[totals >= ROSTER_MIN].index, key=lambda s: (-totals[s], s))
@@ -83,6 +93,22 @@ for p in roster:
             nearest = {"opponent": r.opponent, "year": int(r.yr), "gap": round(float(gap), 1),
                        "inside_elite": bool(inside), "note": note}
     flag = nearest if nearest and abs(nearest["gap"]) <= FLAG_THRESHOLD else None
+    # Most-punished opponent(s): all of a player's WC goals grouped by ERA-CORRECT opponent code and
+    # summed (a 3-in-one-match haul and 1+1+1 across three matches both count as 3). A tie is a tie —
+    # list EVERY opponent at the maximum, no tie-break (picking a winner by Elo would invent an answer
+    # the data doesn't give). Degenerate case: if the max goals against any single opponent is 1, there
+    # is no most-punished opponent (the player never scored twice against anyone) — record None so the
+    # UI renders "—" rather than every opponent they ever scored against. e.g. Messi -> Algeria + Nigeria
+    # (3 each); Cristiano -> Spain (3, unique); Ronaldo -> five sides at 2; Uwe Seeler (all singletons) -> None.
+    mp = {}
+    for _, r in gp.iterrows():
+        a = mp.setdefault(r.opp_code, {"opponent": r.opponent, "goals": 0})
+        a["goals"] += 1
+        a["opponent"] = r.opponent            # display name, stable within a code
+    maxg = max((a["goals"] for a in mp.values()), default=0)
+    most_punished = ({"goals": int(maxg),
+                      "opponents": sorted(a["opponent"] for a in mp.values() if a["goals"] == maxg)}
+                     if maxg > 1 else None)
     data[p] = {
         "goals": int(len(gp)), "tournaments": int(gp.yr.nunique()),
         "career_tiers": {t: int(tc.get(t, 0)) for t in TIERS},
@@ -90,6 +116,7 @@ for p in roster:
         "avg_opp_elo": round(float(gp.opp_elo.mean()), 1),
         "per_tournament": per_t,
         "boundary_flag": flag,
+        "most_punished": most_punished,
     }
 
 with open("data/player_breakdown.json", "w") as f:

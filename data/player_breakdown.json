@@ -228,7 +228,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Algeria",
+        "Nigeria"
+      ]
+    }
   },
   "Kylian Mbappé": {
     "goals": 19,
@@ -393,7 +400,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 5,
+      "opponents": [
+        "Argentina"
+      ]
+    }
   },
   "Miroslav Klose": {
     "goals": 16,
@@ -566,7 +579,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Argentina",
+        "Saudi Arabia"
+      ]
+    }
   },
   "Ronaldo": {
     "goals": 15,
@@ -721,6 +741,16 @@
       "gap": 3.5,
       "inside_elite": true,
       "note": "vs Netherlands (1998) sits just inside the elite cut (+3.5 Elo). Small rating changes could flip this goal's tier."
+    },
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Chile",
+        "Costa Rica",
+        "Germany",
+        "Japan",
+        "Turkey"
+      ]
     }
   },
   "Gerd Müller": {
@@ -856,7 +886,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Bulgaria",
+        "Peru"
+      ]
+    }
   },
   "Harry Kane": {
     "goals": 14,
@@ -1005,6 +1042,12 @@
       "gap": 0.0,
       "inside_elite": false,
       "note": "vs Colombia (2018) sits on the elite boundary — tied Belgium at 1926 Elo, placed on the strong side by sort order. A tie-break, not a rating gap, decides this goal's tier."
+    },
+    "most_punished": {
+      "goals": 4,
+      "opponents": [
+        "Panama"
+      ]
     }
   },
   "Just Fontaine": {
@@ -1089,7 +1132,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 4,
+      "opponents": [
+        "Germany"
+      ]
+    }
   },
   "Pelé": {
     "goals": 12,
@@ -1239,7 +1288,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "France"
+      ]
+    }
   },
   "Cristiano Ronaldo": {
     "goals": 11,
@@ -1420,7 +1475,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Spain"
+      ]
+    }
   },
   "Jürgen Klinsmann": {
     "goals": 11,
@@ -1574,7 +1635,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "South Korea"
+      ]
+    }
   },
   "Sándor Kocsis": {
     "goals": 11,
@@ -1641,7 +1708,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 4,
+      "opponents": [
+        "Germany"
+      ]
+    }
   },
   "Gabriel Batistuta": {
     "goals": 10,
@@ -1756,7 +1829,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Greece",
+        "Jamaica"
+      ]
+    }
   },
   "Gary Lineker": {
     "goals": 10,
@@ -1863,7 +1943,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Poland"
+      ]
+    }
   },
   "Grzegorz Lato": {
     "goals": 10,
@@ -1995,7 +2081,15 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Argentina",
+        "Brazil",
+        "Haiti"
+      ]
+    }
   },
   "Helmut Rahn": {
     "goals": 10,
@@ -2103,7 +2197,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Hungary"
+      ]
+    }
   },
   "Teófilo Cubillas": {
     "goals": 10,
@@ -2205,7 +2305,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Iran"
+      ]
+    }
   },
   "Thomas Müller": {
     "goals": 10,
@@ -2313,7 +2419,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Portugal"
+      ]
+    }
   },
   "Ademir de Menezes": {
     "goals": 9,
@@ -2380,7 +2492,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 4,
+      "opponents": [
+        "Sweden"
+      ]
+    }
   },
   "Christian Vieri": {
     "goals": 9,
@@ -2488,7 +2606,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Cameroon",
+        "Ecuador"
+      ]
+    }
   },
   "David Villa": {
     "goals": 9,
@@ -2614,7 +2739,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Honduras",
+        "Ukraine"
+      ]
+    }
   },
   "Eusébio": {
     "goals": 9,
@@ -2692,7 +2824,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 4,
+      "opponents": [
+        "North Korea"
+      ]
+    }
   },
   "Jairzinho": {
     "goals": 9,
@@ -2806,7 +2944,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Czechoslovakia"
+      ]
+    }
   },
   "Karl-Heinz Rummenigge": {
     "goals": 9,
@@ -2926,7 +3070,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Chile"
+      ]
+    }
   },
   "Neymar": {
     "goals": 9,
@@ -3070,7 +3220,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Croatia"
+      ]
+    }
   },
   "Paolo Rossi": {
     "goals": 9,
@@ -3162,7 +3318,13 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 3,
+      "opponents": [
+        "Brazil"
+      ]
+    }
   },
   "Roberto Baggio": {
     "goals": 9,
@@ -3283,7 +3445,14 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Bulgaria",
+        "Nigeria"
+      ]
+    }
   },
   "Uwe Seeler": {
     "goals": 9,
@@ -3444,7 +3613,8 @@
         }
       }
     ],
-    "boundary_flag": null
+    "boundary_flag": null,
+    "most_punished": null
   },
   "Vavá": {
     "goals": 9,
@@ -3552,6 +3722,14 @@
       "gap": 3.5,
       "inside_elite": true,
       "note": "vs Czechoslovakia (1962) sits just inside the elite cut (+3.5 Elo). Small rating changes could flip this goal's tier."
+    },
+    "most_punished": {
+      "goals": 2,
+      "opponents": [
+        "Chile",
+        "Russia",
+        "Sweden"
+      ]
     }
   }
 }

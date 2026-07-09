@@ -65,13 +65,9 @@
       return { year: y, list: list, total: list.reduce(function (s, g) { return s + g.goals; }, 0) };
     });
   }
-  function topOpp(p) {
-    var m = {};
-    ORDER.forEach(function (t) { (p.detail[t] || []).forEach(function (g) { m[g.opp] = (m[g.opp] || 0) + g.goals; }); });
-    var best = null, bc = 0;
-    Object.keys(m).forEach(function (o) { if (m[o] > bc) { bc = m[o]; best = o; } });
-    return best ? { opp: best, goals: bc } : null;
-  }
+  // "Most punished" is precomputed server-side (build_breakdown.py): all WC goals grouped by
+  // ERA-CORRECT opponent code, summed, ranked by goals then highest opponent Elo faced. See
+  // p.mostPunished = {opponent, goals}. (Was a client-side name-group that mis-broke ties.)
 
   function accHTML(p) {
     if (!p.acc) return "";
@@ -84,7 +80,13 @@
   function render(animate) {
     var n = order[idx], p = players[n];
     sel.value = n;
-    var dt = dom(p), to = topOpp(p);
+    var dt = dom(p), mp = p.mostPunished;
+    // "Most punished" = opponent(s) a player scored the MOST career WC goals against (era-correct
+    // grouping, precomputed in build_breakdown.py). Ties list every opponent, no winner picked; when
+    // no opponent was scored against more than once, mp is null and we render "—".
+    var mpVal = mp
+      ? '<b>' + mp.opponents.join(", ") + '</b> · ' + mp.goals + ' goals' + (mp.opponents.length > 1 ? " each" : "")
+      : '<b>—</b>';
     var bars = ORDER.map(function (t) { var c = p.tiers[t]; if (!c) return "";
       return '<div class="dd-seg" data-tier="' + t + '" style="flex-grow:' + c + ';background:var(--' + t + ')"><span>' + c + '</span></div>'; }).join("");
     var chips = '<button class="dd-chip' + (filter === "all" ? " on" : "") + '" data-f="all">All ' + p.goals + '</button>' +
@@ -118,7 +120,7 @@
           '<div class="dd-stat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l">Avg opp Elo</div></div>' +
           '<div class="dd-stat"><div class="v num" data-t="' + p.tournaments + '">0</div><div class="l">Tournaments</div></div>' +
         '</div>' +
-        (to ? '<div class="dd-fact">Most punished — <b>' + to.opp + '</b> · ' + to.goals + ' goals</div>' : '') +
+        '<div class="dd-fact">Most punished — ' + mpVal + '</div>' +
       '</div>' +
       '<div class="dd-goals">' +
         '<div class="dd-goals-head"><span class="dd-gk">Goals by opponent strength</span><span class="dd-gt num">' + p.goals + ' total</span></div>' +

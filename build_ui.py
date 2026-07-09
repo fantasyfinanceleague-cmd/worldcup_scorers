@@ -163,6 +163,7 @@ def build_player(name):
         "country": COUNTRY.get(name, ""),
         "acc": ACCOLADES.get(name),                # {wc,ball,boot} or null
         "blurb": BLURB.get(name, ""),              # only the ≥11 walkthrough uses this
+        "mostPunished": p.get("most_punished"),    # {opponent, goals} — era-correct, precomputed
         "detail": build_detail(p),
         "photo": (ph or {}).get("b64", ""),        # inline data URI -> self-contained
         "photoEra": (ph or {}).get("era", ""),
