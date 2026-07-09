@@ -71,6 +71,11 @@ P = {
                        "West Germany · 1966", "https://commons.wikimedia.org/wiki/File:Uwe_Seeler_1966_(cropped).jpg"),
   "Neymar":           ("neymar.jpg",   0.10, None, "Bryan Berlin / WikiPortraits", "bysa4",
                        "Brazil · 2026", "https://commons.wikimedia.org/wiki/File:Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg"),
+  # Cubillas 1978 — a clean playing-era portrait in the Peru kit (PD-Peru-anonymous, unknown author).
+  # It was in his Wikipedia infobox all along; the earlier sweep saw this class of file but rejected it
+  # on strict provenance (news-site scrape) — acceptable under the owner's cite-source standard.
+  "Teófilo Cubillas": ("cubillas.jpg", 0.05, None, "Unknown author (PD-Peru-anonymous)", "pd",
+                       "Peru · 1978", "https://commons.wikimedia.org/wiki/File:Te%C3%B3filo_Cubillas_1978.jpg"),
 }
 TARGET = (300, 375)   # 4:5 display resolution
 
