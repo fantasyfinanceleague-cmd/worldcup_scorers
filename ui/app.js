@@ -232,6 +232,9 @@
   function hideTip() { vtip.classList.remove("show"); }
 
   function firstYear(n) { return players[n].years[0]; }
+  // THE ranking rule — must stay in lockstep with _rank_key in build_ui.py. goals ↓ → fewest World Cups
+  // PLAYED ↑ (players[n].tournaments is now squad membership, not tournaments-scored-in) → earliest
+  // first WC year ↑ → name.
   function byGoals(a, b) {
     return players[b].goals - players[a].goals ||
       players[a].tournaments - players[b].tournaments ||
