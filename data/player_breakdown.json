@@ -235,7 +235,8 @@
         "Algeria",
         "Nigeria"
       ]
-    }
+    },
+    "scoring_matches": 16
   },
   "Kylian Mbappé": {
     "goals": 19,
@@ -406,7 +407,8 @@
       "opponents": [
         "Argentina"
       ]
-    }
+    },
+    "scoring_matches": 11
   },
   "Miroslav Klose": {
     "goals": 16,
@@ -586,7 +588,8 @@
         "Argentina",
         "Saudi Arabia"
       ]
-    }
+    },
+    "scoring_matches": 11
   },
   "Ronaldo": {
     "goals": 15,
@@ -751,7 +754,8 @@
         "Japan",
         "Turkey"
       ]
-    }
+    },
+    "scoring_matches": 11
   },
   "Gerd Müller": {
     "goals": 14,
@@ -893,7 +897,8 @@
         "Bulgaria",
         "Peru"
       ]
-    }
+    },
+    "scoring_matches": 9
   },
   "Harry Kane": {
     "goals": 14,
@@ -1048,7 +1053,8 @@
       "opponents": [
         "Panama"
       ]
-    }
+    },
+    "scoring_matches": 9
   },
   "Just Fontaine": {
     "goals": 13,
@@ -1138,7 +1144,8 @@
       "opponents": [
         "Germany"
       ]
-    }
+    },
+    "scoring_matches": 6
   },
   "Pelé": {
     "goals": 12,
@@ -1294,7 +1301,8 @@
       "opponents": [
         "France"
       ]
-    }
+    },
+    "scoring_matches": 8
   },
   "Cristiano Ronaldo": {
     "goals": 11,
@@ -1481,7 +1489,8 @@
       "opponents": [
         "Spain"
       ]
-    }
+    },
+    "scoring_matches": 8
   },
   "Jürgen Klinsmann": {
     "goals": 11,
@@ -1641,7 +1650,8 @@
       "opponents": [
         "South Korea"
       ]
-    }
+    },
+    "scoring_matches": 10
   },
   "Sándor Kocsis": {
     "goals": 11,
@@ -1714,7 +1724,8 @@
       "opponents": [
         "Germany"
       ]
-    }
+    },
+    "scoring_matches": 4
   },
   "Gabriel Batistuta": {
     "goals": 10,
@@ -1836,7 +1847,8 @@
         "Greece",
         "Jamaica"
       ]
-    }
+    },
+    "scoring_matches": 6
   },
   "Gary Lineker": {
     "goals": 10,
@@ -1949,7 +1961,8 @@
       "opponents": [
         "Poland"
       ]
-    }
+    },
+    "scoring_matches": 6
   },
   "Grzegorz Lato": {
     "goals": 10,
@@ -2089,7 +2102,8 @@
         "Brazil",
         "Haiti"
       ]
-    }
+    },
+    "scoring_matches": 8
   },
   "Helmut Rahn": {
     "goals": 10,
@@ -2203,7 +2217,8 @@
       "opponents": [
         "Hungary"
       ]
-    }
+    },
+    "scoring_matches": 8
   },
   "Teófilo Cubillas": {
     "goals": 10,
@@ -2311,7 +2326,8 @@
       "opponents": [
         "Iran"
       ]
-    }
+    },
+    "scoring_matches": 6
   },
   "Thomas Müller": {
     "goals": 10,
@@ -2425,7 +2441,8 @@
       "opponents": [
         "Portugal"
       ]
-    }
+    },
+    "scoring_matches": 7
   },
   "Ademir de Menezes": {
     "goals": 9,
@@ -2498,7 +2515,8 @@
       "opponents": [
         "Sweden"
       ]
-    }
+    },
+    "scoring_matches": 4
   },
   "Christian Vieri": {
     "goals": 9,
@@ -2613,7 +2631,8 @@
         "Cameroon",
         "Ecuador"
       ]
-    }
+    },
+    "scoring_matches": 7
   },
   "David Villa": {
     "goals": 9,
@@ -2746,7 +2765,8 @@
         "Honduras",
         "Ukraine"
       ]
-    }
+    },
+    "scoring_matches": 7
   },
   "Eusébio": {
     "goals": 9,
@@ -2830,7 +2850,8 @@
       "opponents": [
         "North Korea"
       ]
-    }
+    },
+    "scoring_matches": 5
   },
   "Jairzinho": {
     "goals": 9,
@@ -2950,7 +2971,8 @@
       "opponents": [
         "Czechoslovakia"
       ]
-    }
+    },
+    "scoring_matches": 8
   },
   "Karl-Heinz Rummenigge": {
     "goals": 9,
@@ -3076,7 +3098,8 @@
       "opponents": [
         "Chile"
       ]
-    }
+    },
+    "scoring_matches": 6
   },
   "Neymar": {
     "goals": 9,
@@ -3226,7 +3249,8 @@
       "opponents": [
         "Croatia"
       ]
-    }
+    },
+    "scoring_matches": 7
   },
   "Paolo Rossi": {
     "goals": 9,
@@ -3324,7 +3348,8 @@
       "opponents": [
         "Brazil"
       ]
-    }
+    },
+    "scoring_matches": 6
   },
   "Roberto Baggio": {
     "goals": 9,
@@ -3452,7 +3477,8 @@
         "Bulgaria",
         "Nigeria"
       ]
-    }
+    },
+    "scoring_matches": 7
   },
   "Uwe Seeler": {
     "goals": 9,
@@ -3614,7 +3640,8 @@
       }
     ],
     "boundary_flag": null,
-    "most_punished": null
+    "most_punished": null,
+    "scoring_matches": 9
   },
   "Vavá": {
     "goals": 9,
@@ -3730,6 +3757,7 @@
         "Russia",
         "Sweden"
       ]
-    }
+    },
+    "scoring_matches": 6
   }
 }

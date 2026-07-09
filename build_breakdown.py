@@ -117,6 +117,9 @@ for p in roster:
         "per_tournament": per_t,
         "boundary_flag": flag,
         "most_punished": most_punished,
+        # distinct WC matches this player scored a (non-own) goal in. A hard floor on appearances —
+        # you cannot score in a match you did not play — used by build_ui.py's appearances guard.
+        "scoring_matches": int(gp[["date", "home_team", "away_team"]].drop_duplicates().shape[0]),
     }
 
 with open("data/player_breakdown.json", "w") as f:

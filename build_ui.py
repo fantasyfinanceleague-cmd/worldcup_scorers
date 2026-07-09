@@ -123,6 +123,60 @@ BLURB = {
 
 ORDER = ["elite", "strong", "mid", "weak"]
 
+# ---- WORLD CUP APPEARANCES (matches played) — hand-sourced static data, like ACCOLADES ----
+# Definition: appearances INCLUDING substitute apps ("games played" = played). Per-tournament split in
+# each comment is the checkable basis. Sourced from each player's Wikipedia "Career statistics →
+# International" + match-by-match listings at thesoccerworldcups.com, cross-checked against ESPN/FIFA
+# record pages (Pelé 14, Jairzinho 16, Ronaldo 19 double-checked against ESPN/Britannica).
+# NOT YET USED BY THE RANKING — see the TODO below. The tie-break stays tournaments-played (derived
+# from gated data, so it can never silently rot) until the 2026 final freezes these counts.
+# RETIRED = career-final (frozen). ACTIVE (2026) = through the 2022 World Cup only, PROVISIONAL — those
+# five MUST be updated with their 2026 matches before the tie-break is switched on.
+APPEARANCES = {
+    # --- retired: career-final, settled ---
+    "Miroslav Klose":        24,   # 2002:7 2006:7 2010:5 2014:5
+    "Ronaldo":               19,   # 1994:0 (in squad, unused) 1998:7 2002:7 2006:5
+    "Gerd Müller":           13,   # 1970:6 1974:7
+    "Just Fontaine":          6,   # 1958:6
+    "Pelé":                  14,   # 1958:4 1962:2 1966:2 1970:6 (injury-shortened '62 & '66)
+    "Sándor Kocsis":          5,   # 1954:5
+    "Jürgen Klinsmann":      17,   # 1990:7 1994:5 1998:5
+    "Helmut Rahn":           10,   # 1954:4 1958:6
+    "Teófilo Cubillas":      13,   # 1970:4 1978:6 1982:3
+    "Gary Lineker":          12,   # 1986:5 1990:7
+    "Thomas Müller":         19,   # 2010:6 2014:7 2018:3 2022:3
+    "Grzegorz Lato":         20,   # 1974:7 1978:6 1982:7
+    "Gabriel Batistuta":     12,   # 1994:4 1998:5 2002:3
+    "Ademir de Menezes":      6,   # 1950:6
+    "Eusébio":                6,   # 1966:6
+    "Vavá":                  10,   # 1958:4 1962:6
+    "Jairzinho":             16,   # 1966:3 1970:6 1974:7
+    "Paolo Rossi":           14,   # 1978:7 1982:7 1986:0 (in squad, unused — injured)
+    "Christian Vieri":        9,   # 1998:5 2002:4
+    "Karl-Heinz Rummenigge": 19,   # 1978:5 1982:7 1986:7 (incl. sub apps; starts-only would be ~14)
+    "Roberto Baggio":        16,   # 1990:5 1994:7 1998:4
+    "David Villa":           12,   # 2006:4 2010:7 2014:1
+    "Uwe Seeler":            21,   # 1958:5 1962:4 1966:6 1970:6
+    # --- ACTIVE in 2026: PROVISIONAL, through the 2022 World Cup only. UPDATE with 2026 apps before wiring in. ---
+    "Lionel Messi":          26,   # 2006:3 2010:5 2014:7 2018:4 2022:7  + 2026 TBD
+    "Kylian Mbappé":         14,   # 2018:7 2022:7  + 2026 TBD
+    "Harry Kane":            11,   # 2018:6 2022:5  + 2026 TBD
+    "Cristiano Ronaldo":     22,   # 2006:6 2010:4 2014:3 2018:4 2022:5  + 2026 TBD
+    "Neymar":                13,   # 2014:5 2018:5 2022:3  + 2026 TBD
+}
+# TODO(after the 2026 final, 2026-07-19): wire appearances into the ranking tie-break — "fewest games
+# played" is a truer density measure than fewest tournaments (13 goals in 8 matches beats 13 in 5).
+#   1. Update the 5 ACTIVE counts above with their final 2026 appearances (they are through-2022 now).
+#   2. In _rank_key (below) AND the JS byGoals (ui/app.js), replace the `tournaments` tie-break term
+#      with APPEARANCES[name]; keep the two in lockstep, and thread APPEARANCES into window.WCS so
+#      byGoals can read it client-side.
+#   3. Freeze the pipeline: disable the daily-build cron (.github/workflows/daily-build.yml) — the data
+#      is settled post-tournament, so there is nothing left to re-pull and no way for the hand-sourced
+#      counts to drift again.
+# Doing this BEFORE the final would rank on through-2022 counts that ignore live 2026 matches (e.g. Kane
+# above Müller on a number missing his whole 2026), and it would keep shifting every match — the exact
+# silent-staleness failure the gates exist to prevent. So: not yet.
+
 # ---- Boundary-crosser rule (server-side HALT): every player with ≥11 WC goals must have a staged
 # photo + blurb + country, or the build refuses to write index.html — never silently drop a qualifying
 # scorer from the walkthrough. Better one day stale than incomplete-and-green. Mirrors the ui/app.js WALK
@@ -135,6 +189,24 @@ if held:
           "walkthrough. Stage the missing assets, then rebuild. (No file written; last-good stays live.)")
     sys.exit(1)
 walk = eligible[:]  # all staged (guaranteed by the gate above), already in rank order
+
+# ---- Appearances staleness guard (server-side HALT). Active NOW even though appearances are unused by
+# the ranking yet, so a wrong/stale hand-entered count is caught the day it's wrong, not the day it's
+# wired in. NOTE: `goals > appearances` is NOT the check — a player scores multiple goals per match
+# (Fontaine 13 in 6, Gerd Müller 14 in 13), so that would false-halt half the list. The real invariant
+# is `appearances >= distinct WC matches the player scored in` (scoring_matches, from gated goal data):
+# you cannot score in a match you did not play. Also require every roster player to have an entry, so a
+# new ≥9 crosser can't slip in un-sourced. ----
+_missing_apps = [n for n in roster_names if n not in APPEARANCES]
+_bad_apps = [(n, APPEARANCES[n], data[n]["scoring_matches"])
+             for n in roster_names if n in APPEARANCES and APPEARANCES[n] < data[n]["scoring_matches"]]
+if _missing_apps or _bad_apps:
+    for n in _missing_apps:
+        print(f"HALT: '{n}' is on the ≥9 roster but has no APPEARANCES entry — hand-source it (matches played).")
+    for n, ap, sm in _bad_apps:
+        print(f"HALT: '{n}' appearances {ap} < {sm} distinct WC matches scored in — count is stale or wrong.")
+    print("Refusing to write index.html. (No file written; last-good stays live.)")
+    sys.exit(1)
 
 
 def build_detail(p):
