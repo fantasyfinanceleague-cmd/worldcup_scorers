@@ -53,8 +53,12 @@ P = {
                        "Brazil · 1950", "https://commons.wikimedia.org/wiki/File:Ademir_de_Menezes_(1950).jpg"),
   "Eusébio":          ("eusebio.jpg",  0.10, None, "Harry Pot / Anefo", "bysa3nl",
                        "Portugal · 1963", "https://commons.wikimedia.org/wiki/File:Eusebio_(1963_version2).jpg"),
-  "Vavá":             ("vava.jpg",     0.06, None, "Arquivo Nacional / Correio da Manhã", "pd",
-                       "Brazil · 1962", "https://commons.wikimedia.org/wiki/File:Vav%C3%A1,_Fundo_Correio_da_Manh%C3%A3.tif"),
+  # CORRECTNESS FIX: the previous file (Arquivo Nacional / Correio da Manhã) is a portrait of Coutinho
+  # that Vavá merely appears in — wrong player. Swapped to the correctly-labelled Panini card (a
+  # named sticker is more reliable ID than an archive caption). Caught only by the infobox sweep, not
+  # the licence/era sweep — different search angles catch different failures.
+  "Vavá":             ("vava_ib.jpg",  0.05, None, "Panini (Campioni dello Sport)", "pd",
+                       "Brazil · 1962", "https://commons.wikimedia.org/wiki/File:Vav%C3%A1_en_1962.jpg"),
   "Jairzinho":        ("jairzinho.jpg",0.10, None, "Rob Mieremet / Anefo", "bysa3nl",
                        "Brazil · 1974", "https://commons.wikimedia.org/wiki/File:Jairzinho_1974.jpg"),
   "Paolo Rossi":      ("rossi.jpg",    0.14, None, "El Gráfico", "pd",
