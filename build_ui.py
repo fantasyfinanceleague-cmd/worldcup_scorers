@@ -329,7 +329,7 @@ HTML = """<!DOCTYPE html>
   <div class="hero-ticker" id="heroTicker" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-kicker kicker reveal">FIFA World Cup · 1930 – 2026</div>
-    <h1 class="reveal d1">Not just how many<br>you score.<br><span class="stroke">Who you score against.</span></h1>
+    <h1 class="reveal d1">Not just how many<br>you score.<br><span class="stroke">Who you score<br>against.</span></h1>
     <p class="hero-sub reveal d2">A ranking of the World Cup's greatest goalscorers measured by the strength of the teams they scored against — each opponent's World Football Elo, frozen before every tournament and sorted into four era-fair tiers.</p>
     <div class="hero-metrics">
       <div class="hm reveal d2"><span class="v num" data-count="%%ROSTER_N%%">0</span><span class="l">Top scorers</span></div>

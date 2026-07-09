@@ -74,7 +74,9 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+/* clip (not hidden) — guards against horizontal scroll from the fixed decorative layers (particle
+   canvas, drifting ticker) without creating a scroll container, so position:sticky keeps working. */
 body {
   margin: 0;
   background: var(--bg);
@@ -151,12 +153,14 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
 .hero h1 {
   font-family: var(--display);
   font-weight: 800;
-  font-size: clamp(40px, 7.6vw, 104px);
-  line-height: .96;
+  /* explicit <br> gives exactly four lines (two per sentence); the clamp is sized so the longest line
+     ("Not just how many") fits without overflow from 390px up through desktop */
+  font-size: clamp(24px, 5vw, 64px);
+  line-height: 1.02;
   letter-spacing: -.02em;
   text-transform: uppercase;
   margin: 0;
-  max-width: 15ch;
+  max-width: none;
 }
 .hero h1 .stroke {
   -webkit-text-stroke: 2px var(--ink);
@@ -299,6 +303,16 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .scene.active .acc-pill { transform: none; opacity: 1; }
 .scene.active .acc-pill:nth-child(2){ transition-delay:.08s } .scene.active .acc-pill:nth-child(3){ transition-delay:.16s }
 .acc-pill svg { width: 17px; height: 17px; fill: #b78a1e; }
+.acc-pill, .dd-acc { cursor: help; }
+.acc-pill:focus-visible, .dd-acc:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* shared accolade tooltip (award + years) — shows on hover, tap and keyboard focus */
+#acctip {
+  position: fixed; z-index: 80; pointer-events: none; opacity: 0; transform: translateY(4px);
+  background: var(--ink); color: #fff; padding: 8px 11px; border-radius: 9px; font-size: 12.5px;
+  font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  transition: opacity .14s, transform .14s;
+}
+#acctip.show { opacity: 1; transform: none; }
 
 /* Player info column */
 .scene-info { position: relative; z-index: 2; max-width: 620px; }
@@ -788,7 +802,7 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
   <div class="hero-ticker" id="heroTicker" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-kicker kicker reveal">FIFA World Cup · 1930 – 2026</div>
-    <h1 class="reveal d1">Not just how many<br>you score.<br><span class="stroke">Who you score against.</span></h1>
+    <h1 class="reveal d1">Not just how many<br>you score.<br><span class="stroke">Who you score<br>against.</span></h1>
     <p class="hero-sub reveal d2">A ranking of the World Cup's greatest goalscorers measured by the strength of the teams they scored against — each opponent's World Football Elo, frozen before every tournament and sorted into four era-fair tiers.</p>
     <div class="hero-metrics">
       <div class="hm reveal d2"><span class="v num" data-count="28">0</span><span class="l">Top scorers</span></div>
@@ -1165,6 +1179,41 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
     var h = location.hash;
     if (h === "#measure" || h.indexOf("#g-") === 0) openTo(h);
   })();
+
+  /* ---------- accolade tooltip: trophy / ball / boot glyphs show "Golden Ball — 2014, 2022" on
+     hover, on tap (native title doesn't fire on touch), and on keyboard focus. Delegated, so it
+     covers accolades rendered dynamically in the walkthrough and the deep-dive. ---------- */
+  (function () {
+    var tip = document.createElement("div"); tip.id = "acctip"; tip.setAttribute("role", "tooltip");
+    document.body.appendChild(tip);
+    var current = null;
+    function place(el) {
+      var r = el.getBoundingClientRect(), tr = tip.getBoundingClientRect();
+      var x = r.left + r.width / 2 - tr.width / 2, y = r.top - tr.height - 8;
+      if (y < 4) y = r.bottom + 8;
+      x = Math.max(6, Math.min(x, innerWidth - tr.width - 6));
+      tip.style.left = x + "px"; tip.style.top = y + "px";
+    }
+    function show(el) { tip.textContent = el.getAttribute("data-acctip") || ""; tip.classList.add("show"); place(el); current = el; }
+    function hide() { tip.classList.remove("show"); current = null; }
+    function ref(e) { return e.target.closest ? e.target.closest("[data-acctip]") : null; }
+    // hide only when the pointer/focus actually LEAVES the accolade cluster — if it's moving to a
+    // child of the same glyph, or straight to another accolade (whose enter/focus will re-show),
+    // don't hide, so there's no flicker between adjacent trophies.
+    function leaving(e) { var to = e.relatedTarget; return !(to && to.closest && to.closest("[data-acctip]")); }
+    document.addEventListener("mouseover", function (e) { var el = ref(e); if (el) show(el); });
+    document.addEventListener("mouseout", function (e) { if (ref(e) && leaving(e)) hide(); });
+    document.addEventListener("focusin", function (e) { var el = ref(e); if (el) show(el); });
+    document.addEventListener("focusout", function (e) { if (ref(e) && leaving(e)) hide(); });
+    document.addEventListener("click", function (e) {           // tap: toggle; tap elsewhere closes
+      var el = ref(e);
+      if (el) { e.preventDefault(); (current === el) ? hide() : show(el); }
+      else if (current) hide();
+    });
+    // keep the tip glued to its glyph on scroll (focusing an off-screen accolade scrolls it into
+    // view — hiding on scroll would kill the tip the focus just opened)
+    addEventListener("scroll", function () { if (current) place(current); }, { passive: true });
+  })();
 })();
 
 /* ============================================================
@@ -1253,8 +1302,9 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
     return ["wc", "ball", "boot"].map(function (k) {
       var yrs = acc[k] || [];
       if (!yrs.length) return "";
-      return '<span class="acc-pill" title="' + ACC_LABEL[k] + " — " + yrs.join(", ") +
-        '">' + ICONS[k] + " ×" + yrs.length + "</span>";
+      var lab = ACC_LABEL[k] + " — " + yrs.join(", ");   // e.g. "Golden Ball — 2014, 2022"
+      return '<span class="acc-pill" tabindex="0" role="img" aria-label="' + lab +
+        '" data-acctip="' + lab + '">' + ICONS[k] + " ×" + yrs.length + "</span>";
     }).join("");
   }
 
@@ -1680,7 +1730,9 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
     if (!p.acc) return "";
     return ["wc", "ball", "boot"].map(function (k) {
       var y = (p.acc[k] || []); if (!y.length) return "";
-      return '<span class="dd-acc" title="' + ALABEL[k] + " — " + y.join(", ") + '">' + ICON[k] + " ×" + y.length + "</span>";
+      var lab = ALABEL[k] + " — " + y.join(", ");
+      return '<span class="dd-acc" tabindex="0" role="img" aria-label="' + lab +
+        '" data-acctip="' + lab + '">' + ICON[k] + " ×" + y.length + "</span>";
     }).join("");
   }
 

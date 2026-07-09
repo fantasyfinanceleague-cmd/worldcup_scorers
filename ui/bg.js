@@ -214,4 +214,39 @@
     var h = location.hash;
     if (h === "#measure" || h.indexOf("#g-") === 0) openTo(h);
   })();
+
+  /* ---------- accolade tooltip: trophy / ball / boot glyphs show "Golden Ball — 2014, 2022" on
+     hover, on tap (native title doesn't fire on touch), and on keyboard focus. Delegated, so it
+     covers accolades rendered dynamically in the walkthrough and the deep-dive. ---------- */
+  (function () {
+    var tip = document.createElement("div"); tip.id = "acctip"; tip.setAttribute("role", "tooltip");
+    document.body.appendChild(tip);
+    var current = null;
+    function place(el) {
+      var r = el.getBoundingClientRect(), tr = tip.getBoundingClientRect();
+      var x = r.left + r.width / 2 - tr.width / 2, y = r.top - tr.height - 8;
+      if (y < 4) y = r.bottom + 8;
+      x = Math.max(6, Math.min(x, innerWidth - tr.width - 6));
+      tip.style.left = x + "px"; tip.style.top = y + "px";
+    }
+    function show(el) { tip.textContent = el.getAttribute("data-acctip") || ""; tip.classList.add("show"); place(el); current = el; }
+    function hide() { tip.classList.remove("show"); current = null; }
+    function ref(e) { return e.target.closest ? e.target.closest("[data-acctip]") : null; }
+    // hide only when the pointer/focus actually LEAVES the accolade cluster — if it's moving to a
+    // child of the same glyph, or straight to another accolade (whose enter/focus will re-show),
+    // don't hide, so there's no flicker between adjacent trophies.
+    function leaving(e) { var to = e.relatedTarget; return !(to && to.closest && to.closest("[data-acctip]")); }
+    document.addEventListener("mouseover", function (e) { var el = ref(e); if (el) show(el); });
+    document.addEventListener("mouseout", function (e) { if (ref(e) && leaving(e)) hide(); });
+    document.addEventListener("focusin", function (e) { var el = ref(e); if (el) show(el); });
+    document.addEventListener("focusout", function (e) { if (ref(e) && leaving(e)) hide(); });
+    document.addEventListener("click", function (e) {           // tap: toggle; tap elsewhere closes
+      var el = ref(e);
+      if (el) { e.preventDefault(); (current === el) ? hide() : show(el); }
+      else if (current) hide();
+    });
+    // keep the tip glued to its glyph on scroll (focusing an off-screen accolade scrolls it into
+    // view — hiding on scroll would kill the tip the focus just opened)
+    addEventListener("scroll", function () { if (current) place(current); }, { passive: true });
+  })();
 })();

@@ -84,8 +84,9 @@
     return ["wc", "ball", "boot"].map(function (k) {
       var yrs = acc[k] || [];
       if (!yrs.length) return "";
-      return '<span class="acc-pill" title="' + ACC_LABEL[k] + " — " + yrs.join(", ") +
-        '">' + ICONS[k] + " ×" + yrs.length + "</span>";
+      var lab = ACC_LABEL[k] + " — " + yrs.join(", ");   // e.g. "Golden Ball — 2014, 2022"
+      return '<span class="acc-pill" tabindex="0" role="img" aria-label="' + lab +
+        '" data-acctip="' + lab + '">' + ICONS[k] + " ×" + yrs.length + "</span>";
     }).join("");
   }
 

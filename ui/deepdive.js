@@ -73,7 +73,9 @@
     if (!p.acc) return "";
     return ["wc", "ball", "boot"].map(function (k) {
       var y = (p.acc[k] || []); if (!y.length) return "";
-      return '<span class="dd-acc" title="' + ALABEL[k] + " — " + y.join(", ") + '">' + ICON[k] + " ×" + y.length + "</span>";
+      var lab = ALABEL[k] + " — " + y.join(", ");
+      return '<span class="dd-acc" tabindex="0" role="img" aria-label="' + lab +
+        '" data-acctip="' + lab + '">' + ICON[k] + " ×" + y.length + "</span>";
     }).join("");
   }
 
