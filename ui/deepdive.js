@@ -84,11 +84,17 @@
     sel.value = n;
     var dt = dom(p), mp = p.mostPunished;
     // "Most punished" = opponent(s) a player scored the MOST career WC goals against (era-correct
-    // grouping, precomputed in build_breakdown.py). Ties list every opponent, no winner picked; when
-    // no opponent was scored against more than once, mp is null and we render "—".
-    var mpVal = mp
-      ? '<b>' + mp.opponents.join(", ") + '</b> · ' + mp.goals + ' goals' + (mp.opponents.length > 1 ? " each" : "")
-      : '<b>—</b>';
+    // grouping, precomputed in build_breakdown.py). Ties list every opponent, no winner picked. If the
+    // max against any single opponent is 1 (mp.goals === 1), they never scored twice against anyone —
+    // render "One goal each" rather than an (useless) list of every opponent.
+    var mpVal;
+    if (mp && mp.goals > 1) {
+      mpVal = '<b>' + mp.opponents.join(", ") + '</b> · ' + mp.goals + ' goals' + (mp.opponents.length > 1 ? " each" : "");
+    } else if (mp) {                 // mp.goals === 1
+      mpVal = '<b>One goal each</b>';
+    } else {                         // no goals at all — impossible on the ≥9 roster
+      mpVal = '<b>—</b>';
+    }
     var bars = ORDER.map(function (t) { var c = p.tiers[t]; if (!c) return "";
       return '<div class="dd-seg" data-tier="' + t + '" style="flex-grow:' + c + ';background:var(--' + t + ')"><span>' + c + '</span></div>'; }).join("");
     var chips = '<button class="dd-chip' + (filter === "all" ? " on" : "") + '" data-f="all">All ' + p.goals + '</button>' +

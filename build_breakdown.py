@@ -96,19 +96,24 @@ for p in roster:
     # Most-punished opponent(s): all of a player's WC goals grouped by ERA-CORRECT opponent code and
     # summed (a 3-in-one-match haul and 1+1+1 across three matches both count as 3). A tie is a tie —
     # list EVERY opponent at the maximum, no tie-break (picking a winner by Elo would invent an answer
-    # the data doesn't give). Degenerate case: if the max goals against any single opponent is 1, there
-    # is no most-punished opponent (the player never scored twice against anyone) — record None so the
-    # UI renders "—" rather than every opponent they ever scored against. e.g. Messi -> Algeria + Nigeria
-    # (3 each); Cristiano -> Spain (3, unique); Ronaldo -> five sides at 2; Uwe Seeler (all singletons) -> None.
+    # the data doesn't give). Degenerate case (a CONDITION, not a per-player exception): if the max goals
+    # against any single opponent is 1, the player never scored twice against anyone — carry {goals:1,
+    # opponents:[]} so the UI renders "One goal each" rather than listing every opponent (useless).
+    # e.g. Messi -> Algeria + Nigeria (3 each); Cristiano -> Spain (3, unique); Ronaldo -> five sides at
+    # 2; Uwe Seeler (all singletons) -> goals:1 -> "One goal each".
     mp = {}
     for _, r in gp.iterrows():
         a = mp.setdefault(r.opp_code, {"opponent": r.opponent, "goals": 0})
         a["goals"] += 1
         a["opponent"] = r.opponent            # display name, stable within a code
     maxg = max((a["goals"] for a in mp.values()), default=0)
-    most_punished = ({"goals": int(maxg),
-                      "opponents": sorted(a["opponent"] for a in mp.values() if a["goals"] == maxg)}
-                     if maxg > 1 else None)
+    if maxg > 1:
+        most_punished = {"goals": int(maxg),
+                         "opponents": sorted(a["opponent"] for a in mp.values() if a["goals"] == maxg)}
+    elif maxg == 1:
+        most_punished = {"goals": 1, "opponents": []}   # never scored twice vs anyone -> "One goal each"
+    else:
+        most_punished = None                             # no (non-own) goals — impossible on the ≥9 roster
     data[p] = {
         "goals": int(len(gp)), "tournaments": int(gp.yr.nunique()),
         "career_tiers": {t: int(tc.get(t, 0)) for t in TIERS},

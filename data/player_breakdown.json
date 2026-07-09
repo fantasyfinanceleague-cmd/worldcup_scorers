@@ -3640,7 +3640,10 @@
       }
     ],
     "boundary_flag": null,
-    "most_punished": null,
+    "most_punished": {
+      "goals": 1,
+      "opponents": []
+    },
     "scoring_matches": 9
   },
   "Vavá": {
