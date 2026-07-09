@@ -65,14 +65,16 @@ def appearances_total(name):   # games played (parked for the post-final tie-bre
     return sum(v for v in APPEARANCES.get(name, {}).values() if v is not None)
 def tournaments_played(name):  # squad membership: every tournament the player was in, incl 0-app & 2026
     return len(APPEARANCES.get(name, {}))
+def span(name):                # career span from SQUAD membership (first→last tournament), NOT the goal
+    ys = sorted(APPEARANCES.get(name, {}))   # rows — so it can never contradict tournaments_played
+    return [ys[0], ys[-1]] if ys else [0, 0]
 
 # THE ranking rule (mirrored verbatim by the JS `byGoals` in ui/app.js): goals ↓ → fewest WORLD CUPS
 # PLAYED ↑ (concentrated scoring first — a stated value, surfaced in the walkthrough intro). "Played" =
 # tournaments in the squad (from APPEARANCES), NOT tournaments-scored-in — the latter undercounts a
-# player's scoreless tournaments and overstates concentration. Then earliest first WC year ↑ → name
-# (exhaustive deterministic fallback). Total, so tied tallies can never degrade to insertion order.
-def _first_year(p): return min(t["year"] for t in p["per_tournament"])
-def _rank_key(kv): n, p = kv; return (-p["goals"], tournaments_played(n), _first_year(p), n)
+# player's scoreless tournaments and overstates concentration. Then earliest first WC year ↑ (also from
+# squad membership, so it matches the displayed span) → name. Total, so ties can't degrade to insertion order.
+def _rank_key(kv): n, p = kv; return (-p["goals"], tournaments_played(n), span(n)[0], n)
 roster = sorted(data.items(), key=_rank_key)
 roster_names = [n for n, _ in roster]
 max_goals = max(p["goals"] for _, p in roster)
@@ -202,19 +204,25 @@ walk = eligible[:]  # all staged (guaranteed by the gate above), already in rank
 #       in 6); the real floor is "you can't score in a match you didn't play".
 #   (2) tournaments_scored_in <= tournaments_played — you cannot score in a tournament you weren't in the
 #       squad for; a violation means the per-tournament parse dropped a scoring tournament.
+#   (3) span >= 4*(tournaments_played-1) — World Cups are ≥4 years apart, so N tournaments can't fit in a
+#       shorter span; catches the "2010–2014 · 4 World Cups" self-contradiction (bad years or bad count).
 # Also require every roster player to have an entry, so a new ≥9 crosser can't slip in un-sourced. ----
 _missing_apps = [n for n in roster_names if n not in APPEARANCES]
 _bad_apps = [(n, appearances_total(n), data[n]["scoring_matches"])
              for n in roster_names if n in APPEARANCES and appearances_total(n) < data[n]["scoring_matches"]]
 _bad_tp = [(n, data[n]["tournaments"], tournaments_played(n))
            for n in roster_names if n in APPEARANCES and data[n]["tournaments"] > tournaments_played(n)]
-if _missing_apps or _bad_apps or _bad_tp:
+_bad_span = [(n, span(n), tournaments_played(n))
+             for n in roster_names if n in APPEARANCES and span(n)[1] - span(n)[0] < 4 * (tournaments_played(n) - 1)]
+if _missing_apps or _bad_apps or _bad_tp or _bad_span:
     for n in _missing_apps:
         print(f"HALT: '{n}' is on the ≥9 roster but has no APPEARANCES entry — hand-source it (matches played).")
     for n, ap, sm in _bad_apps:
         print(f"HALT: '{n}' appearances {ap} < {sm} distinct WC matches scored in — count is stale or wrong.")
     for n, si, tp in _bad_tp:
         print(f"HALT: '{n}' tournaments-scored-in {si} > tournaments-played {tp} — impossible; bad parse.")
+    for n, sp, tp in _bad_span:
+        print(f"HALT: '{n}' span {sp[0]}–{sp[1]} too short for {tp} World Cups (need ≥{4*(tp-1)} years) — bad years/count.")
     print("Refusing to write index.html. (No file written; last-good stays live.)")
     sys.exit(1)
 
@@ -232,7 +240,6 @@ def build_detail(p):
 
 def build_player(name):
     p = data[name]
-    ys = [t["year"] for t in p["per_tournament"]]
     ph = photos.get(name)
     return {
         "goals": p["goals"],
@@ -241,7 +248,7 @@ def build_player(name):
         "eliteShare": p["elite_share"],
         "avgElo": round(p["avg_opp_elo"]),
         "flag": p.get("boundary_flag"),            # object (truthy) or null — drives the elite-share "*"
-        "years": [min(ys), max(ys)],
+        "years": span(name),                       # squad span (not goal-row span) — one source, all surfaces
         "country": COUNTRY.get(name, ""),
         "acc": ACCOLADES.get(name),                # {wc,ball,boot} or null
         "blurb": BLURB.get(name, ""),              # only the ≥11 walkthrough uses this
