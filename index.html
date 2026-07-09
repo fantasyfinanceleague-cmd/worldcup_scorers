@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>World Cup Scorers — By Opponent Strength</title>
+<meta name="description" content="Not just how many you score — who you score against. The World Cup's greatest goalscorers ranked by the strength of the teams they scored against: each opponent's World Football Elo, frozen before every tournament and sorted into four era-fair tiers.">
 <style>
 /* ============================================================
    World Cup Scorers — REDESIGN
@@ -186,12 +187,50 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
 .tier-key i { width: 12px; height: 12px; border-radius: 3px; display: block; }
 .tier-key small { color: var(--muted); font-weight: 500; }
 .scrollcue {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 48px;
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 40px;
   font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
 }
 .scrollcue .dot { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--line-2);
   display: grid; place-items: center; animation: bob 1.8s var(--ease) infinite; }
 @keyframes bob { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(5px); } }
+
+/* ---- pre-scroll "how this is measured" explainer ---- */
+.hero-measure { margin-top: 26px; max-width: 62ch; }
+.measure-line { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+.measure-line b { color: var(--ink); font-weight: 700; }
+.measure-toggle { margin-left: 4px; white-space: nowrap; }
+/* the definition-reference link idiom, shared by every metric label that points back here */
+.gref { color: var(--accent); text-decoration: none; border-bottom: 1px dotted currentColor; cursor: pointer; }
+.gref:hover, .gref:focus-visible { color: var(--accent-2); border-bottom-style: solid; outline: none; }
+/* .mref = a metric LABEL that points back to its definition — inherits the label's colour, subtle
+   dotted underline signals "tap for what this means". Used on stat labels (elite share, avg opp Elo). */
+.mref { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--faint); cursor: pointer; }
+.mref:hover, .mref:focus-visible { color: var(--ink); border-bottom-color: var(--muted); outline: none; }
+/* tier legend chips double as a link to the tier definition */
+a.tier-key { text-decoration: none; color: inherit; cursor: pointer; }
+a.tier-key:hover { border-color: var(--line-2); box-shadow: var(--sh-2); }
+details.measure { margin-top: 12px; }
+details.measure > summary {
+  cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+details.measure > summary::-webkit-details-marker { display: none; }
+details.measure > summary::after { content: "▸"; font-size: 11px; transition: transform .2s var(--ease); }
+details.measure[open] > summary::after { transform: rotate(90deg); }
+details.measure > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.measure-defs { display: grid; gap: 12px; margin: 16px 0 0; padding: 16px 18px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--sh-1); }
+.measure-defs dt { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 13px;
+  letter-spacing: -.01em; margin-bottom: 3px; }
+.measure-defs dd { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.measure-defs b { color: var(--ink); font-weight: 700; }
+.measure-defs > div:target { animation: gflash 1.6s var(--ease); border-radius: 8px; }
+.measure-src { margin: 12px 0 0; font-size: 12px; color: var(--muted); }
+.measure-src a { color: var(--muted); border-bottom: 1px solid var(--line-2); text-decoration: none; }
+.measure-src a:hover { color: var(--ink); }
+.gflash { animation: gflash 1.6s var(--ease); border-radius: 8px; }
+@keyframes gflash { 0% { background: var(--mid-soft); box-shadow: 0 0 0 6px var(--mid-soft); }
+  100% { background: transparent; box-shadow: 0 0 0 6px transparent; } }
 
 .reveal { opacity: 1; }
 .reveal.in { animation: revealIn .7s var(--ease-out) both; }
@@ -692,8 +731,13 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
    CC BY / CC BY-SA require crediting each image's author + licence; the mock's single generic
    line does not satisfy that, so build_ui.py injects one line per photographed player here. ---- */
 .foot-credits { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12px; color: #6b7280; }
-.foot-credits b { color: #9aa2b1; font-weight: 600; }
-.foot-credits ul { list-style: none; margin: 8px 0 0; padding: 0; columns: 2; column-gap: 34px; }
+.foot-credits > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px;
+  color: #9aa2b1; font-weight: 600; }
+.foot-credits > summary::-webkit-details-marker { display: none; }
+.foot-credits > summary::after { content: "▸"; font-size: 10px; transition: transform .2s ease; }
+.foot-credits[open] > summary::after { transform: rotate(90deg); }
+.foot-credits > summary:focus-visible { outline: 1px solid #9aa2b1; outline-offset: 3px; border-radius: 3px; }
+.foot-credits ul { list-style: none; margin: 12px 0 0; padding: 0; columns: 2; column-gap: 34px; }
 .foot-credits li { padding: 3px 0; break-inside: avoid; }
 .foot-credits a { color: #8b93a3; border-bottom: 1px solid rgba(255,255,255,.18); text-decoration: none; }
 .foot-credits a:hover { color: #fff; border-color: #fff; }
@@ -744,7 +788,7 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
   <div class="hero-ticker" id="heroTicker" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-kicker kicker reveal">FIFA World Cup · 1930 – 2026</div>
-    <h1 class="reveal d1">Not how many<br>they scored.<br><span class="stroke">Who they beat.</span></h1>
+    <h1 class="reveal d1">Not just how many<br>you score.<br><span class="stroke">Who you score against.</span></h1>
     <p class="hero-sub reveal d2">A ranking of the World Cup's greatest goalscorers measured by the strength of the teams they scored against — each opponent's World Football Elo, frozen before every tournament and sorted into four era-fair tiers.</p>
     <div class="hero-metrics">
       <div class="hm reveal d2"><span class="v num" data-count="28">0</span><span class="l">Top scorers</span></div>
@@ -753,6 +797,32 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
       <div class="hm reveal d4"><span class="v num" data-count="4">0</span><span class="l">Strength tiers</span></div>
     </div>
     <div class="hero-legend reveal d4" id="heroLegend"></div>
+
+    <!-- pre-scroll explainer: tier legend (above) + a one-line Elo definition stay visible; the full
+         "how this is measured" panel is collapsed. Metric labels across the page anchor back here
+         (#g-elo / #g-tier / #g-elite) — define once, reference everywhere. -->
+    <div class="hero-measure reveal d4">
+      <p class="measure-line">Strength = each opponent's <b>World Football Elo</b>, frozen before the tournament.
+        <a class="gref measure-toggle" href="#measure">How this is measured</a></p>
+      <details id="measure" class="measure">
+        <summary>How this is measured</summary>
+        <dl class="measure-defs">
+          <div id="g-elo"><dt>Elo</dt><dd><b>World Football Elo</b> is a chess-style team rating that moves
+            with every result, adjusting for goal margin, match importance and home advantage. Studies have
+            found Elo-type ratings predict results better than the old FIFA ranking (Lasek et al., 2013).
+            Each opponent's rating is <b>frozen at Dec 31 of the year before</b> the tournament, so the
+            tournament's own results can't inflate it.</dd></div>
+          <div id="g-tier"><dt>Tiers</dt><dd>Each tournament's qualified field is ranked by that frozen Elo;
+            the top quarter is <b>elite</b>, then strong, mid, weak. Tiers are a <b>percentile of that
+            edition's field</b> — era-fair, so a 16-team 1958 and a 48-team 2026 compare honestly.</dd></div>
+          <div id="g-elite"><dt>Elite share</dt><dd>The share of a player's goals scored against elite
+            (top-quarter) opponents. Boundary-sensitive: a goal within ~3.5 Elo of the cut is marked
+            <b>*</b> — the percentage is exact, but that one goal's tier hinges on a near-tie.</dd></div>
+        </dl>
+        <p class="measure-src">Opponent strength: World Football Elo, <a href="https://eloratings.net">eloratings.net</a>. Own goals excluded; penalties counted.</p>
+      </details>
+    </div>
+
     <div class="scrollcue reveal d4">
       <span class="dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
       Scroll to begin the countdown
@@ -860,7 +930,7 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
         <p>Each tournament's qualified field is ranked by that frozen Elo; the top quarter is <b>elite</b>, then strong, mid and weak. Tiers are relative to that edition's field — era-fair, so a 16-team 1958 and a 48-team 2026 compare honestly.</p>
         <p class="marks">A tier distribution reflects the draw and the knockout structure as much as the player — it measures <b>who they faced, not agency</b>. Own goals excluded; penalties counted; totals provisional while 2026 is in progress. Goals &amp; matches: martj42/international_results.</p>
         <p class="foot-legal">A redesign concept — data and photos courtesy of the worldcup_scorers project. Player photos from Wikimedia Commons under the licences credited below.</p>
-        <div class="foot-credits"><b>Player photos</b> — Wikimedia Commons, reused under each stated licence, cropped for display:<ul><li>Lionel Messi — Hossein Zohrevand, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg">Wikimedia Commons</a>)</li><li>Kylian Mbappé — Bryan Berlin, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kylian_Mbappe_France_v_Senegal_16_June_2026-391_(cropped).jpg">Wikimedia Commons</a>)</li><li>Miroslav Klose — Andrzej Otrębski, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gdansk_PGE_Arena_GER-GRE_Euro_2012_24_Klose.jpg">Wikimedia Commons</a>)</li><li>Ronaldo — Milly barzellai, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Ronaldo_2002_cropped.jpg">Wikimedia Commons</a>)</li><li>Gerd Müller — Nationaal Archief / Anefo, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gerd_M%C3%BCller_1974.jpg">Wikimedia Commons</a>)</li><li>Harry Kane — Кирилл Венедиктов (Kirill Venediktov), <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Harry_Kane_in_Russia.jpg">Wikimedia Commons</a>)</li><li>Just Fontaine — André Cros, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:17.1.60._Foot._Simon_(TFC)_et_Just_Fontaine_(Reims)_(1960)_-_53Fi6501_(Fontaine).jpg">Wikimedia Commons</a>)</li><li>Pelé — Anefo / Nationaal Archief, <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Pele_(voetballer)_(kop),_Bestanddeelnr_918-6208.jpg">Wikimedia Commons</a>)</li><li>Sándor Kocsis — Fortepan / Faragó György, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kocsis_S%C3%A1ndor_Fortepan_261526.jpg">Wikimedia Commons</a>)</li><li>Jürgen Klinsmann — Bundesarchiv, Klaus Oberst, <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC BY-SA 3.0 de</a> (<a href="https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1989-0419-044,_Uefa-Cup,_Dynamo_Dresden_-_VFB_Stuttgart_1-1.jpg">Wikimedia Commons</a>)</li><li>Cristiano Ronaldo — YantsImages, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Portugal_national_football_team_0866_(Cristiano_Ronaldo).jpg">Wikimedia Commons</a>)</li><li>Grzegorz Lato — Bundesarchiv, <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC BY-SA 3.0 de</a> (<a href="https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-N0615-0029,_Fu%C3%9Fball-WM,_VR_Polen_-_Argentinien_3-2_(Lato_cropped).jpg">Wikimedia Commons</a>)</li></ul></div>
+        <details class="foot-credits"><summary>Player photo credits (12) — Wikimedia Commons, reused under each stated licence, cropped for display</summary><ul><li>Lionel Messi — Hossein Zohrevand, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg">Wikimedia Commons</a>)</li><li>Kylian Mbappé — Bryan Berlin, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kylian_Mbappe_France_v_Senegal_16_June_2026-391_(cropped).jpg">Wikimedia Commons</a>)</li><li>Miroslav Klose — Andrzej Otrębski, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gdansk_PGE_Arena_GER-GRE_Euro_2012_24_Klose.jpg">Wikimedia Commons</a>)</li><li>Ronaldo — Milly barzellai, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Ronaldo_2002_cropped.jpg">Wikimedia Commons</a>)</li><li>Gerd Müller — Nationaal Archief / Anefo, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gerd_M%C3%BCller_1974.jpg">Wikimedia Commons</a>)</li><li>Harry Kane — Кирилл Венедиктов (Kirill Venediktov), <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Harry_Kane_in_Russia.jpg">Wikimedia Commons</a>)</li><li>Just Fontaine — André Cros, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:17.1.60._Foot._Simon_(TFC)_et_Just_Fontaine_(Reims)_(1960)_-_53Fi6501_(Fontaine).jpg">Wikimedia Commons</a>)</li><li>Pelé — Anefo / Nationaal Archief, <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Pele_(voetballer)_(kop),_Bestanddeelnr_918-6208.jpg">Wikimedia Commons</a>)</li><li>Sándor Kocsis — Fortepan / Faragó György, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kocsis_S%C3%A1ndor_Fortepan_261526.jpg">Wikimedia Commons</a>)</li><li>Jürgen Klinsmann — Bundesarchiv, Klaus Oberst, <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC BY-SA 3.0 de</a> (<a href="https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1989-0419-044,_Uefa-Cup,_Dynamo_Dresden_-_VFB_Stuttgart_1-1.jpg">Wikimedia Commons</a>)</li><li>Cristiano Ronaldo — YantsImages, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Portugal_national_football_team_0866_(Cristiano_Ronaldo).jpg">Wikimedia Commons</a>)</li><li>Grzegorz Lato — Bundesarchiv, <a href="https://creativecommons.org/licenses/by-sa/3.0/de/deed.en">CC BY-SA 3.0 de</a> (<a href="https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-N0615-0029,_Fu%C3%9Fball-WM,_VR_Polen_-_Argentinien_3-2_(Lato_cropped).jpg">Wikimedia Commons</a>)</li></ul></details>
       </div>
       <div>
         <h3>Sources</h3>
@@ -1071,6 +1141,30 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
     }
     t.appendChild(row(1)); t.appendChild(row(-1)); t.appendChild(row(1));
   })();
+
+  /* ---------- glossary references: tap any metric label (or the hero toggle) to open the
+     "how this is measured" panel, scroll it into view, and flash the referenced definition.
+     Tap-friendly — no hover-only tooltips. Define once (in the hero), reference everywhere. ---------- */
+  (function () {
+    var det = document.getElementById("measure");
+    function openTo(hash) {
+      if (det) det.open = true;
+      var target = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+      var scrollEl = target || det;
+      if (!scrollEl) return;
+      scrollEl.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      var flash = (target && target !== det) ? target : null;
+      if (flash) { flash.classList.remove("gflash"); void flash.offsetWidth; flash.classList.add("gflash"); }
+    }
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href="#measure"], a[href^="#g-"]');
+      if (!a) return;
+      e.preventDefault();
+      openTo(a.getAttribute("href"));
+    });
+    var h = location.hash;
+    if (h === "#measure" || h.indexOf("#g-") === 0) openTo(h);
+  })();
 })();
 
 /* ============================================================
@@ -1146,8 +1240,10 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
     var wrap = document.getElementById("heroLegend");
     TIERS.forEach(function (t) {
       var note = TIER_NOTE[t] ? '<small>' + TIER_NOTE[t] + '</small>' : "";
-      wrap.appendChild(el("span", "tier-key",
-        '<i style="background:var(--' + t + ')"></i>' + TIER_LABEL[t] + " " + note));
+      var key = el("a", "tier-key",
+        '<i style="background:var(--' + t + ')"></i>' + TIER_LABEL[t] + " " + note);
+      key.href = "#g-tier";                         // tier chips reference the tier definition
+      wrap.appendChild(key);
     });
   })();
 
@@ -1204,8 +1300,8 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
         '<div class="scene-years num">' + yearsStr(p) + ' · ' + p.tournaments + ' World Cup' + (p.tournaments > 1 ? "s" : "") + '</div>' +
         '<div class="scene-stats">' +
           '<div class="bigstat goals"><div class="v num" data-t="' + p.goals + '">0</div><div class="l">Goals</div></div>' +
-          '<div class="bigstat"><div class="v num" data-t="' + elite + '" data-suf="%">0</div><div class="l">Elite share' + (p.flag ? " *" : "") + '</div></div>' +
-          '<div class="bigstat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l">Avg opp Elo</div></div>' +
+          '<div class="bigstat"><div class="v num" data-t="' + elite + '" data-suf="%">0</div><div class="l"><a class="mref" href="#g-elite">Elite share</a>' + (p.flag ? " *" : "") + '</div></div>' +
+          '<div class="bigstat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l"><a class="mref" href="#g-elo">Avg opp Elo</a></div></div>' +
         '</div>' +
         '<div class="tierbar-block">' +
           '<div class="tierbar-head"><span class="lab">Goals by opponent strength</span><span class="tot num">' + p.goals + ' total</span></div>' +
@@ -1627,8 +1723,8 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":5,"tiers":{"el
         '</div>' +
         '<div class="dd-stats">' +
           '<div class="dd-stat"><div class="v num" data-t="' + p.goals + '">0</div><div class="l">Goals</div></div>' +
-          '<div class="dd-stat"><div class="v num" data-t="' + Math.round(p.eliteShare * 100) + '" data-suf="%">0</div><div class="l">Elite share</div></div>' +
-          '<div class="dd-stat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l">Avg opp Elo</div></div>' +
+          '<div class="dd-stat"><div class="v num" data-t="' + Math.round(p.eliteShare * 100) + '" data-suf="%">0</div><div class="l"><a class="mref" href="#g-elite">Elite share</a></div></div>' +
+          '<div class="dd-stat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l"><a class="mref" href="#g-elo">Avg opp Elo</a></div></div>' +
           '<div class="dd-stat"><div class="v num" data-t="' + p.tournaments + '">0</div><div class="l">Tournaments</div></div>' +
         '</div>' +
         '<div class="dd-fact">Most punished — ' + mpVal + '</div>' +

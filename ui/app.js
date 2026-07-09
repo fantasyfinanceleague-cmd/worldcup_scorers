@@ -71,8 +71,10 @@
     var wrap = document.getElementById("heroLegend");
     TIERS.forEach(function (t) {
       var note = TIER_NOTE[t] ? '<small>' + TIER_NOTE[t] + '</small>' : "";
-      wrap.appendChild(el("span", "tier-key",
-        '<i style="background:var(--' + t + ')"></i>' + TIER_LABEL[t] + " " + note));
+      var key = el("a", "tier-key",
+        '<i style="background:var(--' + t + ')"></i>' + TIER_LABEL[t] + " " + note);
+      key.href = "#g-tier";                         // tier chips reference the tier definition
+      wrap.appendChild(key);
     });
   })();
 
@@ -129,8 +131,8 @@
         '<div class="scene-years num">' + yearsStr(p) + ' · ' + p.tournaments + ' World Cup' + (p.tournaments > 1 ? "s" : "") + '</div>' +
         '<div class="scene-stats">' +
           '<div class="bigstat goals"><div class="v num" data-t="' + p.goals + '">0</div><div class="l">Goals</div></div>' +
-          '<div class="bigstat"><div class="v num" data-t="' + elite + '" data-suf="%">0</div><div class="l">Elite share' + (p.flag ? " *" : "") + '</div></div>' +
-          '<div class="bigstat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l">Avg opp Elo</div></div>' +
+          '<div class="bigstat"><div class="v num" data-t="' + elite + '" data-suf="%">0</div><div class="l"><a class="mref" href="#g-elite">Elite share</a>' + (p.flag ? " *" : "") + '</div></div>' +
+          '<div class="bigstat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l"><a class="mref" href="#g-elo">Avg opp Elo</a></div></div>' +
         '</div>' +
         '<div class="tierbar-block">' +
           '<div class="tierbar-head"><span class="lab">Goals by opponent strength</span><span class="tot num">' + p.goals + ' total</span></div>' +

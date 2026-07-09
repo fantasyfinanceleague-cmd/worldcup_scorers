@@ -190,4 +190,28 @@
     }
     t.appendChild(row(1)); t.appendChild(row(-1)); t.appendChild(row(1));
   })();
+
+  /* ---------- glossary references: tap any metric label (or the hero toggle) to open the
+     "how this is measured" panel, scroll it into view, and flash the referenced definition.
+     Tap-friendly — no hover-only tooltips. Define once (in the hero), reference everywhere. ---------- */
+  (function () {
+    var det = document.getElementById("measure");
+    function openTo(hash) {
+      if (det) det.open = true;
+      var target = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+      var scrollEl = target || det;
+      if (!scrollEl) return;
+      scrollEl.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      var flash = (target && target !== det) ? target : null;
+      if (flash) { flash.classList.remove("gflash"); void flash.offsetWidth; flash.classList.add("gflash"); }
+    }
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href="#measure"], a[href^="#g-"]');
+      if (!a) return;
+      e.preventDefault();
+      openTo(a.getAttribute("href"));
+    });
+    var h = location.hash;
+    if (h === "#measure" || h.indexOf("#g-") === 0) openTo(h);
+  })();
 })();

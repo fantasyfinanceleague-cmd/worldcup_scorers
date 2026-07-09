@@ -179,12 +179,50 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
 .tier-key i { width: 12px; height: 12px; border-radius: 3px; display: block; }
 .tier-key small { color: var(--muted); font-weight: 500; }
 .scrollcue {
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 48px;
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 40px;
   font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
 }
 .scrollcue .dot { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--line-2);
   display: grid; place-items: center; animation: bob 1.8s var(--ease) infinite; }
 @keyframes bob { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(5px); } }
+
+/* ---- pre-scroll "how this is measured" explainer ---- */
+.hero-measure { margin-top: 26px; max-width: 62ch; }
+.measure-line { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+.measure-line b { color: var(--ink); font-weight: 700; }
+.measure-toggle { margin-left: 4px; white-space: nowrap; }
+/* the definition-reference link idiom, shared by every metric label that points back here */
+.gref { color: var(--accent); text-decoration: none; border-bottom: 1px dotted currentColor; cursor: pointer; }
+.gref:hover, .gref:focus-visible { color: var(--accent-2); border-bottom-style: solid; outline: none; }
+/* .mref = a metric LABEL that points back to its definition — inherits the label's colour, subtle
+   dotted underline signals "tap for what this means". Used on stat labels (elite share, avg opp Elo). */
+.mref { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--faint); cursor: pointer; }
+.mref:hover, .mref:focus-visible { color: var(--ink); border-bottom-color: var(--muted); outline: none; }
+/* tier legend chips double as a link to the tier definition */
+a.tier-key { text-decoration: none; color: inherit; cursor: pointer; }
+a.tier-key:hover { border-color: var(--line-2); box-shadow: var(--sh-2); }
+details.measure { margin-top: 12px; }
+details.measure > summary {
+  cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+details.measure > summary::-webkit-details-marker { display: none; }
+details.measure > summary::after { content: "▸"; font-size: 11px; transition: transform .2s var(--ease); }
+details.measure[open] > summary::after { transform: rotate(90deg); }
+details.measure > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.measure-defs { display: grid; gap: 12px; margin: 16px 0 0; padding: 16px 18px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--sh-1); }
+.measure-defs dt { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 13px;
+  letter-spacing: -.01em; margin-bottom: 3px; }
+.measure-defs dd { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.measure-defs b { color: var(--ink); font-weight: 700; }
+.measure-defs > div:target { animation: gflash 1.6s var(--ease); border-radius: 8px; }
+.measure-src { margin: 12px 0 0; font-size: 12px; color: var(--muted); }
+.measure-src a { color: var(--muted); border-bottom: 1px solid var(--line-2); text-decoration: none; }
+.measure-src a:hover { color: var(--ink); }
+.gflash { animation: gflash 1.6s var(--ease); border-radius: 8px; }
+@keyframes gflash { 0% { background: var(--mid-soft); box-shadow: 0 0 0 6px var(--mid-soft); }
+  100% { background: transparent; box-shadow: 0 0 0 6px transparent; } }
 
 .reveal { opacity: 1; }
 .reveal.in { animation: revealIn .7s var(--ease-out) both; }
@@ -685,8 +723,13 @@ em { font-style: normal; color: var(--accent); font-weight: 600; }
    CC BY / CC BY-SA require crediting each image's author + licence; the mock's single generic
    line does not satisfy that, so build_ui.py injects one line per photographed player here. ---- */
 .foot-credits { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12px; color: #6b7280; }
-.foot-credits b { color: #9aa2b1; font-weight: 600; }
-.foot-credits ul { list-style: none; margin: 8px 0 0; padding: 0; columns: 2; column-gap: 34px; }
+.foot-credits > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 8px;
+  color: #9aa2b1; font-weight: 600; }
+.foot-credits > summary::-webkit-details-marker { display: none; }
+.foot-credits > summary::after { content: "▸"; font-size: 10px; transition: transform .2s ease; }
+.foot-credits[open] > summary::after { transform: rotate(90deg); }
+.foot-credits > summary:focus-visible { outline: 1px solid #9aa2b1; outline-offset: 3px; border-radius: 3px; }
+.foot-credits ul { list-style: none; margin: 12px 0 0; padding: 0; columns: 2; column-gap: 34px; }
 .foot-credits li { padding: 3px 0; break-inside: avoid; }
 .foot-credits a { color: #8b93a3; border-bottom: 1px solid rgba(255,255,255,.18); text-decoration: none; }
 .foot-credits a:hover { color: #fff; border-color: #fff; }

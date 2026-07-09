@@ -263,8 +263,11 @@ def credits_html():
             f'(<a href="{ph["source"]}">Wikimedia Commons</a>)</li>')
     if not items:
         return ""
-    return ('<div class="foot-credits"><b>Player photos</b> — Wikimedia Commons, reused under each '
-            'stated licence, cropped for display:<ul>' + "".join(items) + "</ul></div>")
+    # Collapsed by default (same pattern as the methodology panel). CC BY / CC BY-SA legally require
+    # author + licence + link per image, so the attributions are kept in full — never abbreviated.
+    return ('<details class="foot-credits"><summary>Player photo credits (' + str(len(items)) +
+            ') — Wikimedia Commons, reused under each stated licence, cropped for display</summary>'
+            '<ul>' + "".join(items) + "</ul></details>")
 
 CREDITS = credits_html()
 
@@ -295,6 +298,7 @@ HTML = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>World Cup Scorers — By Opponent Strength</title>
+<meta name="description" content="Not just how many you score — who you score against. The World Cup's greatest goalscorers ranked by the strength of the teams they scored against: each opponent's World Football Elo, frozen before every tournament and sorted into four era-fair tiers.">
 <style>
 %%CSS%%
 </style>
@@ -325,7 +329,7 @@ HTML = """<!DOCTYPE html>
   <div class="hero-ticker" id="heroTicker" aria-hidden="true"></div>
   <div class="wrap">
     <div class="hero-kicker kicker reveal">FIFA World Cup · 1930 – 2026</div>
-    <h1 class="reveal d1">Not how many<br>they scored.<br><span class="stroke">Who they beat.</span></h1>
+    <h1 class="reveal d1">Not just how many<br>you score.<br><span class="stroke">Who you score against.</span></h1>
     <p class="hero-sub reveal d2">A ranking of the World Cup's greatest goalscorers measured by the strength of the teams they scored against — each opponent's World Football Elo, frozen before every tournament and sorted into four era-fair tiers.</p>
     <div class="hero-metrics">
       <div class="hm reveal d2"><span class="v num" data-count="%%ROSTER_N%%">0</span><span class="l">Top scorers</span></div>
@@ -334,6 +338,32 @@ HTML = """<!DOCTYPE html>
       <div class="hm reveal d4"><span class="v num" data-count="4">0</span><span class="l">Strength tiers</span></div>
     </div>
     <div class="hero-legend reveal d4" id="heroLegend"></div>
+
+    <!-- pre-scroll explainer: tier legend (above) + a one-line Elo definition stay visible; the full
+         "how this is measured" panel is collapsed. Metric labels across the page anchor back here
+         (#g-elo / #g-tier / #g-elite) — define once, reference everywhere. -->
+    <div class="hero-measure reveal d4">
+      <p class="measure-line">Strength = each opponent's <b>World Football Elo</b>, frozen before the tournament.
+        <a class="gref measure-toggle" href="#measure">How this is measured</a></p>
+      <details id="measure" class="measure">
+        <summary>How this is measured</summary>
+        <dl class="measure-defs">
+          <div id="g-elo"><dt>Elo</dt><dd><b>World Football Elo</b> is a chess-style team rating that moves
+            with every result, adjusting for goal margin, match importance and home advantage. Studies have
+            found Elo-type ratings predict results better than the old FIFA ranking (Lasek et al., 2013).
+            Each opponent's rating is <b>frozen at Dec 31 of the year before</b> the tournament, so the
+            tournament's own results can't inflate it.</dd></div>
+          <div id="g-tier"><dt>Tiers</dt><dd>Each tournament's qualified field is ranked by that frozen Elo;
+            the top quarter is <b>elite</b>, then strong, mid, weak. Tiers are a <b>percentile of that
+            edition's field</b> — era-fair, so a 16-team 1958 and a 48-team 2026 compare honestly.</dd></div>
+          <div id="g-elite"><dt>Elite share</dt><dd>The share of a player's goals scored against elite
+            (top-quarter) opponents. Boundary-sensitive: a goal within ~3.5 Elo of the cut is marked
+            <b>*</b> — the percentage is exact, but that one goal's tier hinges on a near-tie.</dd></div>
+        </dl>
+        <p class="measure-src">Opponent strength: World Football Elo, <a href="https://eloratings.net">eloratings.net</a>. Own goals excluded; penalties counted.</p>
+      </details>
+    </div>
+
     <div class="scrollcue reveal d4">
       <span class="dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
       Scroll to begin the countdown

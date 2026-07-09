@@ -116,8 +116,8 @@
         '</div>' +
         '<div class="dd-stats">' +
           '<div class="dd-stat"><div class="v num" data-t="' + p.goals + '">0</div><div class="l">Goals</div></div>' +
-          '<div class="dd-stat"><div class="v num" data-t="' + Math.round(p.eliteShare * 100) + '" data-suf="%">0</div><div class="l">Elite share</div></div>' +
-          '<div class="dd-stat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l">Avg opp Elo</div></div>' +
+          '<div class="dd-stat"><div class="v num" data-t="' + Math.round(p.eliteShare * 100) + '" data-suf="%">0</div><div class="l"><a class="mref" href="#g-elite">Elite share</a></div></div>' +
+          '<div class="dd-stat"><div class="v num" data-t="' + p.avgElo + '">0</div><div class="l"><a class="mref" href="#g-elo">Avg opp Elo</a></div></div>' +
           '<div class="dd-stat"><div class="v num" data-t="' + p.tournaments + '">0</div><div class="l">Tournaments</div></div>' +
         '</div>' +
         '<div class="dd-fact">Most punished — ' + mpVal + '</div>' +
