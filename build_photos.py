@@ -76,6 +76,10 @@ P = {
   # on strict provenance (news-site scrape) — acceptable under the owner's cite-source standard.
   "Teófilo Cubillas": ("cubillas.jpg", 0.05, None, "Unknown author (PD-Peru-anonymous)", "pd",
                        "Peru · 1978", "https://commons.wikimedia.org/wiki/File:Te%C3%B3filo_Cubillas_1978.jpg"),
+  # Batistuta — retired-era event photo (owner waived the playing-era requirement for him). Precropped
+  # to head-and-shoulders above the Fiorentina jersey he's holding. CC BY-SA 3.0, Roberto Vicario.
+  "Gabriel Batistuta":("batistuta.jpg",0.28, (0.17,0.02,0.69,0.40), "Roberto Vicario", "bysa3",
+                       "Argentina", "https://commons.wikimedia.org/wiki/File:Omar_Batistuta.jpg"),
 }
 TARGET = (300, 375)   # 4:5 display resolution
 
