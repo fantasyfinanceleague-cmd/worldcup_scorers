@@ -30,3 +30,6 @@ __pycache__/
 .venv/
 venv/
 env/
+
+# Claude Design handoff bundle (imported for the redesign; not part of the build)
+world-cup-scorers-design-system/
