@@ -239,16 +239,16 @@
     "scoring_matches": 16
   },
   "Kylian Mbappé": {
-    "goals": 19,
+    "goals": 20,
     "tournaments": 3,
     "career_tiers": {
       "elite": 5,
-      "strong": 7,
+      "strong": 8,
       "mid": 4,
       "weak": 3
     },
-    "elite_share": 0.263,
-    "avg_opp_elo": 1846.6,
+    "elite_share": 0.25,
+    "avg_opp_elo": 1846.2,
     "per_tournament": [
       {
         "year": 2018,
@@ -350,26 +350,32 @@
       },
       {
         "year": 2026,
-        "goals": 7,
+        "goals": 8,
         "elite": 0,
-        "strong": 3,
+        "strong": 4,
         "mid": 2,
         "weak": 2,
-        "avg_opp_elo": 1704.4,
+        "avg_opp_elo": 1721.4,
         "opponents": [
           "Iraq",
+          "Morocco",
           "Paraguay",
           "Senegal",
           "Sweden"
         ],
         "by_tier": {
           "strong": {
-            "goals": 3,
+            "goals": 4,
             "opponents": [
               {
                 "name": "Senegal",
                 "goals": 2,
                 "elo": 1807
+              },
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1840
               },
               {
                 "name": "Paraguay",
@@ -408,7 +414,7 @@
         "Argentina"
       ]
     },
-    "scoring_matches": 11
+    "scoring_matches": 12
   },
   "Miroslav Klose": {
     "goals": 16,
