@@ -3,7 +3,7 @@
 A single-file interactive site that compares the all-time top World Cup goalscorers not by *how many*
 goals they scored, but by **how strong the teams were that they scored against**.
 
-🔗 **Live:** _(Vercel URL — add after first deploy)_
+🔗 **Live:** _(https://worldcup-scorers.vercel.app/)_
 
 ---
 

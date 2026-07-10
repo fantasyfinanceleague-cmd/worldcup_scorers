@@ -407,6 +407,20 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .roster-hint { color: var(--muted); font-size: 13px; margin: 16px 0 0; }
 .roster-hint b { color: var(--ink); }
 
+/* Mobile: the roster is a PICKER, the viz is the CONTENT. On a phone the 28-tile list buried the
+   comparison below a long scroll (#7), so reorder the panel above the list and pack tiles two-up. */
+@media (max-width: 720px){
+  .compare .wrap { display: flex; flex-direction: column; }
+  .compare-head { order: 0; }
+  .viz         { order: 1; margin-top: 8px; }
+  .roster-hint { order: 2; margin: 26px 0 12px; }
+  .roster      { order: 3; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* two-up tiles are narrow, so long names (Cristiano Ronaldo, Karl-Heinz Rummenigge) must WRAP,
+     not truncate to an ellipsis (#7). Top-align the goal count so it stays put as the name wraps. */
+  .roster .tile-head { align-items: flex-start; }
+  .roster .tile-name { white-space: normal; overflow: visible; text-overflow: clip; }
+}
+
 /* Era note */
 .era-note {
   margin: 20px 0 0; display: flex; gap: 14px; align-items: flex-start;
@@ -583,7 +597,40 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
   .arena-plot { height: 520px; padding: 26px 20px 48px 46px; }
   .aplot-inner { inset: 26px 20px 48px 46px; }
   .a-axis-label.y, .arena-stat:nth-child(n+4) { display: none; }
+  /* #5 — reject the shrunk photo bubble (a ~30px face is illegible). Each scorer renders as a plain
+     tier-coloured dot (--nt) with a white ring for separation and the goal count centred; the photo +
+     name + stats move to a tap card (#acard). The name tag would also overflow the plot edge, so hide it. */
+  .arena-plot .anode { background-image: none !important; background-color: var(--nt);
+    border: 2px solid #fff !important; }
+  .arena-plot .anode .ag { display: none; }
+  .arena-plot .anode-tag { display: none; }
+  .arena-plot .anode-badge { position: static; margin: 0; padding: 0; background: transparent;
+    border: none; box-shadow: none; color: #fff; font-size: 12px; line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,.55); }
 }
+/* Arena tap card (mobile #5): photo + name + quick stats + Compare, dismissed by an outside tap. */
+#acard { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(8px);
+  z-index: 70; width: min(320px, 92vw); display: none; gap: 12px; align-items: flex-start;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px; box-shadow: 0 18px 50px rgba(10,14,23,.35); opacity: 0;
+  transition: opacity .16s var(--ease-out), transform .16s var(--ease-out); }
+#acard.show { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); }
+#acard .ac-photo { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 10px; background-size: cover;
+  background-position: top center; display: grid; place-items: center; color: #fff;
+  font-family: var(--display); font-weight: 800; font-size: 22px; }
+#acard .ac-body { flex: 1 1 auto; min-width: 0; }
+#acard .ac-name { font-family: var(--display); font-weight: 800; text-transform: uppercase;
+  font-size: 15px; margin-bottom: 5px; line-height: 1.05; }
+#acard .ac-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px;
+  color: var(--ink-2); margin-top: 1px; }
+#acard .ac-row b { color: var(--ink); }
+#acard .ac-bar { display: flex; gap: 3px; height: 6px; margin: 8px 0 10px; border-radius: 3px; overflow: hidden; }
+#acard .ac-bar i { display: block; }
+#acard .ac-actions { display: flex; gap: 8px; }
+#acard .ac-actions button { flex: 1; font: inherit; font-size: 12px; font-weight: 700; padding: 7px 8px;
+  border-radius: 8px; cursor: pointer; }
+#acard .ac-add { background: var(--accent); color: #fff; border: none; }
+#acard .ac-close { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
 
 /* subtle tier-coloured spotlight behind the pinned player (light theme) */
 .showcase .stage::before {
@@ -751,17 +798,33 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 
 /* Mobile: unpin the showcase into a vertical stack */
 @media (max-width: 900px){
+  /* #4 — the fixed decorative layers (#fx, #progress) and the clipped hero ticker expand the mobile
+     *layout viewport* to ~659px; html{overflow-x:clip} hides the scroll (maxScrollX=0) but does NOT
+     collapse that phantom width, so scrollWidth != clientWidth. Clipping the body's x-overflow does.
+     Mobile-only: overflow:clip breaks position:sticky, and the DESKTOP pin (.stage sticky) must stay —
+     but on mobile the pin is already dropped (.stage static below), so this can't affect desktop. */
+  body { overflow-x: clip; }
   .stage { grid-template-columns: 1fr; }
   .rail { display: none; }
   .scroller { height: auto !important; }
-  .stage { position: static; height: auto; display: block; }
+  /* overflow:visible (was hidden from the pinned desktop layout) — the pinned stage clipped anything
+     wider than it; unpinned we want a real gutter, not silent clipping. body{overflow-x:clip} above
+     guards page-level horizontal width. */
+  .stage { position: static; height: auto; display: block; overflow: visible; }
   .scenes { position: static; }
+  /* 20px horizontal gutter — the scroller/stage sit OUTSIDE any .wrap, so without this the scene
+     content ran flush to (and clipped at) the viewport edge (#4). Matches the .wrap gutter. */
   .scene { position: static; opacity: 1; visibility: visible; grid-template-columns: 1fr;
-    gap: 24px; padding: 40px 0; border-bottom: 1px solid var(--line); }
+    gap: 24px; padding: 40px 20px; border-bottom: 1px solid var(--line); }
   .scene-rank { display: none; }
+  /* stack photo + accolades centered; drop the corner overlays out of absolute positioning (#3) */
+  .scene-photo-wrap { justify-self: stretch; display: flex; flex-direction: column; align-items: center; }
   .scene-photo { width: 100%; max-width: 320px; height: 400px; transform: none; opacity: 1; }
   .scene .tseg { transform: scaleX(1); opacity: 1; }
-  .scene-blurb, .acc-pill, .scene-photo-tag { transform: none; opacity: 1; }
-  .scene-accolades { position: static; flex-direction: row; margin-top: 12px; }
+  .scene-blurb, .acc-pill { transform: none; opacity: 1; }
+  /* the country·years pill duplicates the nation + "…· N World Cups" line right below the photo —
+     hide it on mobile so it can't collide with the accolade glyphs over the image edge (#3) */
+  .scene-photo-tag { display: none; }
+  .scene-accolades { position: static; flex-direction: row; justify-content: center; margin-top: 14px; }
   .scene-stats { flex-wrap: wrap; gap: 24px; }
 }

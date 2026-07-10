@@ -196,6 +196,30 @@
   activate(0);
   onScroll();
 
+  /* ---- mobile: the pin is dropped, so onScroll()->activate() never fires for scenes past the first,
+     leaving their count-up stats stuck at 0. Count each stacked scene's stats up as it scrolls into
+     view (mirrors the revealCheck idiom). Desktop is untouched — isMobile() short-circuits. ---- */
+  var mCounted = [];
+  function mobileCount() {
+    if (!isMobile()) return;
+    var vh = innerHeight;
+    scenes.forEach(function (s, i) {
+      if (mCounted[i]) return;
+      var r = s.getBoundingClientRect();
+      if (r.top < vh * 0.9 && r.bottom > 0) {
+        mCounted[i] = true;
+        s.querySelectorAll("[data-t]").forEach(function (v) {
+          countUp(v, +v.dataset.t, { suffix: v.dataset.suf || "", dur: 850 });
+        });
+      }
+    });
+  }
+  addEventListener("scroll", mobileCount, { passive: true });
+  addEventListener("resize", mobileCount);
+  mobileCount();
+  requestAnimationFrame(mobileCount);
+  setTimeout(mobileCount, 200);
+
   /* ============================================================
      COMPARISON DASHBOARD
      ============================================================ */

@@ -19,6 +19,13 @@
 
   function dom(p) { var b = "weak", bc = -1; TIERS.forEach(function (t) { if (p.tiers[t] > bc) { bc = p.tiers[t]; b = t; } }); return b; }
   function mid(p) { return (p.years[0] + p.years[1]) / 2; }
+  function isM() { return matchMedia("(max-width: 720px)").matches; }
+  function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
+  // Node diameter scales with goals. On mobile the nodes render as plain tier-coloured DOTS with the
+  // goal count centred (not photo bubbles — a ~30px face is illegible, #5), so a compact 26–48px ramp
+  // stays readable and keeps the cluster tractable; the photo moves to a tap card. Desktop unchanged.
+  function nodeSize(goals) { var t = (goals - 9) / (21 - 9); return isM() ? 26 + t * 22 : 34 + t * 40; }
+  function sizeNodes() { order.forEach(function (n) { var s = nodeSize(players[n].goals); nodes[n].style.width = nodes[n].style.height = s + "px"; }); }
 
   var ELO = (function () {
     var v = order.map(function (n) { return players[n].avgElo; });
@@ -50,6 +57,34 @@
   }
   function hideTip() { tip.style.opacity = "0"; tip.style.transform = "translateY(4px)"; }
 
+  /* ---- mobile tap card: on mobile each node is just a numbered dot, so a tap reveals the photo +
+     name + quick stats (photo-on-tap, #5). Interactive (Compare button); an outside tap dismisses it. ---- */
+  var card = document.getElementById("acard");
+  if (!card) { card = document.createElement("div"); card.id = "acard"; document.body.appendChild(card); }
+  function closeCard() { card.classList.remove("show"); document.removeEventListener("click", cardOutside, true); }
+  function cardOutside(e) { if (!card.contains(e.target)) closeCard(); }
+  function openCard(n) {
+    var p = players[n], dt = dom(p);
+    var initials = n.split(" ").map(function (w) { return w[0]; }).slice(0, 2).join("");
+    var bar = TIERS.map(function (t) { var c = p.tiers[t]; return c ? '<i style="flex:' + c + ';background:var(--' + t + ')"></i>' : ""; }).join("");
+    var photo = p.photo
+      ? '<div class="ac-photo" style="background-image:url(' + p.photo + ')"></div>'
+      : '<div class="ac-photo" style="background:var(--' + dt + ')">' + initials + '</div>';
+    card.innerHTML = photo +
+      '<div class="ac-body">' +
+        '<div class="ac-name">' + n + '</div>' +
+        '<div class="ac-row"><span>' + p.country + '</span><b>' + p.goals + ' goals</b></div>' +
+        '<div class="ac-row"><span>Elite share</span><b>' + Math.round(p.eliteShare * 100) + '%</b></div>' +
+        '<div class="ac-row"><span>Avg opp Elo</span><b>' + p.avgElo + '</b></div>' +
+        '<div class="ac-bar">' + bar + '</div>' +
+        '<div class="ac-actions"><button class="ac-add">+ Compare</button><button class="ac-close">Close</button></div>' +
+      '</div>';
+    card.querySelector(".ac-add").addEventListener("click", function (ev) { ev.stopPropagation(); if (window.WCS_addCompare) window.WCS_addCompare(n); nodes[n].classList.add("picked"); closeCard(); });
+    card.querySelector(".ac-close").addEventListener("click", function (ev) { ev.stopPropagation(); closeCard(); });
+    card.classList.add("show");
+    setTimeout(function () { document.addEventListener("click", cardOutside, true); }, 0);  // defer so the opening tap doesn't close it
+  }
+
   /* ---- stats strip ---- */
   (function () {
     var sum = 0, byTier = { elite: 0, strong: 0, mid: 0, weak: 0 };
@@ -71,23 +106,25 @@
   var nodes = {};
   order.forEach(function (n) {
     var p = players[n];
-    var size = 34 + ((p.goals - 9) / (21 - 9)) * 40;
+    var size = nodeSize(p.goals);
     var dt = dom(p);
     var nd = document.createElement("div");
     nd.className = "anode" + (p.photo ? "" : " noimg") + (window.WCS_isSelected && window.WCS_isSelected(n) ? " picked" : "");
     nd.dataset.name = n;
     nd.style.width = nd.style.height = size + "px";
     nd.style.borderColor = "var(--" + dt + ")";
+    nd.style.setProperty("--nt", "var(--" + dt + ")");   // tier fill for the mobile dot (CSS reads --nt)
     if (p.photo) nd.style.backgroundImage = "url(" + p.photo + ")";
     else nd.style.background = "var(--" + dt + ")";
     var initials = n.split(" ").map(function (w) { return w[0]; }).slice(0, 2).join("");
     nd.innerHTML = (p.photo ? "" : '<span class="ag">' + initials + '</span>') +
       '<span class="anode-badge num" style="border-color:var(--' + dt + ')">' + p.goals + '</span>' +
       '<span class="anode-tag">' + n + '</span>';
-    nd.addEventListener("mouseenter", function (e) { setFocus(n); showTip(n, e); });
-    nd.addEventListener("mousemove", function (e) { moveTip(e.clientX, e.clientY); });
-    nd.addEventListener("mouseleave", function () { setFocus(null); hideTip(); });
-    nd.addEventListener("click", function () {
+    nd.addEventListener("mouseenter", function (e) { if (isM()) return; setFocus(n); showTip(n, e); });
+    nd.addEventListener("mousemove", function (e) { if (isM()) return; moveTip(e.clientX, e.clientY); });
+    nd.addEventListener("mouseleave", function () { if (isM()) return; setFocus(null); hideTip(); });
+    nd.addEventListener("click", function (e) {
+      if (isM()) { e.stopPropagation(); openCard(n); return; }   // mobile: tap → photo card (#5)
       if (window.WCS_addCompare) window.WCS_addCompare(n);
       nd.classList.add("picked"); hideTip();
     });
@@ -111,12 +148,23 @@
   }
   function place() {
     if (layout === "lanes") { placeLanes(); return; }
+    var mobile = isM();
+    var rect = inner.getBoundingClientRect(), iw = rect.width || 1, ih = rect.height || 1;
     order.forEach(function (n) {
-      var q = pos(n);
-      nodes[n].style.left = q.x + "%"; nodes[n].style.top = q.y + "%";
+      var q = pos(n), x = q.x, y = q.y;
+      if (mobile) {
+        // Keep every node fully inside the plot box: the ticks, tick-labels and axis titles all live
+        // in the padding OUTSIDE this box, so a node that doesn't overhang an edge can't overlap them.
+        // Hard constraint from the mobile bug report (#5). Desktop is left exactly as-was.
+        var half = nodeSize(players[n].goals) / 2, mx = half / iw * 100, my = half / ih * 100;
+        x = clamp(x, mx, 100 - mx); y = clamp(y, my, 100 - my);
+      }
+      nodes[n].style.left = x + "%"; nodes[n].style.top = y + "%";
     });
   }
   function placeLanes() {
+    var mobile = isM();
+    var rect = inner.getBoundingClientRect(), iw = rect.width || 1;
     var groups = { elite: [], strong: [], mid: [], weak: [] };
     order.forEach(function (n) { groups[dom(players[n])].push(n); });
     TIERS.forEach(function (t, i) {
@@ -124,7 +172,16 @@
       var cy = (i + 0.5) / 4 * 100;
       var k = lane.length;
       lane.forEach(function (n, j) {
-        var x = 20 + (k > 1 ? (j / (k - 1)) * 76 : 38);
+        var x;
+        if (mobile) {
+          // Reserve a left gutter (76px) the nodes cannot enter, so the tier label (left:0, INSIDE the
+          // box) is never covered (#6); inset the right end by the node radius so it stays fully inside.
+          var half = nodeSize(players[n].goals) / 2;
+          var lo = (76 + half) / iw * 100, hi = 100 - half / iw * 100;
+          x = k > 1 ? lo + (j / (k - 1)) * (hi - lo) : (lo + hi) / 2;
+        } else {
+          x = 20 + (k > 1 ? (j / (k - 1)) * 76 : 38);
+        }
         nodes[n].style.left = x + "%"; nodes[n].style.top = cy + "%";
       });
     });
@@ -185,6 +242,10 @@
   });
 
   render();
+  // Re-size (mobile↔desktop ramp) and re-place (px-based clamps depend on live plot dimensions) on
+  // resize / orientation change.
+  var rz;
+  addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { sizeNodes(); place(); }, 150); });
   (reduce ? function (f) { f(); } : function (f) { requestAnimationFrame(function () { requestAnimationFrame(f); }); })(function () {
     plot.classList.add("shown");
   });
