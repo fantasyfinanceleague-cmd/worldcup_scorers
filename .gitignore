@@ -33,3 +33,11 @@ env/
 
 # Claude Design handoff bundle (imported for the redesign; not part of the build)
 world-cup-scorers-design-system/
+
+# ── Local mobile-verification tooling: puppeteer-core deps + the verify harness, phone bug
+#    screenshots and internal notes. Not part of the build, and the phone shots must not be
+#    published to this public repo. ──
+node_modules/
+package.json
+package-lock.json
+ui/mobile/

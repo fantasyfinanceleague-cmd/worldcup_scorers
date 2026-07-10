@@ -237,7 +237,10 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 /* ============================================================
    WALKTHROUGH SHOWCASE (pinned)
    ============================================================ */
-.showcase-intro { padding: 88px 0 8px; }
+/* vertical only — the shorthand "88px 0 8px" was resetting the horizontal padding to 0, cancelling
+   the gutter this element inherits from .wrap (0 40px / 0 20px mobile) and pinning the title flush
+   left, out of line with every other section. Keep the .wrap gutter. */
+.showcase-intro { padding-top: 88px; padding-bottom: 8px; }
 .showcase-intro h2 {
   font-family: var(--display); font-weight: 800; text-transform: uppercase;
   font-size: clamp(28px, 4vw, 52px); line-height: 1; letter-spacing: -.02em; margin: 18px 0 0;
@@ -331,7 +334,7 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
   display: flex; gap: 4px; height: 56px; align-items: stretch;
 }
 .tseg {
-  border-radius: 8px; position: relative; overflow: hidden; cursor: default;
+  border-radius: 8px; position: relative; overflow: hidden; cursor: pointer;
   display: flex; align-items: flex-end; padding: 8px;
   min-width: 0; flex-grow: 0; flex-basis: 0;
   transform: scaleX(0); transform-origin: left; opacity: 0;
@@ -407,6 +410,20 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .roster-hint { color: var(--muted); font-size: 13px; margin: 16px 0 0; }
 .roster-hint b { color: var(--ink); }
 
+/* Mobile: the roster is a PICKER, the viz is the CONTENT. On a phone the 28-tile list buried the
+   comparison below a long scroll (#7), so reorder the panel above the list and pack tiles two-up. */
+@media (max-width: 720px){
+  .compare .wrap { display: flex; flex-direction: column; }
+  .compare-head { order: 0; }
+  .viz         { order: 1; margin-top: 8px; }
+  .roster-hint { order: 2; margin: 26px 0 12px; }
+  .roster      { order: 3; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* two-up tiles are narrow, so long names (Cristiano Ronaldo, Karl-Heinz Rummenigge) must WRAP,
+     not truncate to an ellipsis (#7). Top-align the goal count so it stays put as the name wraps. */
+  .roster .tile-head { align-items: flex-start; }
+  .roster .tile-name { white-space: normal; overflow: visible; text-overflow: clip; }
+}
+
 /* Era note */
 .era-note {
   margin: 20px 0 0; display: flex; gap: 14px; align-items: flex-start;
@@ -476,7 +493,9 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .field-tick.x { transform: translateX(-50%); bottom: -24px; }
 .field-tick.y { right: calc(100% + 10px); transform: translateY(50%); text-align: right; }
 .field-axis { position: absolute; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
-.field-axis.x { bottom: -44px; left: 50%; transform: translateX(-50%); }
+/* nowrap: the label is absolute at left:50%, so without it only half the width is available and
+   "Average opponent Elo →" wraps to two lines, colliding with the tick numbers on narrow mobile. */
+.field-axis.x { bottom: -44px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .field-axis.y { top: 50%; left: -54px; transform: rotate(-90deg) translateX(50%); transform-origin: left center; white-space: nowrap; }
 .fnode {
   position: absolute; transform: translate(-50%, 50%) scale(.2); opacity: 0;
@@ -551,7 +570,7 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .a-tick.x { transform: translateX(-50%); top: calc(100% + 8px); }
 .a-tick.y { right: calc(100% + 10px); transform: translateY(-50%); }
 .a-axis-label { position: absolute; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
-.a-axis-label.x { bottom: -46px; left: 50%; transform: translateX(-50%); }
+.a-axis-label.x { bottom: -46px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .a-axis-label.y { top: 50%; left: -52px; transform: rotate(-90deg) translateX(50%); transform-origin: left center; white-space: nowrap; }
 .a-quad { position: absolute; inset: 0; background: linear-gradient(135deg, transparent 48%, rgba(0,184,102,.05)); border-radius: 10px; }
 .a-lane-label { position: absolute; left: 0; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; transform: translateY(-50%); display: flex; align-items: center; gap: 7px; }
@@ -583,7 +602,43 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
   .arena-plot { height: 520px; padding: 26px 20px 48px 46px; }
   .aplot-inner { inset: 26px 20px 48px 46px; }
   .a-axis-label.y, .arena-stat:nth-child(n+4) { display: none; }
+  /* #5 — reject the shrunk photo bubble (a ~30px face is illegible). Each scorer renders as a plain
+     tier-coloured dot (--nt) with a white ring for separation and the goal count centred; the photo +
+     name + stats move to a tap card (#acard). The name tag would also overflow the plot edge, so hide it. */
+  .arena-plot .anode { background-image: none !important; background-color: var(--nt);
+    border: 2px solid #fff !important; }
+  /* The comparison is pre-seeded with 4 players; on the mobile dot view their blue "picked" rings
+     read as stray selections the user never made. Drop the ring here — selection lives in Compare. */
+  .arena-plot .anode.picked { outline: none; }
+  .arena-plot .anode .ag { display: none; }
+  .arena-plot .anode-tag { display: none; }
+  .arena-plot .anode-badge { position: static; margin: 0; padding: 0; background: transparent;
+    border: none; box-shadow: none; color: #fff; font-size: 12px; line-height: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,.55); }
 }
+/* Arena tap card (mobile #5): photo + name + quick stats + Compare, dismissed by an outside tap. */
+#acard { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(8px);
+  z-index: 70; width: min(320px, 92vw); display: none; gap: 12px; align-items: flex-start;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px; box-shadow: 0 18px 50px rgba(10,14,23,.35); opacity: 0;
+  transition: opacity .16s var(--ease-out), transform .16s var(--ease-out); }
+#acard.show { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); }
+#acard .ac-photo { flex: 0 0 72px; width: 72px; height: 72px; border-radius: 10px; background-size: cover;
+  background-position: top center; display: grid; place-items: center; color: #fff;
+  font-family: var(--display); font-weight: 800; font-size: 22px; }
+#acard .ac-body { flex: 1 1 auto; min-width: 0; }
+#acard .ac-name { font-family: var(--display); font-weight: 800; text-transform: uppercase;
+  font-size: 15px; margin-bottom: 5px; line-height: 1.05; }
+#acard .ac-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px;
+  color: var(--ink-2); margin-top: 1px; }
+#acard .ac-row b { color: var(--ink); }
+#acard .ac-bar { display: flex; gap: 3px; height: 6px; margin: 8px 0 10px; border-radius: 3px; overflow: hidden; }
+#acard .ac-bar i { display: block; }
+#acard .ac-actions { display: flex; gap: 8px; }
+#acard .ac-actions button { flex: 1; font: inherit; font-size: 12px; font-weight: 700; padding: 7px 8px;
+  border-radius: 8px; cursor: pointer; }
+#acard .ac-add { background: var(--accent); color: #fff; border: none; }
+#acard .ac-close { background: transparent; color: var(--ink-2); border: 1px solid var(--line); }
 
 /* subtle tier-coloured spotlight behind the pinned player (light theme) */
 .showcase .stage::before {
@@ -703,6 +758,19 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 #ddtip .ddt-tier { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: .06em; color: #e8ecf3; }
 #ddtip .ddt-tier i { width: 9px; height: 9px; border-radius: 3px; }
+
+/* Tier-segment tooltip (eleven+ walkthrough): the opponents + World Cup behind each tier's goals. */
+#sstip { position: fixed; z-index: 70; pointer-events: none; opacity: 0; transform: translateY(4px);
+  background: var(--ink); color: #fff; border-radius: 12px; padding: 11px 13px; min-width: 168px;
+  max-width: min(280px, 86vw); box-shadow: 0 14px 40px rgba(10,14,23,.4); font-size: 12.5px;
+  transition: opacity .14s var(--ease), transform .14s var(--ease); }
+#sstip.show { opacity: 1; transform: none; }
+#sstip .sst-hd { display: flex; align-items: center; gap: 7px; font-family: var(--display); font-weight: 800;
+  text-transform: uppercase; font-size: 13px; letter-spacing: -.01em; margin-bottom: 7px; }
+#sstip .sst-hd i { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+#sstip .sst-hd span { margin-left: auto; color: #c8cdd8; font-variant-numeric: tabular-nums; }
+#sstip .sst-row { display: flex; justify-content: space-between; gap: 16px; color: #c8cdd8; padding: 2px 0; }
+#sstip .sst-row b { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 @media (max-width: 860px){
   .deep-body { grid-template-columns: 1fr; }
   .dd-profile { position: static; }
@@ -751,17 +819,33 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 
 /* Mobile: unpin the showcase into a vertical stack */
 @media (max-width: 900px){
+  /* #4 — the fixed decorative layers (#fx, #progress) and the clipped hero ticker expand the mobile
+     *layout viewport* to ~659px; html{overflow-x:clip} hides the scroll (maxScrollX=0) but does NOT
+     collapse that phantom width, so scrollWidth != clientWidth. Clipping the body's x-overflow does.
+     Mobile-only: overflow:clip breaks position:sticky, and the DESKTOP pin (.stage sticky) must stay —
+     but on mobile the pin is already dropped (.stage static below), so this can't affect desktop. */
+  body { overflow-x: clip; }
   .stage { grid-template-columns: 1fr; }
   .rail { display: none; }
   .scroller { height: auto !important; }
-  .stage { position: static; height: auto; display: block; }
+  /* overflow:visible (was hidden from the pinned desktop layout) — the pinned stage clipped anything
+     wider than it; unpinned we want a real gutter, not silent clipping. body{overflow-x:clip} above
+     guards page-level horizontal width. */
+  .stage { position: static; height: auto; display: block; overflow: visible; }
   .scenes { position: static; }
+  /* 20px horizontal gutter — the scroller/stage sit OUTSIDE any .wrap, so without this the scene
+     content ran flush to (and clipped at) the viewport edge (#4). Matches the .wrap gutter. */
   .scene { position: static; opacity: 1; visibility: visible; grid-template-columns: 1fr;
-    gap: 24px; padding: 40px 0; border-bottom: 1px solid var(--line); }
+    gap: 24px; padding: 40px 20px; border-bottom: 1px solid var(--line); }
   .scene-rank { display: none; }
+  /* stack photo + accolades centered; drop the corner overlays out of absolute positioning (#3) */
+  .scene-photo-wrap { justify-self: stretch; display: flex; flex-direction: column; align-items: center; }
   .scene-photo { width: 100%; max-width: 320px; height: 400px; transform: none; opacity: 1; }
   .scene .tseg { transform: scaleX(1); opacity: 1; }
-  .scene-blurb, .acc-pill, .scene-photo-tag { transform: none; opacity: 1; }
-  .scene-accolades { position: static; flex-direction: row; margin-top: 12px; }
+  .scene-blurb, .acc-pill { transform: none; opacity: 1; }
+  /* the country·years pill duplicates the nation + "…· N World Cups" line right below the photo —
+     hide it on mobile so it can't collide with the accolade glyphs over the image edge (#3) */
+  .scene-photo-tag { display: none; }
+  .scene-accolades { position: static; flex-direction: row; justify-content: center; margin-top: 14px; }
   .scene-stats { flex-wrap: wrap; gap: 24px; }
 }

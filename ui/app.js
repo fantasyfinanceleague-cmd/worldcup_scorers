@@ -155,6 +155,46 @@
     railWrap.appendChild(ri);
   });
 
+  /* ---- tier-segment tooltip: tap (or hover) a tier block to see the opponents + the World Cup
+     each of that tier's goals came against. Clamped on-screen and dismissed on scroll — same rules
+     as the deep-dive tip, so it can't stick or run off the edge. ---- */
+  (function () {
+    var stip = el("div"); stip.id = "sstip"; document.body.appendChild(stip);
+    function moveTip(x, y) {
+      var pad = 8, r = stip.getBoundingClientRect();
+      var nx = x + 14; if (nx + r.width > innerWidth - pad) nx = x - r.width - 14;
+      var ny = y - r.height - 12; if (ny < pad) ny = y + 18;
+      nx = Math.max(pad, Math.min(nx, innerWidth - r.width - pad));
+      ny = Math.max(pad, Math.min(ny, innerHeight - r.height - pad));
+      stip.style.left = nx + "px"; stip.style.top = ny + "px";
+    }
+    function hide() { stip.classList.remove("show"); stip.dataset.key = ""; }
+    function show(name, t, x, y) {
+      var p = players[name], rows = (p.detail && p.detail[t]) || [];
+      var body = rows.map(function (d) {
+        return '<div class="sst-row"><span>' + d.opp + '</span><b>' + d.year +
+          (d.goals > 1 ? " · ×" + d.goals : "") + '</b></div>';
+      }).join("") || '<div class="sst-row"><span>No goals in this tier</span></div>';
+      stip.innerHTML = '<div class="sst-hd"><i style="background:var(--' + t + ')"></i>' +
+        TIER_LABEL[t] + ' tier<span>' + p.tiers[t] + '</span></div>' + body;
+      stip.classList.add("show"); stip.dataset.key = name + "|" + t; moveTip(x, y);
+    }
+    function info(seg) { var sc = seg.closest(".scene"); return sc ? { name: walk[+sc.dataset.idx], t: seg.dataset.tier } : null; }
+    // desktop: hover
+    scenesWrap.addEventListener("mouseover", function (e) { if (isMobile()) return; var s = e.target.closest(".tseg"); var i = s && info(s); if (i) show(i.name, i.t, e.clientX, e.clientY); });
+    scenesWrap.addEventListener("mousemove", function (e) { if (isMobile()) return; if (stip.classList.contains("show") && e.target.closest(".tseg")) moveTip(e.clientX, e.clientY); });
+    scenesWrap.addEventListener("mouseout", function (e) { if (isMobile()) return; if (e.target.closest(".tseg")) hide(); });
+    // mobile: tap to toggle
+    scenesWrap.addEventListener("click", function (e) {
+      if (!isMobile()) return; var s = e.target.closest(".tseg"); var i = s && info(s); if (!i) return;
+      var key = i.name + "|" + i.t, r = s.getBoundingClientRect();
+      if (stip.classList.contains("show") && stip.dataset.key === key) { hide(); return; }
+      show(i.name, i.t, e.clientX || (r.left + r.width / 2), e.clientY || r.top);
+    });
+    addEventListener("scroll", hide, { passive: true });
+    document.addEventListener("click", function (e) { if (!e.target.closest(".tseg") && !e.target.closest("#sstip")) hide(); }, true);
+  })();
+
   var scenes = [].slice.call(scenesWrap.children);
   var railItems = [].slice.call(railWrap.children);
   var cur = -1;
@@ -196,6 +236,30 @@
   activate(0);
   onScroll();
 
+  /* ---- mobile: the pin is dropped, so onScroll()->activate() never fires for scenes past the first,
+     leaving their count-up stats stuck at 0. Count each stacked scene's stats up as it scrolls into
+     view (mirrors the revealCheck idiom). Desktop is untouched — isMobile() short-circuits. ---- */
+  var mCounted = [];
+  function mobileCount() {
+    if (!isMobile()) return;
+    var vh = innerHeight;
+    scenes.forEach(function (s, i) {
+      if (mCounted[i]) return;
+      var r = s.getBoundingClientRect();
+      if (r.top < vh * 0.9 && r.bottom > 0) {
+        mCounted[i] = true;
+        s.querySelectorAll("[data-t]").forEach(function (v) {
+          countUp(v, +v.dataset.t, { suffix: v.dataset.suf || "", dur: 850 });
+        });
+      }
+    });
+  }
+  addEventListener("scroll", mobileCount, { passive: true });
+  addEventListener("resize", mobileCount);
+  mobileCount();
+  requestAnimationFrame(mobileCount);
+  setTimeout(mobileCount, 200);
+
   /* ============================================================
      COMPARISON DASHBOARD
      ============================================================ */
@@ -230,6 +294,7 @@
   }
   function showTip(n, e) { vtip.innerHTML = tipHTML(n); vtip.classList.add("show"); moveTip(e.clientX, e.clientY); }
   function hideTip() { vtip.classList.remove("show"); }
+  addEventListener("scroll", hideTip, { passive: true });   // touch: no mouseleave — dismiss on scroll
 
   function firstYear(n) { return players[n].years[0]; }
   // THE ranking rule — must stay in lockstep with _rank_key in build_ui.py. goals ↓ → fewest World Cups
@@ -375,10 +440,14 @@
       '</div>';
     [].forEach.call(vizStage.querySelectorAll(".fnode"), function (nd) {
       var n = nd.dataset.name;
-      nd.addEventListener("mouseenter", function (e) { setFocus(n); showTip(n, e); });
-      nd.addEventListener("mousemove", function (e) { moveTip(e.clientX, e.clientY); });
-      nd.addEventListener("mouseleave", function () { setFocus(null); hideTip(); });
+      // Hover preview is desktop-only: touch has no mouseleave, so a tap-shown tip sticks forever
+      // (it did — Compare » The Field). Guard the hover handlers, and clear the tip on the tap that
+      // removes the node so nothing is left orphaned on either platform.
+      nd.addEventListener("mouseenter", function (e) { if (isMobile()) return; setFocus(n); showTip(n, e); });
+      nd.addEventListener("mousemove", function (e) { if (isMobile()) return; moveTip(e.clientX, e.clientY); });
+      nd.addEventListener("mouseleave", function () { if (isMobile()) return; setFocus(null); hideTip(); });
       nd.addEventListener("click", function () {
+        hideTip(); setFocus(null);
         selected.splice(selected.indexOf(n), 1); buildRoster(); renderViz();
       });
     });

@@ -134,9 +134,9 @@ COUNTRY = {
 # so every figure they cite matches the numbers the page renders. (The design mock shipped its own,
 # slightly reworded, blurbs authored against a fresher data pull; we keep the repo's for consistency.)
 BLURB = {
-    "Lionel Messi": "Five World Cups, 2006–2026 — the all-time record, and the widest spread on this "
-        "page. His elite-tier goals, both in the 2022 final against France, sit at the head of a long "
-        "tail of mid- and weak-tier goals built up across five tournaments.",
+    "Lionel Messi": "Six World Cups, 2006–2026 — level with Cristiano Ronaldo for the most editions "
+        "and the widest span on the page. His elite-tier goals, both in the 2022 final against France, "
+        "sit at the head of a long tail of mid- and weak-tier goals built up across six tournaments.",
     "Kylian Mbappé": "Three World Cups, 2018–2026 — a tally weighted toward the top tiers, elite and "
         "strong together making up most of the bar. Five of those goals came against Argentina (twice "
         "in 2018, three times in the 2022 final); the lower-tier goals come mostly from his 2026 run.",
@@ -144,8 +144,8 @@ BLURB = {
         "weak-tier goals from the 2018 group stage (Panama, Tunisia) set against elite-tier strikes on "
         "France (2022) and Croatia twice (2026), with little in the middle tiers. The * on his elite "
         "share marks a 2018 goal against Colombia that sits exactly on the quartile line.",
-    "Cristiano Ronaldo": "Portugal, across six World Cups (2006–2026) — more editions than any other "
-        "scorer here. The bar splits to the extremes: the elite and weak tiers are its two heaviest "
+    "Cristiano Ronaldo": "Portugal, across six World Cups (2006–2026) — level with Messi for the most "
+        "editions of any scorer here. The bar splits to the extremes: the elite and weak tiers are its two heaviest "
         "blocks, with little between them. The elite goals are the 2018 hat-trick against Spain and a "
         "2026 strike on Croatia; the weak-tier goals gather against North Korea (2010), Ghana (2014 and "
         "2022) and Morocco (2018), either side of a lone strong goal against Iran (2006) and a mid pair "
@@ -153,15 +153,16 @@ BLURB = {
     "Miroslav Klose": "Four World Cups, 2002–2014, 16 goals split almost evenly across the tiers (five "
         "elite, five mid, five weak). The elite goals span three tournaments — Argentina in 2006 and "
         "2010, England in 2010, Brazil in 2014 — while the 2002 haul came against weaker sides.",
-    "Ronaldo": "Three World Cups, 1998–2006, 15 goals. The bar is dominated by the mid tier (nine "
-        "goals) — the 2002 winning run came largely against Turkey, China and Costa Rica. His one "
-        "elite-tier goal, marked *, sits just inside the quartile cut.",
+    "Ronaldo": "Four World Cups, 1994–2006, 15 goals — though the first came only after he sat the 1994 "
+        "tournament as an unused teenager. The bar is dominated by the mid tier (nine goals): the 2002 "
+        "winning run came largely against Turkey, China and Costa Rica. His one elite-tier goal, marked "
+        "*, sits just inside the quartile cut.",
     "Gerd Müller": "Two World Cups, 1970–1974, 14 goals in a notably even spread — four each in the "
         "elite, strong and mid tiers. The elite goals came against Italy (twice) and England in 1970, "
         "and Poland in the 1974 semi-final.",
     "Just Fontaine": "One World Cup, 1958 — all 13 goals in a single edition, still the record for one "
-        "tournament. The distribution leans strong (six goals); the lone elite goal, against that "
-        "year's fourth-ranked side Brazil, sits right on the quartile line.",
+        "tournament. The distribution leans strong; his one elite-tier goal came against eventual "
+        "champions Brazil.",
     "Pelé": "Four World Cups, 1958–1970, 12 goals — a bar dominated by the mid tier (nine goals), "
         "reflecting the opponents drawn across four tournaments. His single elite-tier goal came "
         "against Italy in the 1970 final.",
@@ -224,6 +225,36 @@ if _missing_apps or _bad_apps or _bad_tp or _bad_span:
     for n, sp, tp in _bad_span:
         print(f"HALT: '{n}' span {sp[0]}–{sp[1]} too short for {tp} World Cups (need ≥{4*(tp-1)} years) — bad years/count.")
     print("Refusing to write index.html. (No file written; last-good stays live.)")
+    sys.exit(1)
+
+# ---- Blurb-consistency guard (server-side HALT). Blurbs are hand-written prose OUTSIDE the gates, so
+# they drift whenever a derived field changes — as happened when tournaments_played was corrected to
+# squad membership (Messi's blurb still said "Five World Cups" over a "6 World Cups" header). This flags
+# the two header claims a regex can machine-check against derived data, and HALTS on contradiction —
+# same as every other invariant:
+#   (a) any "<number-word> World Cup(s)" phrase that disagrees with tournaments_played, and
+#   (b) any "YYYY–YYYY" year range that disagrees with the squad span.
+# Deliberately narrow — it does NOT police goal counts, named opponents, or tier claims; those need the
+# human sweep. Scoped to the "World Cup(s)" phrasing (a bare "<word> tournaments" legitimately describes
+# a subset — "the elite goals span three tournaments") and to full YYYY–YYYY ranges (lone years appear
+# all over the prose as event dates and are not the header claim). ----
+_WORDNUM = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
+            "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+_blurb_bad = []
+for _n, _b in BLURB.items():
+    _tp = tournaments_played(_n)
+    _sp = span(_n)
+    for _m in re.finditer(r"\b(one|two|three|four|five|six|seven|eight|nine|ten)\s+World\s+Cups?\b", _b, re.I):
+        if _WORDNUM[_m.group(1).lower()] != _tp:
+            _blurb_bad.append((_n, _m.group(0), f"tournaments_played is {_tp}"))
+    for _m in re.finditer(r"\b(\d{4})\s*[-–—]\s*(\d{4})\b", _b):
+        if (int(_m.group(1)), int(_m.group(2))) != (_sp[0], _sp[1]):
+            _blurb_bad.append((_n, _m.group(0), f"squad span is {_sp[0]}–{_sp[1]}"))
+if _blurb_bad:
+    for _n, _phrase, _why in _blurb_bad:
+        print(f"HALT: '{_n}' blurb says \"{_phrase}\" but {_why} — prose contradicts the header.")
+    print("Refusing to write index.html — a walkthrough card would show a blurb that disagrees with its own "
+          "stats. Fix the blurb, then rebuild. (No file written; last-good stays live.)")
     sys.exit(1)
 
 
@@ -513,6 +544,8 @@ window.WCS = %%WCS%%;
 <script>
 %%JS%%
 </script>
+<!-- Vercel Web Analytics — static-site integration (script auto-served by Vercel when Analytics is enabled). -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
 """

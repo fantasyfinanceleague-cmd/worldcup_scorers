@@ -25,9 +25,13 @@
   /* tooltip */
   var tip = document.createElement("div"); tip.id = "ddtip"; document.body.appendChild(tip);
   function moveTip(x, y) {
-    var r = tip.getBoundingClientRect(), nx = x + 15, ny = y - r.height - 12;
-    if (nx + r.width > innerWidth) nx = x - r.width - 15;
-    if (ny < 4) ny = y + 18;
+    var pad = 8, r = tip.getBoundingClientRect();
+    var nx = x + 15; if (nx + r.width > innerWidth - pad) nx = x - r.width - 15;
+    var ny = y - r.height - 12; if (ny < pad) ny = y + 18;
+    // clamp both axes into the viewport — near an edge the flips above can still overflow (e.g. a
+    // pill low on a narrow screen pushed the card off the left/bottom, cutting it off).
+    nx = Math.max(pad, Math.min(nx, innerWidth - r.width - pad));
+    ny = Math.max(pad, Math.min(ny, innerHeight - r.height - pad));
     tip.style.left = nx + "px"; tip.style.top = ny + "px";
   }
   function showTip(pill, e) {
@@ -152,6 +156,8 @@
   body.addEventListener("mouseover", function (e) { var p = e.target.closest(".dd-pill"); if (p) showTip(p, e); });
   body.addEventListener("mousemove", function (e) { if (tip.classList.contains("show")) moveTip(e.clientX, e.clientY); });
   body.addEventListener("mouseout", function (e) { if (e.target.closest(".dd-pill")) hideTip(); });
+  // touch has no reliable mouseout on scroll, so a tapped tip would linger on screen — dismiss on scroll.
+  addEventListener("scroll", hideTip, { passive: true });
 
   render(false);
 })();
