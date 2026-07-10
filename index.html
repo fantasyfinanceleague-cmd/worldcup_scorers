@@ -342,7 +342,7 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
   display: flex; gap: 4px; height: 56px; align-items: stretch;
 }
 .tseg {
-  border-radius: 8px; position: relative; overflow: hidden; cursor: default;
+  border-radius: 8px; position: relative; overflow: hidden; cursor: pointer;
   display: flex; align-items: flex-end; padding: 8px;
   min-width: 0; flex-grow: 0; flex-basis: 0;
   transform: scaleX(0); transform-origin: left; opacity: 0;
@@ -766,6 +766,19 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 #ddtip .ddt-tier { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: .06em; color: #e8ecf3; }
 #ddtip .ddt-tier i { width: 9px; height: 9px; border-radius: 3px; }
+
+/* Tier-segment tooltip (eleven+ walkthrough): the opponents + World Cup behind each tier's goals. */
+#sstip { position: fixed; z-index: 70; pointer-events: none; opacity: 0; transform: translateY(4px);
+  background: var(--ink); color: #fff; border-radius: 12px; padding: 11px 13px; min-width: 168px;
+  max-width: min(280px, 86vw); box-shadow: 0 14px 40px rgba(10,14,23,.4); font-size: 12.5px;
+  transition: opacity .14s var(--ease), transform .14s var(--ease); }
+#sstip.show { opacity: 1; transform: none; }
+#sstip .sst-hd { display: flex; align-items: center; gap: 7px; font-family: var(--display); font-weight: 800;
+  text-transform: uppercase; font-size: 13px; letter-spacing: -.01em; margin-bottom: 7px; }
+#sstip .sst-hd i { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+#sstip .sst-hd span { margin-left: auto; color: #c8cdd8; font-variant-numeric: tabular-nums; }
+#sstip .sst-row { display: flex; justify-content: space-between; gap: 16px; color: #c8cdd8; padding: 2px 0; }
+#sstip .sst-row b { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
 @media (max-width: 860px){
   .deep-body { grid-template-columns: 1fr; }
   .dd-profile { position: static; }
@@ -1447,6 +1460,46 @@ window.WCS = {"players":{"Lionel Messi":{"goals":21,"tournaments":6,"tiers":{"el
     });
     railWrap.appendChild(ri);
   });
+
+  /* ---- tier-segment tooltip: tap (or hover) a tier block to see the opponents + the World Cup
+     each of that tier's goals came against. Clamped on-screen and dismissed on scroll — same rules
+     as the deep-dive tip, so it can't stick or run off the edge. ---- */
+  (function () {
+    var stip = el("div"); stip.id = "sstip"; document.body.appendChild(stip);
+    function moveTip(x, y) {
+      var pad = 8, r = stip.getBoundingClientRect();
+      var nx = x + 14; if (nx + r.width > innerWidth - pad) nx = x - r.width - 14;
+      var ny = y - r.height - 12; if (ny < pad) ny = y + 18;
+      nx = Math.max(pad, Math.min(nx, innerWidth - r.width - pad));
+      ny = Math.max(pad, Math.min(ny, innerHeight - r.height - pad));
+      stip.style.left = nx + "px"; stip.style.top = ny + "px";
+    }
+    function hide() { stip.classList.remove("show"); stip.dataset.key = ""; }
+    function show(name, t, x, y) {
+      var p = players[name], rows = (p.detail && p.detail[t]) || [];
+      var body = rows.map(function (d) {
+        return '<div class="sst-row"><span>' + d.opp + '</span><b>' + d.year +
+          (d.goals > 1 ? " · ×" + d.goals : "") + '</b></div>';
+      }).join("") || '<div class="sst-row"><span>No goals in this tier</span></div>';
+      stip.innerHTML = '<div class="sst-hd"><i style="background:var(--' + t + ')"></i>' +
+        TIER_LABEL[t] + ' tier<span>' + p.tiers[t] + '</span></div>' + body;
+      stip.classList.add("show"); stip.dataset.key = name + "|" + t; moveTip(x, y);
+    }
+    function info(seg) { var sc = seg.closest(".scene"); return sc ? { name: walk[+sc.dataset.idx], t: seg.dataset.tier } : null; }
+    // desktop: hover
+    scenesWrap.addEventListener("mouseover", function (e) { if (isMobile()) return; var s = e.target.closest(".tseg"); var i = s && info(s); if (i) show(i.name, i.t, e.clientX, e.clientY); });
+    scenesWrap.addEventListener("mousemove", function (e) { if (isMobile()) return; if (stip.classList.contains("show") && e.target.closest(".tseg")) moveTip(e.clientX, e.clientY); });
+    scenesWrap.addEventListener("mouseout", function (e) { if (isMobile()) return; if (e.target.closest(".tseg")) hide(); });
+    // mobile: tap to toggle
+    scenesWrap.addEventListener("click", function (e) {
+      if (!isMobile()) return; var s = e.target.closest(".tseg"); var i = s && info(s); if (!i) return;
+      var key = i.name + "|" + i.t, r = s.getBoundingClientRect();
+      if (stip.classList.contains("show") && stip.dataset.key === key) { hide(); return; }
+      show(i.name, i.t, e.clientX || (r.left + r.width / 2), e.clientY || r.top);
+    });
+    addEventListener("scroll", hide, { passive: true });
+    document.addEventListener("click", function (e) { if (!e.target.closest(".tseg") && !e.target.closest("#sstip")) hide(); }, true);
+  })();
 
   var scenes = [].slice.call(scenesWrap.children);
   var railItems = [].slice.call(railWrap.children);
