@@ -245,7 +245,10 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 /* ============================================================
    WALKTHROUGH SHOWCASE (pinned)
    ============================================================ */
-.showcase-intro { padding: 88px 0 8px; }
+/* vertical only — the shorthand "88px 0 8px" was resetting the horizontal padding to 0, cancelling
+   the gutter this element inherits from .wrap (0 40px / 0 20px mobile) and pinning the title flush
+   left, out of line with every other section. Keep the .wrap gutter. */
+.showcase-intro { padding-top: 88px; padding-bottom: 8px; }
 .showcase-intro h2 {
   font-family: var(--display); font-weight: 800; text-transform: uppercase;
   font-size: clamp(28px, 4vw, 52px); line-height: 1; letter-spacing: -.02em; margin: 18px 0 0;
