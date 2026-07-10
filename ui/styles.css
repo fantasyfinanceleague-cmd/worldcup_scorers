@@ -490,7 +490,9 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .field-tick.x { transform: translateX(-50%); bottom: -24px; }
 .field-tick.y { right: calc(100% + 10px); transform: translateY(50%); text-align: right; }
 .field-axis { position: absolute; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
-.field-axis.x { bottom: -44px; left: 50%; transform: translateX(-50%); }
+/* nowrap: the label is absolute at left:50%, so without it only half the width is available and
+   "Average opponent Elo →" wraps to two lines, colliding with the tick numbers on narrow mobile. */
+.field-axis.x { bottom: -44px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .field-axis.y { top: 50%; left: -54px; transform: rotate(-90deg) translateX(50%); transform-origin: left center; white-space: nowrap; }
 .fnode {
   position: absolute; transform: translate(-50%, 50%) scale(.2); opacity: 0;
@@ -565,7 +567,7 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
 .a-tick.x { transform: translateX(-50%); top: calc(100% + 8px); }
 .a-tick.y { right: calc(100% + 10px); transform: translateY(-50%); }
 .a-axis-label { position: absolute; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
-.a-axis-label.x { bottom: -46px; left: 50%; transform: translateX(-50%); }
+.a-axis-label.x { bottom: -46px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
 .a-axis-label.y { top: 50%; left: -52px; transform: rotate(-90deg) translateX(50%); transform-origin: left center; white-space: nowrap; }
 .a-quad { position: absolute; inset: 0; background: linear-gradient(135deg, transparent 48%, rgba(0,184,102,.05)); border-radius: 10px; }
 .a-lane-label { position: absolute; left: 0; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; transform: translateY(-50%); display: flex; align-items: center; gap: 7px; }
@@ -602,6 +604,9 @@ details.measure > summary:focus-visible { outline: 2px solid var(--accent); outl
      name + stats move to a tap card (#acard). The name tag would also overflow the plot edge, so hide it. */
   .arena-plot .anode { background-image: none !important; background-color: var(--nt);
     border: 2px solid #fff !important; }
+  /* The comparison is pre-seeded with 4 players; on the mobile dot view their blue "picked" rings
+     read as stray selections the user never made. Drop the ring here — selection lives in Compare. */
+  .arena-plot .anode.picked { outline: none; }
   .arena-plot .anode .ag { display: none; }
   .arena-plot .anode-tag { display: none; }
   .arena-plot .anode-badge { position: static; margin: 0; padding: 0; background: transparent;
