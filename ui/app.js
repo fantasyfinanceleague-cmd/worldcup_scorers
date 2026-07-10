@@ -254,6 +254,7 @@
   }
   function showTip(n, e) { vtip.innerHTML = tipHTML(n); vtip.classList.add("show"); moveTip(e.clientX, e.clientY); }
   function hideTip() { vtip.classList.remove("show"); }
+  addEventListener("scroll", hideTip, { passive: true });   // touch: no mouseleave — dismiss on scroll
 
   function firstYear(n) { return players[n].years[0]; }
   // THE ranking rule — must stay in lockstep with _rank_key in build_ui.py. goals ↓ → fewest World Cups
@@ -399,10 +400,14 @@
       '</div>';
     [].forEach.call(vizStage.querySelectorAll(".fnode"), function (nd) {
       var n = nd.dataset.name;
-      nd.addEventListener("mouseenter", function (e) { setFocus(n); showTip(n, e); });
-      nd.addEventListener("mousemove", function (e) { moveTip(e.clientX, e.clientY); });
-      nd.addEventListener("mouseleave", function () { setFocus(null); hideTip(); });
+      // Hover preview is desktop-only: touch has no mouseleave, so a tap-shown tip sticks forever
+      // (it did — Compare » The Field). Guard the hover handlers, and clear the tip on the tap that
+      // removes the node so nothing is left orphaned on either platform.
+      nd.addEventListener("mouseenter", function (e) { if (isMobile()) return; setFocus(n); showTip(n, e); });
+      nd.addEventListener("mousemove", function (e) { if (isMobile()) return; moveTip(e.clientX, e.clientY); });
+      nd.addEventListener("mouseleave", function () { if (isMobile()) return; setFocus(null); hideTip(); });
       nd.addEventListener("click", function () {
+        hideTip(); setFocus(null);
         selected.splice(selected.indexOf(n), 1); buildRoster(); renderViz();
       });
     });
