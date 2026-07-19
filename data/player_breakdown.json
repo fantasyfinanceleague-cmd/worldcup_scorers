@@ -1,4 +1,193 @@
 {
+  "Kylian Mbappé": {
+    "goals": 22,
+    "tournaments": 3,
+    "career_tiers": {
+      "elite": 7,
+      "strong": 8,
+      "mid": 4,
+      "weak": 3
+    },
+    "elite_share": 0.318,
+    "avg_opp_elo": 1864.0,
+    "per_tournament": [
+      {
+        "year": 2018,
+        "goals": 4,
+        "elite": 2,
+        "strong": 2,
+        "mid": 0,
+        "weak": 0,
+        "avg_opp_elo": 1926.2,
+        "opponents": [
+          "Argentina",
+          "Croatia",
+          "Peru"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 2,
+                "elo": 1984
+              }
+            ]
+          },
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Croatia",
+                "goals": 1,
+                "elo": 1856
+              },
+              {
+                "name": "Peru",
+                "goals": 1,
+                "elo": 1881
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2022,
+        "goals": 8,
+        "elite": 3,
+        "strong": 2,
+        "mid": 2,
+        "weak": 1,
+        "avg_opp_elo": 1931.1,
+        "opponents": [
+          "Argentina",
+          "Australia",
+          "Denmark",
+          "Poland"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 3,
+            "opponents": [
+              {
+                "name": "Argentina",
+                "goals": 3,
+                "elo": 2101
+              }
+            ]
+          },
+          "strong": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Denmark",
+                "goals": 2,
+                "elo": 1937
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Poland",
+                "goals": 2,
+                "elo": 1769
+              }
+            ]
+          },
+          "weak": {
+            "goals": 1,
+            "opponents": [
+              {
+                "name": "Australia",
+                "goals": 1,
+                "elo": 1734
+              }
+            ]
+          }
+        }
+      },
+      {
+        "year": 2026,
+        "goals": 10,
+        "elite": 2,
+        "strong": 4,
+        "mid": 2,
+        "weak": 2,
+        "avg_opp_elo": 1785.5,
+        "opponents": [
+          "England",
+          "Iraq",
+          "Morocco",
+          "Paraguay",
+          "Senegal",
+          "Sweden"
+        ],
+        "by_tier": {
+          "elite": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "England",
+                "goals": 2,
+                "elo": 2042
+              }
+            ]
+          },
+          "strong": {
+            "goals": 4,
+            "opponents": [
+              {
+                "name": "Senegal",
+                "goals": 2,
+                "elo": 1807
+              },
+              {
+                "name": "Morocco",
+                "goals": 1,
+                "elo": 1840
+              },
+              {
+                "name": "Paraguay",
+                "goals": 1,
+                "elo": 1833
+              }
+            ]
+          },
+          "mid": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Sweden",
+                "goals": 2,
+                "elo": 1660
+              }
+            ]
+          },
+          "weak": {
+            "goals": 2,
+            "opponents": [
+              {
+                "name": "Iraq",
+                "goals": 2,
+                "elo": 1582
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "boundary_flag": null,
+    "most_punished": {
+      "goals": 5,
+      "opponents": [
+        "Argentina"
+      ]
+    },
+    "scoring_matches": 13
+  },
   "Lionel Messi": {
     "goals": 21,
     "tournaments": 5,
@@ -237,184 +426,6 @@
       ]
     },
     "scoring_matches": 16
-  },
-  "Kylian Mbappé": {
-    "goals": 20,
-    "tournaments": 3,
-    "career_tiers": {
-      "elite": 5,
-      "strong": 8,
-      "mid": 4,
-      "weak": 3
-    },
-    "elite_share": 0.25,
-    "avg_opp_elo": 1846.2,
-    "per_tournament": [
-      {
-        "year": 2018,
-        "goals": 4,
-        "elite": 2,
-        "strong": 2,
-        "mid": 0,
-        "weak": 0,
-        "avg_opp_elo": 1926.2,
-        "opponents": [
-          "Argentina",
-          "Croatia",
-          "Peru"
-        ],
-        "by_tier": {
-          "elite": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Argentina",
-                "goals": 2,
-                "elo": 1984
-              }
-            ]
-          },
-          "strong": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Croatia",
-                "goals": 1,
-                "elo": 1856
-              },
-              {
-                "name": "Peru",
-                "goals": 1,
-                "elo": 1881
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2022,
-        "goals": 8,
-        "elite": 3,
-        "strong": 2,
-        "mid": 2,
-        "weak": 1,
-        "avg_opp_elo": 1931.1,
-        "opponents": [
-          "Argentina",
-          "Australia",
-          "Denmark",
-          "Poland"
-        ],
-        "by_tier": {
-          "elite": {
-            "goals": 3,
-            "opponents": [
-              {
-                "name": "Argentina",
-                "goals": 3,
-                "elo": 2101
-              }
-            ]
-          },
-          "strong": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Denmark",
-                "goals": 2,
-                "elo": 1937
-              }
-            ]
-          },
-          "mid": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Poland",
-                "goals": 2,
-                "elo": 1769
-              }
-            ]
-          },
-          "weak": {
-            "goals": 1,
-            "opponents": [
-              {
-                "name": "Australia",
-                "goals": 1,
-                "elo": 1734
-              }
-            ]
-          }
-        }
-      },
-      {
-        "year": 2026,
-        "goals": 8,
-        "elite": 0,
-        "strong": 4,
-        "mid": 2,
-        "weak": 2,
-        "avg_opp_elo": 1721.4,
-        "opponents": [
-          "Iraq",
-          "Morocco",
-          "Paraguay",
-          "Senegal",
-          "Sweden"
-        ],
-        "by_tier": {
-          "strong": {
-            "goals": 4,
-            "opponents": [
-              {
-                "name": "Senegal",
-                "goals": 2,
-                "elo": 1807
-              },
-              {
-                "name": "Morocco",
-                "goals": 1,
-                "elo": 1840
-              },
-              {
-                "name": "Paraguay",
-                "goals": 1,
-                "elo": 1833
-              }
-            ]
-          },
-          "mid": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Sweden",
-                "goals": 2,
-                "elo": 1660
-              }
-            ]
-          },
-          "weak": {
-            "goals": 2,
-            "opponents": [
-              {
-                "name": "Iraq",
-                "goals": 2,
-                "elo": 1582
-              }
-            ]
-          }
-        }
-      }
-    ],
-    "boundary_flag": null,
-    "most_punished": {
-      "goals": 5,
-      "opponents": [
-        "Argentina"
-      ]
-    },
-    "scoring_matches": 12
   },
   "Miroslav Klose": {
     "goals": 16,
